@@ -1,4 +1,11 @@
 import { Card } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { Quote, Star } from "lucide-react";
 
 const Testimonials = () => {
@@ -53,11 +60,40 @@ const Testimonials = () => {
     },
   ];
 
+  const TestimonialCard = ({ testimonial }) => (
+    <Card className="p-6 shadow-lg hover:shadow-xl transition-all duration-300 relative h-full flex flex-col">
+      <Quote className="w-8 h-8 text-primary/20 absolute top-4 right-4" />
+      
+      <div className="flex items-center gap-3 mb-4">
+        <img
+          src={testimonial.image}
+          alt={testimonial.name}
+          className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover flex-shrink-0"
+        />
+        <div className="min-w-0">
+          <h4 className="font-bold text-foreground text-sm sm:text-base truncate">{testimonial.name}</h4>
+          <p className="text-xs sm:text-sm text-muted-foreground truncate">{testimonial.role}</p>
+          <p className="text-xs text-muted-foreground truncate">{testimonial.company}</p>
+        </div>
+      </div>
+
+      <div className="flex gap-1 mb-4">
+        {Array.from({ length: testimonial.rating }).map((_, i) => (
+          <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+        ))}
+      </div>
+
+      <p className="text-muted-foreground leading-relaxed text-sm sm:text-base flex-grow">
+        {testimonial.text}
+      </p>
+    </Card>
+  );
+
   return (
     <section id="testimonials" className="py-20 lg:py-32 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in">
+        <div className="text-center mb-16 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
             What Our <span className="text-primary">Clients Say</span>
           </h2>
@@ -67,40 +103,73 @@ const Testimonials = () => {
           </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {testimonials.map((testimonial, index) => (
-            <Card
-              key={index}
-              className="p-6 shadow-card hover:shadow-hover transition-all duration-300 animate-slide-up relative"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <Quote className="w-10 h-10 text-primary/20 absolute top-4 right-4" />
-              
-              <div className="flex items-center gap-4 mb-4">
-                <img
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  className="w-16 h-16 rounded-full object-cover"
-                />
-                <div>
-                  <h4 className="font-bold text-foreground">{testimonial.name}</h4>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                  <p className="text-xs text-muted-foreground">{testimonial.company}</p>
-                </div>
-              </div>
+        {/* Mobile View - Carousel (1 item) */}
+        <div className="md:hidden px-4">
+          <Carousel 
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem key={index} className="pl-2 md:pl-4">
+                  <TestimonialCard testimonial={testimonial} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex justify-center gap-2 mt-4">
+              <CarouselPrevious className="static translate-y-0" />
+              <CarouselNext className="static translate-y-0" />
+            </div>
+          </Carousel>
+        </div>
 
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                ))}
-              </div>
+        {/* Tablet View - Carousel (2 items) */}
+        <div className="hidden md:block lg:hidden">
+          <Carousel 
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4">
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem key={index} className="pl-4 md:basis-1/2">
+                  <TestimonialCard testimonial={testimonial} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex justify-center gap-2 mt-6">
+              <CarouselPrevious className="static translate-y-0" />
+              <CarouselNext className="static translate-y-0" />
+            </div>
+          </Carousel>
+        </div>
 
-              <p className="text-muted-foreground leading-relaxed">
-                {testimonial.text}
-              </p>
-            </Card>
-          ))}
+        {/* Desktop View - Carousel (3 items) */}
+        <div className="hidden lg:block max-w-7xl mx-auto">
+          <Carousel 
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-6">
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem key={index} className="pl-6 lg:basis-1/3">
+                  <TestimonialCard testimonial={testimonial} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex justify-center gap-2 mt-8">
+              <CarouselPrevious className="static translate-y-0" />
+              <CarouselNext className="static translate-y-0" />
+            </div>
+          </Carousel>
         </div>
       </div>
     </section>
