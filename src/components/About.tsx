@@ -1,17 +1,12 @@
 import { TrendingUp, Users, Target, Award, Linkedin, Mail } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import director1 from "@/assets/team/director-1.jpg";
-import coDirector1 from "@/assets/team/co-director-1.jpg";
-import nationalManager from "@/assets/team/national-manager.jpg";
 
 const About = () => {
+  // Placeholder images - replace with actual team photos
+  const director1 = "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop";
+  const coDirector1 = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop";
+  const nationalManager = "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop";
+
   const stats = [
     {
       icon: TrendingUp,
@@ -37,22 +32,22 @@ const About = () => {
 
   const team = [
     {
-      name: "Rajesh Kumar",
+      name: "Mohammed Rehan Firoz",
       designation: "Director & CEO",
       role: "Director",
       image: director1,
-      email: "rajesh.kumar@rgiintelligence.com",
-      linkedin: "https://linkedin.com/in/rajeshkumar",
-      bio: "With over 15 years of experience in AI and enterprise solutions, Rajesh leads RGI Intelligence's vision to empower businesses through intelligent automation.",
+      email: "mohammed.firoz@rgiintelligence.com",
+      linkedin: "https://www.linkedin.com/in/mohammad-rehan-firoz-318a722bb/",
+      bio: "With over 15 years of experience in AI and enterprise solutions, leading RGI Intelligence's vision to empower businesses through intelligent automation.",
     },
     {
-      name: "Priya Sharma",
+      name: "Mohammed Sabir Alam",
       designation: "Co-Director & COO",
       role: "Co-Director",
       image: coDirector1,
-      email: "priya.sharma@rgiintelligence.com",
-      linkedin: "https://linkedin.com/in/priyasharma",
-      bio: "Priya brings 12+ years of operational excellence and strategic planning, ensuring seamless delivery of innovative technology solutions to our clients.",
+      email: "sabir.alam@rgiintelligence.com",
+      linkedin: "https://www.linkedin.com/in/mohammad-sabir-alam-ba076337b/",
+      bio: "Bringing 12+ years of operational excellence and strategic planning, ensuring seamless delivery of innovative technology solutions to our clients.",
     },
     {
       name: "Vikram Singh",
@@ -61,16 +56,16 @@ const About = () => {
       image: nationalManager,
       email: "vikram.singh@rgiintelligence.com",
       linkedin: "https://linkedin.com/in/vikramsingh",
-      bio: "Vikram manages nationwide operations and client relationships, with expertise in scaling technology services across diverse industries.",
+      bio: "Managing nationwide operations and client relationships, with expertise in scaling technology services across diverse industries.",
     },
   ];
 
   return (
-    <section id="about" className="py-20 lg:py-32 gradient-subtle">
+    <section id="about" className="py-20 lg:py-32 bg-gradient-to-b from-background to-muted/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-16 animate-fade-in">
+          <div className="text-center mb-16 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
               About <span className="text-primary">RGI Intelligence</span>
             </h2>
@@ -81,7 +76,7 @@ const About = () => {
           </div>
 
           {/* Mission Statement */}
-          <Card className="p-8 lg:p-12 mb-12 shadow-card hover:shadow-hover transition-all animate-slide-up">
+          <Card className="p-8 lg:p-12 mb-12 shadow-lg hover:shadow-xl transition-all opacity-0 animate-[slideUp_0.6s_ease-out_0.2s_forwards]">
             <div className="grid lg:grid-cols-2 gap-8 items-center">
               <div>
                 <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-4">
@@ -118,11 +113,11 @@ const About = () => {
           </Card>
 
           {/* Stats Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-slide-up mb-16">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 opacity-0 animate-[slideUp_0.6s_ease-out_0.4s_forwards]">
             {stats.map((stat, index) => (
               <Card
                 key={index}
-                className="p-6 text-center shadow-card hover:shadow-hover transition-all hover:scale-105 cursor-default"
+                className="p-6 text-center shadow-lg hover:shadow-xl transition-all hover:scale-105 cursor-default"
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
                   <stat.icon className="w-8 h-8 text-primary" />
@@ -138,17 +133,17 @@ const About = () => {
           </div>
 
           {/* Leadership Team Section */}
-          <div className="animate-slide-up" style={{ animationDelay: "0.3s" }}>
+          <div className="opacity-0 animate-[slideUp_0.6s_ease-out_0.6s_forwards]">
             <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-8 text-center">
               Meet Our <span className="text-primary">Leadership</span>
             </h3>
 
-            {/* Desktop View - Grid */}
-            <div className="hidden md:grid md:grid-cols-3 gap-8">
+            {/* Team Grid - Responsive */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {team.map((member, index) => (
                 <Card
                   key={index}
-                  className="overflow-hidden shadow-card hover:shadow-hover transition-all"
+                  className="overflow-hidden shadow-lg hover:shadow-xl transition-all"
                 >
                   <div className="relative h-64 overflow-hidden">
                     <img
@@ -187,57 +182,6 @@ const About = () => {
                   </div>
                 </Card>
               ))}
-            </div>
-
-            {/* Mobile View - Swipeable Carousel */}
-            <div className="md:hidden">
-              <Carousel className="w-full max-w-sm mx-auto">
-                <CarouselContent>
-                  {team.map((member, index) => (
-                    <CarouselItem key={index}>
-                      <Card className="overflow-hidden shadow-card">
-                        <div className="relative h-64 overflow-hidden">
-                          <img
-                            src={member.image}
-                            alt={member.name}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                          <div className="absolute bottom-4 left-4 right-4 text-white">
-                            <h4 className="text-xl font-bold mb-1">{member.name}</h4>
-                            <p className="text-sm opacity-90">{member.designation}</p>
-                          </div>
-                        </div>
-                        <div className="p-6">
-                          <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                            {member.bio}
-                          </p>
-                          <div className="flex gap-3">
-                            <a
-                              href={`mailto:${member.email}`}
-                              className="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors"
-                              aria-label="Email"
-                            >
-                              <Mail className="w-4 h-4 text-primary" />
-                            </a>
-                            <a
-                              href={member.linkedin}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors"
-                              aria-label="LinkedIn"
-                            >
-                              <Linkedin className="w-4 h-4 text-primary" />
-                            </a>
-                          </div>
-                        </div>
-                      </Card>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
-              </Carousel>
             </div>
           </div>
         </div>
