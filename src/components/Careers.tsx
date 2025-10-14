@@ -149,7 +149,7 @@ const Careers = () => {
             className="bg-accent hover:bg-accent/90 text-accent-foreground"
             asChild
           >
-            <a href="#contact">Submit Your Resume</a>
+            <a href="/contact">Submit Your Resume</a>
           </Button>
         </Card>
       </div>

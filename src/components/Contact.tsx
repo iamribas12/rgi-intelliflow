@@ -146,6 +146,13 @@ const Contact = () => {
                   >
                     contact@rgiintelligence.com
                   </a>
+                  <br />
+                  <a
+                    href="info.rgiintelligence.co.in@gmail.com"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    info.rgiintelligence.co.in@gmail.com
+                  </a>
                 </div>
               </div>
             </Card>
@@ -158,10 +165,17 @@ const Contact = () => {
                 <div>
                   <h4 className="font-bold text-foreground mb-2">Call Us</h4>
                   <a
-                    href="tel:+1234567890"
+                    href="tel:+917439707204"
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
-                    +1 (234) 567-890
+                    +91 7439707204
+                  </a>
+                  <br />
+                  <a
+                    href="tel:+917643860384"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    +91 7643860384
                   </a>
                 </div>
               </div>
@@ -175,11 +189,11 @@ const Contact = () => {
                 <div>
                   <h4 className="font-bold text-foreground mb-2">Visit Us</h4>
                   <p className="text-muted-foreground">
-                    123 Innovation Drive
+                    Dhudwala Complex, E Wing, Jehangir Boman Behram Rd
                     <br />
-                    Tech Hub, San Francisco
+                     RBI Staff Colony, Mumbai Central
                     <br />
-                    CA 94105, USA
+                    Mumbai 400008, India
                   </p>
                 </div>
               </div>
@@ -188,11 +202,11 @@ const Contact = () => {
             {/* WhatsApp CTA */}
             <Button
               size="lg"
-              className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
+              className="w-full bg-green-500 hover:bg-green-600 text-white"
               asChild
             >
               <a
-                href="https://wa.me/1234567890"
+                href="https://wa.me/917439707204"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -204,7 +218,7 @@ const Contact = () => {
             {/* Google Maps */}
             <Card className="overflow-hidden shadow-card">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0977208198896!2d-122.39765208468162!3d37.78825797975743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085807c35c2d4a5%3A0xd102e7f7e9e5b2c8!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.1584585081105!2d72.82027971091269!3d18.968608055260745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cf2891ec075b%3A0x732d00a93b94c931!2sDudhwala%20Complex%20E!5e0!3m2!1sen!2sin!4v1760475825829!5m2!1sen!2sin"
                 width="100%"
                 height="300"
                 style={{ border: 0 }}

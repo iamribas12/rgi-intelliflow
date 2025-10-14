@@ -1,12 +1,10 @@
 import { TrendingUp, Users, Target, Award, Linkedin, Mail } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import director1 from "@/assets/team/director-1.jpg";
+import coDirector1 from "@/assets/team/co-director-1.jpg";
+import nationalManager from "@/assets/team/national-manager.jpg";
 
 const About = () => {
-  // Placeholder images - replace with actual team photos
-  const director1 = "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop";
-  const coDirector1 = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop";
-  const nationalManager = "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop";
-
   const stats = [
     {
       icon: TrendingUp,
@@ -145,11 +143,11 @@ const About = () => {
                   key={index}
                   className="overflow-hidden shadow-lg hover:shadow-xl transition-all"
                 >
-                  <div className="relative h-64 overflow-hidden">
+                  <div className="relative h-56 sm:h-64 md:h-72 lg:h-80 overflow-hidden bg-gray-100">
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                      className="w-full h-full object-contain transition-transform duration-300 hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                     <div className="absolute bottom-4 left-4 right-4 text-white">

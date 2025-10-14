@@ -23,6 +23,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+      <Navigation />
         <Routes>
           <Route path="/" element={<Index />} />
            <Route path="/" element={<Home />} />
@@ -33,6 +34,7 @@ const App = () => (
               <Route path="/contact" element={<Contact />} />
               <Route path="/portfolio" element={<Portfolio />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

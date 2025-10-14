@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
+import NavLogo from "@/assets/nav_logo.png";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -24,7 +25,7 @@ const Navigation = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
 
   const navLinks = [
-    { name: "Home", href: "#home" },
+    { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Portfolio", href: "/portfolio" },
     { name: "Blog", href: "/blog" },
@@ -52,9 +53,13 @@ const Navigation = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <a href="#home" className="flex items-center space-x-2 group">
-            <div className="w-10 h-10 gradient-hero rounded-lg flex items-center justify-center transition-transform group-hover:scale-110">
-              <span className="text-primary-foreground font-bold text-xl">R</span>
+          <a href="/" className="flex items-center space-x-2 group">
+            <div className="relative w-10 h-10 flex items-center justify-center transition-transform group-hover:scale-110">
+              <img 
+                src={NavLogo} 
+                alt="RGI Intelligence Logo" 
+                className="w-full h-full object-contain"
+              />
             </div>
             <span className="text-xl lg:text-2xl font-bold text-foreground">
               RGI <span className="text-primary">Intelligence</span>
