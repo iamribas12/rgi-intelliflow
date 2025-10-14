@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -14,14 +21,26 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+
   const navLinks = [
     { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
-    { name: "Services", href: "#services" },
     { name: "Portfolio", href: "#portfolio" },
     { name: "Blog", href: "#blog" },
     { name: "Careers", href: "#careers" },
     { name: "Contact", href: "#contact" },
+  ];
+
+  const services = [
+    { title: "AI & Automation Systems", href: "#services" },
+    { title: "AI Chatbots & Custom AI Agents", href: "#services" },
+    { title: "Web & App Development", href: "#services" },
+    { title: "Software & API Integration", href: "#services" },
+    { title: "Data-Driven Business Intelligence", href: "#services" },
+    { title: "IT Support & Cloud Consulting", href: "#services" },
+    { title: "Enterprise Workflow Solutions", href: "#services" },
+    { title: "Security & Compliance", href: "#services" },
   ];
 
   return (
@@ -53,6 +72,30 @@ const Navigation = () => {
                 {link.name}
               </a>
             ))}
+            
+            {/* Services Dropdown */}
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors bg-transparent hover:bg-secondary">
+                    Services
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="grid w-[400px] gap-2 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-card border border-border shadow-lg">
+                      {services.map((service) => (
+                        <a
+                          key={service.title}
+                          href={service.href}
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                        >
+                          <div className="text-sm font-medium leading-none">{service.title}</div>
+                        </a>
+                      ))}
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
           </div>
 
           {/* CTA Button */}
@@ -88,6 +131,35 @@ const Navigation = () => {
                   {link.name}
                 </a>
               ))}
+              
+              {/* Mobile Services Dropdown */}
+              <div>
+                <button
+                  onClick={() => setIsServicesOpen(!isServicesOpen)}
+                  className="w-full px-4 py-3 text-base font-medium text-muted-foreground hover:text-primary hover:bg-secondary rounded-lg transition-colors flex items-center justify-between"
+                >
+                  Services
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isServicesOpen && (
+                  <div className="pl-4 py-2 space-y-1">
+                    {services.map((service) => (
+                      <a
+                        key={service.title}
+                        href={service.href}
+                        onClick={() => {
+                          setIsMobileMenuOpen(false);
+                          setIsServicesOpen(false);
+                        }}
+                        className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-secondary rounded-lg transition-colors"
+                      >
+                        {service.title}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+              
               <Button
                 asChild
                 className="bg-primary hover:bg-primary/90 text-primary-foreground mt-4"
