@@ -48,7 +48,7 @@ const About = () => {
       bio: "Bringing 12+ years of operational excellence and strategic planning, ensuring seamless delivery of innovative technology solutions to our clients.",
     },
     {
-      name: "Vikram Singh",
+      name: "Dahiru Abdul Gabdo",
       designation: "National Manager",
       role: "National Manager",
       image: nationalManager,
@@ -132,50 +132,59 @@ const About = () => {
 
           {/* Leadership Team Section */}
           <div className="opacity-0 animate-[slideUp_0.6s_ease-out_0.6s_forwards]">
-            <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-8 text-center">
+            <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-12 text-center">
               Meet Our <span className="text-primary">Leadership</span>
             </h3>
 
-            {/* Team Grid - Responsive */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Team Grid - Alternating layout for desktop */}
+            <div className="space-y-12">
               {team.map((member, index) => (
                 <Card
                   key={index}
                   className="overflow-hidden shadow-lg hover:shadow-xl transition-all"
                 >
-                  <div className="relative h-56 sm:h-64 md:h-72 lg:h-80 overflow-hidden bg-gray-100">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-contain transition-transform duration-300 hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4 text-white">
-                      <h4 className="text-xl font-bold mb-1">{member.name}</h4>
-                      <p className="text-sm opacity-90">{member.designation}</p>
+                  <div className={`grid grid-cols-1 md:grid-cols-2 gap-0`}>
+                    {/* Image - alternates position */}
+                    <div className={`${index % 2 === 1 ? 'md:order-2' : 'md:order-1'} flex items-center justify-center p-4 md:p-0`}>
+                      <div className="relative w-56 h-72 md:w-full md:h-full overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 md:rounded-none rounded-lg">
+                        <img
+                          src={member.image}
+                          alt={member.name}
+                          className="w-full h-full object-cover object-top transition-transform duration-300 hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
+                      </div>
                     </div>
-                  </div>
-                  <div className="p-6">
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                      {member.bio}
-                    </p>
-                    <div className="flex gap-3">
-                      <a
-                        href={`mailto:${member.email}`}
-                        className="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors"
-                        aria-label="Email"
-                      >
-                        <Mail className="w-4 h-4 text-primary" />
-                      </a>
-                      <a
-                        href={member.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors"
-                        aria-label="LinkedIn"
-                      >
-                        <Linkedin className="w-4 h-4 text-primary" />
-                      </a>
+
+                    {/* Content - alternates position */}
+                    <div className={`${index % 2 === 1 ? 'md:order-1' : 'md:order-2'} p-6 md:p-8 flex flex-col justify-center`}>
+                      <h4 className="text-2xl font-bold text-foreground mb-1">
+                        {member.name}
+                      </h4>
+                      <p className="text-primary font-semibold mb-4">
+                        {member.designation}
+                      </p>
+                      <p className="text-muted-foreground text-base leading-relaxed mb-6">
+                        {member.bio}
+                      </p>
+                      <div className="flex gap-3">
+                        <a
+                          href={`mailto:${member.email}`}
+                          className="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors"
+                          aria-label="Email"
+                        >
+                          <Mail className="w-4 h-4 text-primary" />
+                        </a>
+                        <a
+                          href={member.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors"
+                          aria-label="LinkedIn"
+                        >
+                          <Linkedin className="w-4 h-4 text-primary" />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </Card>
