@@ -12,16 +12,16 @@ There are several ways of editing your application.
 
 If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will be reflected in your project repository.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm/nvm#installing-and-updating)
+The only requirement is having Node.js & npm installed - [install with nvm]([https://github.com/nvm/nvm#installing-and-updating](https://github.com/iamribas12/rgi-intelliflow.git))
 
 Follow these steps:
 
 ```sh
 # Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+git clone https://github.com/iamribas12/rgi-intelliflow.git
 
 # Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+cd rgi-intelliflow
 
 # Step 3: Install the necessary dependencies.
 npm i
