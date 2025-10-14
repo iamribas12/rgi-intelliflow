@@ -1,5 +1,15 @@
-import { TrendingUp, Users, Target, Award } from "lucide-react";
+import { TrendingUp, Users, Target, Award, Linkedin, Mail } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import director1 from "@/assets/team/director-1.jpg";
+import coDirector1 from "@/assets/team/co-director-1.jpg";
+import nationalManager from "@/assets/team/national-manager.jpg";
 
 const About = () => {
   const stats = [
@@ -22,6 +32,36 @@ const About = () => {
       icon: Award,
       value: "98%",
       label: "Client Satisfaction",
+    },
+  ];
+
+  const team = [
+    {
+      name: "Rajesh Kumar",
+      designation: "Director & CEO",
+      role: "Director",
+      image: director1,
+      email: "rajesh.kumar@rgiintelligence.com",
+      linkedin: "https://linkedin.com/in/rajeshkumar",
+      bio: "With over 15 years of experience in AI and enterprise solutions, Rajesh leads RGI Intelligence's vision to empower businesses through intelligent automation.",
+    },
+    {
+      name: "Priya Sharma",
+      designation: "Co-Director & COO",
+      role: "Co-Director",
+      image: coDirector1,
+      email: "priya.sharma@rgiintelligence.com",
+      linkedin: "https://linkedin.com/in/priyasharma",
+      bio: "Priya brings 12+ years of operational excellence and strategic planning, ensuring seamless delivery of innovative technology solutions to our clients.",
+    },
+    {
+      name: "Vikram Singh",
+      designation: "National Manager",
+      role: "National Manager",
+      image: nationalManager,
+      email: "vikram.singh@rgiintelligence.com",
+      linkedin: "https://linkedin.com/in/vikramsingh",
+      bio: "Vikram manages nationwide operations and client relationships, with expertise in scaling technology services across diverse industries.",
     },
   ];
 
@@ -78,7 +118,7 @@ const About = () => {
           </Card>
 
           {/* Stats Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-slide-up">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-slide-up mb-16">
             {stats.map((stat, index) => (
               <Card
                 key={index}
@@ -95,6 +135,110 @@ const About = () => {
                 </div>
               </Card>
             ))}
+          </div>
+
+          {/* Leadership Team Section */}
+          <div className="animate-slide-up" style={{ animationDelay: "0.3s" }}>
+            <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-8 text-center">
+              Meet Our <span className="text-primary">Leadership</span>
+            </h3>
+
+            {/* Desktop View - Grid */}
+            <div className="hidden md:grid md:grid-cols-3 gap-8">
+              {team.map((member, index) => (
+                <Card
+                  key={index}
+                  className="overflow-hidden shadow-card hover:shadow-hover transition-all"
+                >
+                  <div className="relative h-64 overflow-hidden">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4 text-white">
+                      <h4 className="text-xl font-bold mb-1">{member.name}</h4>
+                      <p className="text-sm opacity-90">{member.designation}</p>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                      {member.bio}
+                    </p>
+                    <div className="flex gap-3">
+                      <a
+                        href={`mailto:${member.email}`}
+                        className="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors"
+                        aria-label="Email"
+                      >
+                        <Mail className="w-4 h-4 text-primary" />
+                      </a>
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors"
+                        aria-label="LinkedIn"
+                      >
+                        <Linkedin className="w-4 h-4 text-primary" />
+                      </a>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+            {/* Mobile View - Swipeable Carousel */}
+            <div className="md:hidden">
+              <Carousel className="w-full max-w-sm mx-auto">
+                <CarouselContent>
+                  {team.map((member, index) => (
+                    <CarouselItem key={index}>
+                      <Card className="overflow-hidden shadow-card">
+                        <div className="relative h-64 overflow-hidden">
+                          <img
+                            src={member.image}
+                            alt={member.name}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                          <div className="absolute bottom-4 left-4 right-4 text-white">
+                            <h4 className="text-xl font-bold mb-1">{member.name}</h4>
+                            <p className="text-sm opacity-90">{member.designation}</p>
+                          </div>
+                        </div>
+                        <div className="p-6">
+                          <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                            {member.bio}
+                          </p>
+                          <div className="flex gap-3">
+                            <a
+                              href={`mailto:${member.email}`}
+                              className="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors"
+                              aria-label="Email"
+                            >
+                              <Mail className="w-4 h-4 text-primary" />
+                            </a>
+                            <a
+                              href={member.linkedin}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors"
+                              aria-label="LinkedIn"
+                            >
+                              <Linkedin className="w-4 h-4 text-primary" />
+                            </a>
+                          </div>
+                        </div>
+                      </Card>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+            </div>
           </div>
         </div>
       </div>
