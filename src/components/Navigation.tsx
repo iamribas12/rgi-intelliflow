@@ -25,15 +25,15 @@ const Navigation = () => {
 
   const navLinks = [
     { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Portfolio", href: "#portfolio" },
-    { name: "Blog", href: "#blog" },
-    { name: "Careers", href: "#careers" },
-    { name: "Contact", href: "#contact" },
+    { name: "About", href: "/about" },
+    { name: "Portfolio", href: "/portfolio" },
+    { name: "Blog", href: "/blog" },
+    { name: "Careers", href: "/careers" },
+    { name: "Contact", href: "/contact" },
   ];
 
   const services = [
-    { title: "AI & Automation Systems", href: "#services" },
+    { title: "AI & Automation Systems", href: "/services" },
     { title: "AI Chatbots & Custom AI Agents", href: "#services" },
     { title: "Web & App Development", href: "#services" },
     { title: "Software & API Integration", href: "#services" },

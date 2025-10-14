@@ -16,15 +16,14 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
-      <DiscountBanner />
+      {/* <DiscountBanner /> */}
       <Hero />
       <About />
       <Services />
       <WhyChooseUs />
-      <Portfolio />
+      {/* <Portfolio /> */}
       <Testimonials />
-      <Blog />
-      <Careers />
+      {/* <Blog /> */}
       <Contact />
       <Footer />
       <CookieBanner />
