@@ -5,15 +5,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import About from "@/components/About";
-import Services from "@/components/Services";
-import Blog from "@/components/Blog";
-import Careers from "@/components/Careers"
-import { Home } from "lucide-react";
+import AboutPage from "./pages/about";
+import ServicesPage from "./pages/services";
+import BlogPage from "./pages/blog";
+import CareersPage from "./pages/Careers";
+import ContactPage from "./pages/contact";
+import PortfolioPage from "./pages/portfolio";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import Contact from "@/components/Contact";
-import Portfolio from "@/components/Portfolio";
 
 const queryClient = new QueryClient();
 
@@ -23,16 +22,16 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-      <Navigation />
+        <Navigation />
         <Routes>
           <Route path="/" element={<Index />} />
-           <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/careers" element={<Careers />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/careers" element={<CareersPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -37,7 +37,7 @@ const Hero = () => {
           </div>
 
           {/* Headline */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight px-2">
             Empowering Businesses with{" "}
             <span className="text-accent">AI</span>,{" "}
             <span className="text-accent">Automation</span> &{" "}
@@ -45,26 +45,26 @@ const Hero = () => {
           </h1>
 
           {/* Subheadline */}
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto px-2">
+          <p className="text-xs sm:text-sm md:text-base lg:text-lg text-white/90 leading-relaxed max-w-3xl mx-auto px-2">
             We provide web, app, and software development along with AI
             automation and custom AI agents to transform business workflows
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center pt-2 px-2">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-center justify-center pt-2 px-2">
             <Button
               asChild
-              className="w-full sm:w-auto bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-base sm:text-lg rounded-xl shadow-lg"
+              className="w-full sm:w-auto bg-accent hover:bg-accent/90 text-accent-foreground px-6 sm:px-8 py-4 sm:py-5 text-sm sm:text-base rounded-xl shadow-lg"
             >
               <a href="#services" className="inline-flex items-center justify-center gap-2">
                 Explore Services
-                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                <ArrowRight className="w-4 h-4" />
               </a>
             </Button>
             <Button
               asChild
               variant="outline"
-              className="w-full sm:w-auto bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 px-8 py-6 text-base sm:text-lg rounded-xl"
+              className="w-full sm:w-auto bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 px-6 sm:px-8 py-4 sm:py-5 text-sm sm:text-base rounded-xl"
             >
               <a href="#contact" className="inline-flex items-center justify-center">
                 Get in Touch

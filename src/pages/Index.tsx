@@ -15,15 +15,15 @@ import CookieBanner from "@/components/CookieBanner";
 const Index = () => {
   return (
     <div className="min-h-screen">
+      <DiscountBanner />
       <Navigation />
-      {/* <DiscountBanner /> */}
       <Hero />
       <About />
-      {/* <Services /> */}
+      <Services />
       <WhyChooseUs />
-      {/* <Portfolio /> */}
+      <Portfolio />
       <Testimonials />
-      {/* <Blog /> */}
+      <Blog />
       <Contact />
       <Footer />
       <CookieBanner />
