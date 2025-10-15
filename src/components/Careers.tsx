@@ -37,75 +37,213 @@ interface Job {
   date: string;
   description: string;
   skills: string[];
+  vacancies: number;
 }
 
 const Careers = () => {
   const allJobs: Job[] = [
+    // Sales Roles
     {
-      title: "Senior AI Engineer",
-      department: "Artificial Intelligence",
+      title: "Sales Development Representative (SDR)",
+      department: "Sales & Marketing",
       location: "Remote / Hybrid",
       type: "Full-time",
-      experience: "5+ Years",
+      experience: "Entry-level",
       date: "2025-10-10",
       description:
-        "Lead the development of cutting-edge AI solutions and work with machine learning models to solve complex business challenges.",
-      skills: ["Python", "TensorFlow", "PyTorch", "NLP"],
+        "Responsible for lead generation and qualifying potential customers through outreach, including cold calling and emails.",
+      skills: ["Lead Generation", "CRM", "Communication", "Prospecting"],
+      vacancies: 5,
     },
     {
-      title: "Full Stack Developer",
-      department: "Engineering",
+      title: "Inside Sales Representative",
+      department: "Sales & Marketing",
       location: "Remote / Hybrid",
       type: "Full-time",
-      experience: "3+ Years",
+      experience: "1-3 years",
+      date: "2025-10-08",
+      description:
+        "Sell products and services remotely using phone calls, emails, and video conferencing to engage with customers.",
+      skills: ["Sales", "Communication", "CRM", "Negotiation"],
+      vacancies: 5,
+    },
+    {
+      title: "Account Executive (AE)",
+      department: "Sales & Marketing",
+      location: "Hybrid",
+      type: "Full-time",
+      experience: "3-5 years",
+      date: "2025-10-05",
+      description:
+        "Manages the entire sales cycle from prospecting to closing deals.",
+      skills: ["Sales Strategy", "CRM", "Negotiation", "Presentation"],
+      vacancies: 5,
+    },
+    {
+      title: "Sales Engineer (Solutions Engineer)",
+      department: "Sales & Marketing",
+      location: "Hybrid",
+      type: "Full-time",
+      experience: "3-5 years",
+      date: "2025-10-03",
+      description:
+        "Technical specialist supporting the sales process by demonstrating product features and addressing technical questions.",
+      skills: [
+        "Technical Knowledge",
+        "Product Demos",
+        "Communication",
+        "Problem Solving",
+      ],
+      vacancies: 5,
+    },
+    {
+      title: "Account Manager",
+      department: "Sales & Marketing",
+      location: "Hybrid",
+      type: "Full-time",
+      experience: "3-5 years",
+      date: "2025-09-30",
+      description:
+        "Maintains and expands relationships with existing customers, focusing on repeat business.",
+      skills: ["Account Management", "Customer Retention", "CRM", "Upselling"],
+      vacancies: 5,
+    },
+    {
+      title: "Customer Success Manager (CSM)",
+      department: "Sales & Marketing",
+      location: "Remote / Hybrid",
+      type: "Full-time",
+      experience: "3-5 years",
+      date: "2025-09-28",
+      description:
+        "Ensures customer satisfaction and loyalty by helping them get the most value out of the product.",
+      skills: ["Customer Success", "Communication", "SaaS Knowledge", "CRM"],
+      vacancies: 5,
+    },
+
+    // Marketing Roles
+    {
+      title: "Marketing Specialist",
+      department: "Marketing",
+      location: "Remote / Hybrid",
+      type: "Full-time",
+      experience: "Entry-level",
       date: "2025-09-25",
       description:
-        "Build scalable web applications using modern frameworks and collaborate with cross-functional teams.",
-      skills: ["React", "Node.js", "TypeScript", "AWS"],
+        "Assists with various marketing activities such as content creation, social media, and market research.",
+      skills: ["Marketing", "Social Media", "Content Creation", "Analytics"],
+      vacancies: 5,
     },
     {
-      title: "DevOps Engineer",
-      department: "Infrastructure",
-      location: "Remote",
+      title: "SEO Specialist",
+      department: "Marketing",
+      location: "Remote / Hybrid",
       type: "Full-time",
-      experience: "2+ Years",
+      experience: "1-3 years",
+      date: "2025-09-23",
+      description:
+        "Improves website ranking on search engines through technical optimization and content strategy.",
+      skills: ["SEO", "Analytics", "Content Strategy", "Keyword Research"],
+      vacancies: 5,
+    },
+    {
+      title: "Content Marketing Manager",
+      department: "Marketing",
+      location: "Hybrid",
+      type: "Full-time",
+      experience: "3-5 years",
+      date: "2025-09-20",
+      description:
+        "Oversees the creation and distribution of all content including blogs, case studies, and videos.",
+      skills: ["Content Marketing", "Writing", "Editing", "Strategy"],
+      vacancies: 5,
+    },
+    {
+      title: "Product Marketing Manager",
+      department: "Marketing",
+      location: "Hybrid",
+      type: "Full-time",
+      experience: "3-5 years",
+      date: "2025-09-18",
+      description:
+        "Develops positioning and messaging for specific products and drives customer adoption.",
+      skills: [
+        "Product Marketing",
+        "Strategy",
+        "Sales Enablement",
+        "Market Research",
+      ],
+      vacancies: 5,
+    },
+    {
+      title: "Demand Generation Manager",
+      department: "Marketing",
+      location: "Hybrid",
+      type: "Full-time",
+      experience: "3-5 years",
       date: "2025-09-15",
       description:
-        "Manage cloud infrastructure, implement CI/CD pipelines, and ensure system reliability and security.",
-      skills: ["Docker", "Kubernetes", "AWS", "Terraform"],
+        "Plans and executes marketing campaigns designed to generate customer interest and qualified leads.",
+      skills: [
+        "Campaigns",
+        "Lead Generation",
+        "Marketing Automation",
+        "Analytics",
+      ],
+      vacancies: 5,
     },
     {
-      title: "UI/UX Designer",
-      department: "Design",
+      title: "Marketing Operations Manager",
+      department: "Marketing",
       location: "Hybrid",
       type: "Full-time",
-      experience: "2+ Years",
-      date: "2025-08-30",
+      experience: "3-5 years",
+      date: "2025-09-12",
       description:
-        "Create intuitive and engaging user experiences for our AI-powered applications and platforms.",
-      skills: ["Figma", "Adobe XD", "Prototyping", "User Research"],
+        "Manages tools, systems, and data that marketing teams use to track performance and automate processes.",
+      skills: ["Marketing Operations", "Automation", "CRM", "Analytics"],
+      vacancies: 5,
     },
     {
-      title: "Product Manager",
-      department: "Product",
+      title: "Sales Manager",
+      department: "Sales & Marketing",
       location: "Hybrid",
       type: "Full-time",
-      experience: "4+ Years",
-      date: "2025-08-10",
+      experience: "5+ years",
+      date: "2025-09-10",
       description:
-        "Drive product strategy and roadmap for our enterprise AI solutions and automation platforms.",
-      skills: ["Product Strategy", "Agile", "Stakeholder Management"],
+        "Leads and mentors a team of sales professionals, overseeing performance and helping them achieve targets.",
+      skills: ["Leadership", "Sales Strategy", "Mentorship", "CRM"],
+      vacancies: 5,
     },
     {
-      title: "Data Scientist",
-      department: "Data & Analytics",
-      location: "Remote",
+      title: "Director of Marketing",
+      department: "Marketing",
+      location: "Hybrid",
       type: "Full-time",
-      experience: "3+ Years",
-      date: "2025-07-15",
+      experience: "5+ years",
+      date: "2025-09-08",
       description:
-        "Analyze complex datasets, build predictive models, and deliver actionable business insights.",
-      skills: ["Python", "SQL", "Machine Learning", "Statistics"],
+        "Sets the overall marketing strategy and oversees the marketing team.",
+      skills: ["Strategy", "Leadership", "Branding", "Campaign Management"],
+      vacancies: 5,
+    },
+    {
+      title: "Chief Marketing Officer (CMO)",
+      department: "Marketing",
+      location: "Hybrid",
+      type: "Full-time",
+      experience: "10+ years",
+      date: "2025-09-05",
+      description:
+        "C-level executive responsible for all marketing activities including brand strategy, communications, and campaigns.",
+      skills: [
+        "Leadership",
+        "Brand Strategy",
+        "Marketing Strategy",
+        "Executive Management",
+      ],
+      vacancies: 5,
     },
   ];
 
@@ -129,9 +267,7 @@ const Careers = () => {
     .filter((job) =>
       filterDept.length ? filterDept.includes(job.department) : true
     )
-    .filter((job) =>
-      filterType.length ? filterType.includes(job.type) : true
-    )
+    .filter((job) => (filterType.length ? filterType.includes(job.type) : true))
     .filter((job) =>
       filterExp.length ? filterExp.includes(job.experience) : true
     )
@@ -145,16 +281,30 @@ const Careers = () => {
     );
 
   // Filter options
+  // Updated department list for filters
   const departments = [
-    "Artificial Intelligence",
+    "Sales & Marketing",
+    "Marketing",
     "Engineering",
     "Design",
     "Product",
     "Data & Analytics",
     "Infrastructure",
   ];
-  const jobTypes = ["Full-time", "Part-time", "Internship", "Contract", "Freelance"];
-  const experienceLevels = ["Entry-level", "1-3 years", "3-5 years", "5+ years"];
+
+  const jobTypes = [
+    "Full-time",
+    "Part-time",
+    "Internship",
+    "Contract",
+    "Freelance",
+  ];
+  const experienceLevels = [
+    "Entry-level",
+    "1-3 years",
+    "3-5 years",
+    "5+ years",
+  ];
   const locations = ["Remote", "Hybrid", "On-site"];
 
   return (
@@ -167,7 +317,8 @@ const Careers = () => {
           </h2>
           <div className="w-24 h-1 bg-primary mx-auto mb-5"></div>
           <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Explore exciting opportunities and grow with us at the core of excellence.
+            Explore exciting opportunities and grow with us at the core of
+            excellence.
           </p>
         </div>
 
@@ -195,7 +346,8 @@ const Careers = () => {
                     value={dept}
                     checked={filterDept.includes(dept)}
                     onChange={(e) => {
-                      if (e.target.checked) setFilterDept([...filterDept, dept]);
+                      if (e.target.checked)
+                        setFilterDept([...filterDept, dept]);
                       else setFilterDept(filterDept.filter((d) => d !== dept));
                     }}
                   />
@@ -212,7 +364,8 @@ const Careers = () => {
                     value={type}
                     checked={filterType.includes(type)}
                     onChange={(e) => {
-                      if (e.target.checked) setFilterType([...filterType, type]);
+                      if (e.target.checked)
+                        setFilterType([...filterType, type]);
                       else setFilterType(filterType.filter((t) => t !== type));
                     }}
                   />
@@ -246,8 +399,12 @@ const Careers = () => {
                     value={loc}
                     checked={filterLocation.includes(loc)}
                     onChange={(e) => {
-                      if (e.target.checked) setFilterLocation([...filterLocation, loc]);
-                      else setFilterLocation(filterLocation.filter((l) => l !== loc));
+                      if (e.target.checked)
+                        setFilterLocation([...filterLocation, loc]);
+                      else
+                        setFilterLocation(
+                          filterLocation.filter((l) => l !== loc)
+                        );
                     }}
                   />
                   {loc}
@@ -284,7 +441,10 @@ const Careers = () => {
               >
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-lg font-semibold">Filters</h3>
-                  <Button variant="ghost" onClick={() => setMobileFilterOpen(false)}>
+                  <Button
+                    variant="ghost"
+                    onClick={() => setMobileFilterOpen(false)}
+                  >
                     <X />
                   </Button>
                 </div>
@@ -306,8 +466,10 @@ const Careers = () => {
                         value={dept}
                         checked={filterDept.includes(dept)}
                         onChange={(e) => {
-                          if (e.target.checked) setFilterDept([...filterDept, dept]);
-                          else setFilterDept(filterDept.filter((d) => d !== dept));
+                          if (e.target.checked)
+                            setFilterDept([...filterDept, dept]);
+                          else
+                            setFilterDept(filterDept.filter((d) => d !== dept));
                         }}
                       />
                       {dept}
@@ -323,8 +485,10 @@ const Careers = () => {
                         value={type}
                         checked={filterType.includes(type)}
                         onChange={(e) => {
-                          if (e.target.checked) setFilterType([...filterType, type]);
-                          else setFilterType(filterType.filter((t) => t !== type));
+                          if (e.target.checked)
+                            setFilterType([...filterType, type]);
+                          else
+                            setFilterType(filterType.filter((t) => t !== type));
                         }}
                       />
                       {type}
@@ -340,8 +504,10 @@ const Careers = () => {
                         value={exp}
                         checked={filterExp.includes(exp)}
                         onChange={(e) => {
-                          if (e.target.checked) setFilterExp([...filterExp, exp]);
-                          else setFilterExp(filterExp.filter((ex) => ex !== exp));
+                          if (e.target.checked)
+                            setFilterExp([...filterExp, exp]);
+                          else
+                            setFilterExp(filterExp.filter((ex) => ex !== exp));
                         }}
                       />
                       {exp}
@@ -357,8 +523,12 @@ const Careers = () => {
                         value={loc}
                         checked={filterLocation.includes(loc)}
                         onChange={(e) => {
-                          if (e.target.checked) setFilterLocation([...filterLocation, loc]);
-                          else setFilterLocation(filterLocation.filter((l) => l !== loc));
+                          if (e.target.checked)
+                            setFilterLocation([...filterLocation, loc]);
+                          else
+                            setFilterLocation(
+                              filterLocation.filter((l) => l !== loc)
+                            );
                         }}
                       />
                       {loc}
@@ -397,8 +567,13 @@ const Careers = () => {
                     <div>
                       <div className="flex items-start justify-between mb-3">
                         <div>
-                          <h3 className="text-lg font-semibold mb-1">{job.title}</h3>
-                          <p className="text-muted-foreground text-sm">{job.department}</p>
+                          <h3 className="text-lg font-semibold mb-1">
+                            {job.title}
+                          </h3>
+                          <p className="text-muted-foreground text-sm">
+                            {job.department}
+                          </p>
+                          
                         </div>
                         <Badge className="bg-primary/10 text-primary text-xs">
                           {job.type}
@@ -413,7 +588,14 @@ const Careers = () => {
                         {job.skills.map((skill) => (
                           <Badge
                             key={skill}
-                            variant={searchTerm && skill.toLowerCase().includes(searchTerm.toLowerCase()) ? "destructive" : "secondary"}
+                            variant={
+                              searchTerm &&
+                              skill
+                                .toLowerCase()
+                                .includes(searchTerm.toLowerCase())
+                                ? "destructive"
+                                : "secondary"
+                            }
                             className="text-xs"
                           >
                             {skill}
