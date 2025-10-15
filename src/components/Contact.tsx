@@ -102,7 +102,7 @@ const Contact = () => {
             <h3 className="text-2xl font-bold text-foreground mb-6">
               Send Us a Message
             </h3>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6" >
               <div>
                 <Label htmlFor="name">Name *</Label>
                 <Input

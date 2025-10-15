@@ -1,30 +1,65 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import heroVideo from "@/assets/hero-video.mp4";
+import { useEffect, useRef } from "react";
 
 const Hero = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // Disable right-click on video
+    const video = videoRef.current;
+    if (video) {
+      video.addEventListener('contextmenu', (e) => e.preventDefault());
+    }
+  }, []);
+
+  const handleContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+    return false;
+  };
+
   return (
     <section
       id="home"
       className="relative w-screen min-h-screen flex items-center justify-center pt-16 overflow-x-hidden"
     >
       {/* Video Background */}
-      <div className="absolute inset-0 w-screen h-full -z-10 overflow-hidden">
+      <div 
+        className="absolute inset-0 w-screen h-full -z-10 overflow-hidden"
+        onContextMenu={handleContextMenu}
+      >
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          preload="auto"
-          className="w-full h-full object-cover"
+          preload="metadata"
+          controlsList="nodownload nofullscreen noremoteplayback"
+          disablePictureInPicture
+          disableRemotePlayback
+          onContextMenu={handleContextMenu}
+          className="w-full h-full object-cover pointer-events-none select-none"
+          style={{
+            WebkitUserSelect: "none",
+            MozUserSelect: "none",
+            msUserSelect: "none",
+            userSelect: "none",
+          }}
         >
           <source src={heroVideo} type="video/mp4" />
+          Your browser does not support the video tag.
         </video>
-        <div className="absolute inset-0 bg-black/60"></div>
+        {/* Overlay to prevent interaction */}
+        <div 
+          className="absolute inset-0 bg-black/60 pointer-events-none" 
+          onContextMenu={handleContextMenu}
+        ></div>
       </div>
 
       {/* Content Container */}
-      <div className="w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div className="w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative z-10">
         <div className="max-w-5xl mx-auto text-center space-y-6 sm:space-y-8">
           {/* Badge */}
           <div className="flex justify-center">
@@ -75,7 +110,7 @@ const Hero = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-10">
         <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-white/40 rounded-full flex justify-center">
           <div className="w-1 h-2 sm:w-1.5 sm:h-3 bg-white/60 rounded-full mt-2"></div>
         </div>
