@@ -13,7 +13,7 @@ const DiscountBanner = () => {
           <Sparkles className="w-5 h-5 animate-pulse" />
           <p className="text-sm sm:text-base font-medium">
             <span className="font-bold">Limited Time Offer:</span> Get 20% off on all AI Automation Services this month! 
-            <a href="#contact" className="ml-2 underline hover:no-underline">
+            <a href="/contact" className="ml-2 underline hover:no-underline">
               Contact us now
             </a>
           </p>
