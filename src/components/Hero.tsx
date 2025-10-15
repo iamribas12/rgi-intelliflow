@@ -91,7 +91,7 @@ const Hero = () => {
               asChild
               className="w-full sm:w-auto bg-accent hover:bg-accent/90 text-accent-foreground px-6 sm:px-8 py-4 sm:py-5 text-sm sm:text-base rounded-xl shadow-lg"
             >
-              <a href="#services" className="inline-flex items-center justify-center gap-2">
+              <a href="/services" className="inline-flex items-center justify-center gap-2">
                 Explore Services
                 <ArrowRight className="w-4 h-4" />
               </a>
@@ -101,7 +101,7 @@ const Hero = () => {
               variant="outline"
               className="w-full sm:w-auto bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 px-6 sm:px-8 py-4 sm:py-5 text-sm sm:text-base rounded-xl"
             >
-              <a href="#contact" className="inline-flex items-center justify-center">
+              <a href="/contact" className="inline-flex items-center justify-center">
                 Get in Touch
               </a>
             </Button>
