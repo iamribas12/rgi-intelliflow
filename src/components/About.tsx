@@ -44,7 +44,7 @@ const About = () => {
       image: director1,
       email: "mohammed.firoz@rgiintelligence.com",
       linkedin: "https://www.linkedin.com/in/mohammad-rehan-firoz-318a722bb/",
-      bio: "With over 15 years of experience in AI and enterprise solutions, leading RGI Intelligence's vision to empower businesses through intelligent automation.",
+      bio: "With over 1.5 years of experience in AI and enterprise solutions, leading RGI Intelligence's vision to empower businesses through intelligent automation.",
       expertise: ["AI Strategy", "Business Transformation", "Leadership"],
     },
     {
@@ -54,7 +54,7 @@ const About = () => {
       image: coDirector1,
       email: "sabir.alam@rgiintelligence.com",
       linkedin: "https://www.linkedin.com/in/mohammad-sabir-alam-ba076337b/",
-      bio: "Bringing 12+ years of operational excellence and strategic planning, ensuring seamless delivery of innovative technology solutions to our clients.",
+      bio: "Bringing operational excellence and strategic planning, ensuring seamless delivery of innovative technology solutions to our clients.",
       expertise: ["Operations", "Project Management", "Client Relations"],
     },
     {
