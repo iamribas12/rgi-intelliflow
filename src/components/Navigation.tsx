@@ -52,8 +52,8 @@ const Navigation = () => {
   const services = [
     { title: "AI & Automation Systems", href: "/services" },
     { title: "AI Chatbots & Custom AI Agents", href: "/services" },
-    { title: "Web & App Development", href: "/ervices" },
-    { title: "Software & API Integration", href: "#services" },
+    { title: "Web & App Development", href: "/services" },
+    { title: "Software & API Integration", href: "/services" },
     { title: "Data-Driven Business Intelligence", href: "/services" },
     { title: "IT Support & Cloud Consulting", href: "/services" },
     { title: "Enterprise Workflow Solutions", href: "/services" },
