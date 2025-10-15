@@ -65,25 +65,25 @@ const Navigation = () => {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isMobileMenuOpen 
-            ? "bg-white shadow-md" 
+            ? "bg-card shadow-md" 
             : isScrolled 
             ? "bg-card/95 backdrop-blur-md shadow-md" 
-            : "bg-transparent"
+            : "bg-card/90 backdrop-blur-sm shadow-sm"
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
-            <a href="/" className="flex items-center space-x-2 group">
-              <div className="relative w-10 h-10 flex items-center justify-center transition-transform group-hover:scale-110">
+            <a href="/" className="flex items-center space-x-2 sm:space-x-3 group">
+              <div className="relative w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 flex items-center justify-center transition-transform group-hover:scale-110">
                 <img 
                   src={NavLogo} 
                   alt="RGI Intelligence Logo" 
                   className="w-full h-full object-contain"
                 />
               </div>
-              <span className="text-xl lg:text-2xl font-bold text-foreground">
-                RGI <span className="text-primary">Intelligence</span>
+              <span className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold">
+                <span className="text-accent">RGI</span> <span className="text-primary">Intelligence</span>
               </span>
             </a>
 

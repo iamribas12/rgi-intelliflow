@@ -1,5 +1,13 @@
 import { TrendingUp, Users, Target, Award, Linkedin, Mail } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import director1 from "@/assets/team/director-1.jpg";
 import coDirector1 from "@/assets/team/co-director-1.jpg";
 import nationalManager from "@/assets/team/national-manager.jpg";
@@ -37,6 +45,7 @@ const About = () => {
       email: "mohammed.firoz@rgiintelligence.com",
       linkedin: "https://www.linkedin.com/in/mohammad-rehan-firoz-318a722bb/",
       bio: "With over 15 years of experience in AI and enterprise solutions, leading RGI Intelligence's vision to empower businesses through intelligent automation.",
+      expertise: ["AI Strategy", "Business Transformation", "Leadership"],
     },
     {
       name: "Mohammed Sabir Alam",
@@ -46,6 +55,7 @@ const About = () => {
       email: "sabir.alam@rgiintelligence.com",
       linkedin: "https://www.linkedin.com/in/mohammad-sabir-alam-ba076337b/",
       bio: "Bringing 12+ years of operational excellence and strategic planning, ensuring seamless delivery of innovative technology solutions to our clients.",
+      expertise: ["Operations", "Project Management", "Client Relations"],
     },
     {
       name: "Dahiru Abdul Gabdo",
@@ -55,53 +65,54 @@ const About = () => {
       email: "vikram.singh@rgiintelligence.com",
       linkedin: "https://linkedin.com/in/vikramsingh",
       bio: "Managing nationwide operations and client relationships, with expertise in scaling technology services across diverse industries.",
+      expertise: ["Operations", "Business Development", "Team Leadership"],
     },
   ];
 
   return (
-    <section id="about" className="py-20 lg:py-32 bg-gradient-to-b from-background to-muted/20">
+    <section id="about" className="py-12 sm:py-16 lg:py-24 bg-gradient-to-b from-background to-muted/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-16 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+          <div className="text-center mb-12 sm:mb-16 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4">
               About <span className="text-primary">RGI Intelligence</span>
             </h2>
             <div className="w-24 h-1 bg-primary mx-auto mb-6"></div>
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">
               Pioneering the future of intelligent business solutions
             </p>
           </div>
 
           {/* Mission Statement */}
-          <Card className="p-8 lg:p-12 mb-12 shadow-lg hover:shadow-xl transition-all opacity-0 animate-[slideUp_0.6s_ease-out_0.2s_forwards]">
-            <div className="grid lg:grid-cols-2 gap-8 items-center">
+          <Card className="p-6 sm:p-8 lg:p-12 mb-12 shadow-lg hover:shadow-xl transition-all opacity-0 animate-[slideUp_0.6s_ease-out_0.2s_forwards]">
+            <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-center">
               <div>
-                <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-4">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground mb-4">
                   Our Mission
                 </h3>
-                <p className="text-muted-foreground text-lg leading-relaxed mb-4">
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4">
                   At RGI Intelligence, we believe that every business deserves
                   access to cutting-edge technology. Our mission is to empower
                   organizations with AI-driven automation, intelligent software
                   development, and custom solutions that drive real results.
                 </p>
-                <p className="text-muted-foreground text-lg leading-relaxed">
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   We combine deep technical expertise with a passion for
                   innovation to deliver scalable, future-ready solutions that
                   transform how businesses operate.
                 </p>
               </div>
               <div>
-                <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-4">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground mb-4">
                   Our Vision
                 </h3>
-                <p className="text-muted-foreground text-lg leading-relaxed mb-4">
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4">
                   To be the trusted partner for businesses seeking to harness
                   the power of artificial intelligence and automation in their
                   digital transformation journey.
                 </p>
-                <p className="text-muted-foreground text-lg leading-relaxed">
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   We envision a world where intelligent systems work seamlessly
                   alongside human expertise, creating unprecedented efficiency
                   and innovation.
@@ -111,19 +122,19 @@ const About = () => {
           </Card>
 
           {/* Stats Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 opacity-0 animate-[slideUp_0.6s_ease-out_0.4s_forwards]">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16 opacity-0 animate-[slideUp_0.6s_ease-out_0.4s_forwards]">
             {stats.map((stat, index) => (
               <Card
                 key={index}
-                className="p-6 text-center shadow-lg hover:shadow-xl transition-all hover:scale-105 cursor-default"
+                className="p-4 sm:p-6 text-center shadow-lg hover:shadow-xl transition-all hover:scale-105 cursor-default"
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
-                  <stat.icon className="w-8 h-8 text-primary" />
+                <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-primary/10 rounded-full mb-3 sm:mb-4">
+                  <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
                 </div>
-                <div className="text-4xl font-bold text-foreground mb-2">
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-1 sm:mb-2">
                   {stat.value}
                 </div>
-                <div className="text-muted-foreground font-medium">
+                <div className="text-xs sm:text-sm text-muted-foreground font-medium">
                   {stat.label}
                 </div>
               </Card>
@@ -132,21 +143,95 @@ const About = () => {
 
           {/* Leadership Team Section */}
           <div className="opacity-0 animate-[slideUp_0.6s_ease-out_0.6s_forwards]">
-            <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-12 text-center">
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground mb-8 sm:mb-12 text-center">
               Meet Our <span className="text-primary">Leadership</span>
             </h3>
 
-            {/* Team Grid - Alternating layout for desktop */}
-            <div className="space-y-12">
+            {/* Mobile View - Carousel (1 item) */}
+            <div className="md:hidden">
+              <Carousel 
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+                className="w-full"
+              >
+                <CarouselContent className="-ml-2">
+                  {team.map((member, index) => (
+                    <CarouselItem key={index} className="pl-2">
+                      <Card className="overflow-hidden shadow-lg">
+                        <div className="relative h-72 overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
+                          <img
+                            src={member.image}
+                            alt={member.name}
+                            className="w-full h-full object-cover object-top"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                          <div className="absolute bottom-0 left-0 right-0 p-4">
+                            <h4 className="text-lg font-bold text-white mb-1">
+                              {member.name}
+                            </h4>
+                            <p className="text-accent font-semibold text-sm">
+                              {member.designation}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="p-4">
+                          <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                            {member.bio}
+                          </p>
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {member.expertise.map((skill, idx) => (
+                              <Badge
+                                key={idx}
+                                variant="secondary"
+                                className="bg-primary/10 text-primary text-xs"
+                              >
+                                {skill}
+                              </Badge>
+                            ))}
+                          </div>
+                          <div className="flex gap-2">
+                            <a
+                              href={`mailto:${member.email}`}
+                              className="flex items-center justify-center w-9 h-9 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors"
+                              aria-label="Email"
+                            >
+                              <Mail className="w-4 h-4 text-primary" />
+                            </a>
+                            <a
+                              href={member.linkedin}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-center w-9 h-9 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors"
+                              aria-label="LinkedIn"
+                            >
+                              <Linkedin className="w-4 h-4 text-primary" />
+                            </a>
+                          </div>
+                        </div>
+                      </Card>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <div className="flex justify-center gap-2 mt-4">
+                  <CarouselPrevious className="static translate-y-0" />
+                  <CarouselNext className="static translate-y-0" />
+                </div>
+              </Carousel>
+            </div>
+
+            {/* Tablet/Desktop View - Regular Grid */}
+            <div className="hidden md:block space-y-8 lg:space-y-12">
               {team.map((member, index) => (
                 <Card
                   key={index}
                   className="overflow-hidden shadow-lg hover:shadow-xl transition-all"
                 >
-                  <div className={`grid grid-cols-1 md:grid-cols-2 gap-0`}>
+                  <div className={`grid md:grid-cols-2 gap-0`}>
                     {/* Image - alternates position */}
-                    <div className={`${index % 2 === 1 ? 'md:order-2' : 'md:order-1'} flex items-center justify-center p-4 md:p-0`}>
-                      <div className="relative w-56 h-72 md:w-full md:h-full overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 md:rounded-none rounded-lg">
+                    <div className={`${index % 2 === 1 ? 'md:order-2' : 'md:order-1'} flex items-center justify-center p-0`}>
+                      <div className="relative w-full h-80 lg:h-96 overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
                         <img
                           src={member.image}
                           alt={member.name}
@@ -157,16 +242,27 @@ const About = () => {
                     </div>
 
                     {/* Content - alternates position */}
-                    <div className={`${index % 2 === 1 ? 'md:order-1' : 'md:order-2'} p-6 md:p-8 flex flex-col justify-center`}>
-                      <h4 className="text-2xl font-bold text-foreground mb-1">
+                    <div className={`${index % 2 === 1 ? 'md:order-1' : 'md:order-2'} p-6 lg:p-8 flex flex-col justify-center`}>
+                      <h4 className="text-xl lg:text-2xl font-bold text-foreground mb-1">
                         {member.name}
                       </h4>
-                      <p className="text-primary font-semibold mb-4">
+                      <p className="text-primary font-semibold text-sm lg:text-base mb-4">
                         {member.designation}
                       </p>
-                      <p className="text-muted-foreground text-base leading-relaxed mb-6">
+                      <p className="text-muted-foreground text-sm lg:text-base leading-relaxed mb-6">
                         {member.bio}
                       </p>
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {member.expertise.map((skill, idx) => (
+                          <Badge
+                            key={idx}
+                            variant="secondary"
+                            className="bg-primary/10 text-primary text-xs"
+                          >
+                            {skill}
+                          </Badge>
+                        ))}
+                      </div>
                       <div className="flex gap-3">
                         <a
                           href={`mailto:${member.email}`}

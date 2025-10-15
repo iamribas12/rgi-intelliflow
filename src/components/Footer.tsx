@@ -3,16 +3,16 @@ import { Facebook, Twitter, Linkedin, Instagram, Mail, Phone } from "lucide-reac
 const Footer = () => {
   const footerLinks = {
     Company: [
-      { name: "About Us", href: "#about" },
-      { name: "Services", href: "#services" },
-      { name: "Portfolio", href: "#portfolio" },
-      { name: "Careers", href: "#careers" },
+      { name: "Home", href: "/" },
+      { name: "About Us", href: "/about" },
+      { name: "Services", href: "/services" },
+      { name: "Careers", href: "/careers" },
     ],
     Resources: [
-      { name: "Blog", href: "#blog" },
-      { name: "Case Studies", href: "#portfolio" },
-      { name: "Contact", href: "#contact" },
-      { name: "Support", href: "#contact" },
+      { name: "Blog", href: "/blog" },
+      { name: "Portfolio", href: "/portfolio" },
+      { name: "Contact", href: "/contact" },
+      { name: "Case Studies", href: "/services#case-studies" },
     ],
     Legal: [
       { name: "Privacy Policy", href: "#privacy" },
