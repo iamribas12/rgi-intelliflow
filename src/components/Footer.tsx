@@ -24,10 +24,10 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
+    { icon: Facebook, href: "https://www.facebook.com/profile.php?id=61582593680400", label: "Facebook" },
     { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Instagram, href: "#", label: "Instagram" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/mohammad-rehan-firoz-318a722bb/", label: "LinkedIn" },
+    { icon: Instagram, href: "https://www.instagram.com/grouo07?utm_source=qr&igsh=MXRwdWIxNWo5aXJvNw==", label: "Instagram" },
   ];
 
   return (
@@ -65,7 +65,7 @@ const Footer = () => {
                 className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm sm:text-base"
               >
                 <Phone className="w-4 h-4 flex-shrink-0" />
-                +1 (234) 567-890
+                +91 7439707204
               </a>
             </div>
           </div>
