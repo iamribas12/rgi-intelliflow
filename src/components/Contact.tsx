@@ -15,9 +15,13 @@ const Contact = () => {
     company: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/d/YOUR_SCRIPT_ID/usercontent/do"; // Replace with your Script ID
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
     // Basic validation
     if (!formData.name || !formData.email || !formData.message) {
       toast({
@@ -27,15 +31,47 @@ const Contact = () => {
       });
       return;
     }
-    
-    // Form submission logic would go here
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. We'll get back to you soon.",
-    });
-    
-    // Reset form
-    setFormData({ name: "", email: "", company: "", message: "" });
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        body: new FormData(
+          Object.assign(document.createElement("form"), {
+            elements: [
+              { name: "name", value: formData.name },
+              { name: "email", value: formData.email },
+              { name: "company", value: formData.company },
+              { name: "message", value: formData.message },
+            ],
+          })
+        ),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Message Sent!",
+          description: "Thank you for reaching out. We'll get back to you soon.",
+        });
+        setFormData({ name: "", email: "", company: "", message: "" });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to send message. Please try again.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An error occurred. Please try again later.",
+        variant: "destructive",
+      });
+      console.error("Error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -77,6 +113,7 @@ const Contact = () => {
                   placeholder="Your full name"
                   required
                   className="mt-2"
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -91,6 +128,7 @@ const Contact = () => {
                   placeholder="your.email@company.com"
                   required
                   className="mt-2"
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -103,6 +141,7 @@ const Contact = () => {
                   onChange={handleChange}
                   placeholder="Your company name"
                   className="mt-2"
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -117,6 +156,7 @@ const Contact = () => {
                   required
                   rows={6}
                   className="mt-2"
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -124,9 +164,10 @@ const Contact = () => {
                 type="submit"
                 size="lg"
                 className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                disabled={isSubmitting}
               >
                 <Send className="w-5 h-5 mr-2" />
-                Send Message
+                {isSubmitting ? "Sending..." : "Send Message"}
               </Button>
             </form>
           </Card>
@@ -148,7 +189,7 @@ const Contact = () => {
                   </a>
                   <br />
                   <a
-                    href="info.rgiintelligence.co.in@gmail.com"
+                    href="mailto:info.rgiintelligence.co.in@gmail.com"
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
                     info.rgiintelligence.co.in@gmail.com
@@ -191,7 +232,7 @@ const Contact = () => {
                   <p className="text-muted-foreground">
                     Dhudwala Complex, E Wing, Jehangir Boman Behram Rd
                     <br />
-                     RBI Staff Colony, Mumbai Central
+                    RBI Staff Colony, Mumbai Central
                     <br />
                     Mumbai 400008, India
                   </p>
