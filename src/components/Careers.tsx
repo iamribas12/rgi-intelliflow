@@ -563,17 +563,19 @@ const Careers = () => {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <Card className="p-6 hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
+                  <Card 
+                    onClick={() => window.location.href = `/careers/${job.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`}
+                    className="p-6 hover:shadow-lg transition-all duration-300 flex flex-col justify-between cursor-pointer"
+                  >
                     <div>
                       <div className="flex items-start justify-between mb-3">
                         <div>
-                          <h3 className="text-lg font-semibold mb-1">
+                          <h3 className="text-lg font-semibold mb-1 hover:text-primary transition-colors">
                             {job.title}
                           </h3>
                           <p className="text-muted-foreground text-sm">
                             {job.department}
                           </p>
-                          
                         </div>
                         <Badge className="bg-primary/10 text-primary text-xs">
                           {job.type}

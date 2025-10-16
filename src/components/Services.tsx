@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Brain,
   MessageSquare,
@@ -157,10 +158,10 @@ const Services = () => {
                 <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-primary/10 rounded-xl mb-4 group-hover:bg-primary/20 transition-colors">
                   <service.icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 sm:mb-3 group-hover:text-primary transition-colors">
+                <h3 className="text-base sm:text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                   {service.title}
                 </h3>
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                   {service.description}
                 </p>
               </Card>
@@ -187,6 +188,74 @@ const Services = () => {
             >
               <ChevronRight className="w-5 h-5" />
             </Button>
+          </div>
+        </div>
+
+        {/* Case Studies Section */}
+        <div className="mt-16 sm:mt-20 lg:mt-24">
+          <div className="text-center mb-10 sm:mb-14">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+              Case <span className="text-primary">Studies</span>
+            </h2>
+            <div className="w-20 h-1 bg-primary mx-auto mb-5"></div>
+            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
+              Discover how we've helped businesses transform through technology
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
+            {[
+              {
+                id: "ai-chatbot-platform",
+                title: "Enterprise AI Chatbot Platform",
+                image: "https://images.unsplash.com/photo-1677442136019-21780ecad995",
+                industry: "E-Commerce",
+                result: "95% satisfaction rate, 50K+ daily users",
+              },
+              {
+                id: "healthcare-management",
+                title: "Healthcare Management System",
+                image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d",
+                industry: "Healthcare",
+                result: "300% increase in telemedicine appointments",
+              },
+              {
+                id: "ecommerce-automation",
+                title: "E-Commerce Automation Suite",
+                image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d",
+                industry: "Retail",
+                result: "80% reduction in processing time",
+              },
+            ].map((study, index) => (
+              <Card
+                key={index}
+                onClick={() => (window.location.href = `/case-study/${study.id}`)}
+                className="overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 group cursor-pointer"
+              >
+                <div className="relative overflow-hidden h-44 sm:h-48">
+                  <img
+                    src={study.image}
+                    alt={study.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <Badge className="absolute top-3 left-3 bg-accent text-accent-foreground text-xs">
+                    {study.industry}
+                  </Badge>
+                </div>
+                <div className="p-4 sm:p-5">
+                  <h3 className="text-base sm:text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                    {study.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-3">
+                    {study.result}
+                  </p>
+                  <Button variant="ghost" size="sm" className="text-primary p-0 h-auto text-xs sm:text-sm">
+                    Read Case Study →
+                  </Button>
+                </div>
+              </Card>
+            ))}
           </div>
         </div>
       </div>

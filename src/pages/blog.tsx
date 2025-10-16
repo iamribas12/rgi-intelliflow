@@ -42,6 +42,7 @@ export default function BlogPage() {
             {filteredPosts.map((post, index) => (
               <Card
                 key={post.id}
+                onClick={() => (window.location.href = `/blog/${post.id}`)}
                 className="overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 group cursor-pointer animate-slide-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >

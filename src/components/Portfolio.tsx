@@ -10,6 +10,7 @@ const Portfolio = () => {
         "Developed a multi-channel AI chatbot system serving 50K+ daily users with 95% satisfaction rate.",
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995",
       tags: ["AI", "NLP", "React", "Python"],
+      link: "https://example-chatbot-platform.com",
     },
     {
       title: "Healthcare Management System",
@@ -17,6 +18,7 @@ const Portfolio = () => {
         "Built a comprehensive patient management and telemedicine platform for a leading healthcare provider.",
       image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d",
       tags: ["Healthcare", "React", "Node.js", "PostgreSQL"],
+      link: "https://example-healthcare-system.com",
     },
     {
       title: "E-Commerce Automation Suite",
@@ -24,6 +26,7 @@ const Portfolio = () => {
         "Created an automated inventory and order management system reducing processing time by 80%.",
       image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d",
       tags: ["Automation", "API", "AWS", "MongoDB"],
+      link: "https://example-ecommerce-automation.com",
     },
     {
       title: "Financial Analytics Dashboard",
@@ -31,6 +34,7 @@ const Portfolio = () => {
         "Real-time business intelligence platform providing actionable insights for financial institutions.",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
       tags: ["BI", "Data Analytics", "Vue.js", "Python"],
+      link: "https://example-analytics-dashboard.com",
     },
     {
       title: "IoT Fleet Management System",
@@ -38,6 +42,7 @@ const Portfolio = () => {
         "Smart tracking and management solution for logistics companies with 1000+ vehicles.",
       image: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3",
       tags: ["IoT", "Real-time", "React Native", "GraphQL"],
+      link: "https://example-fleet-management.com",
     },
     {
       title: "Custom CRM & Sales Pipeline",
@@ -45,6 +50,7 @@ const Portfolio = () => {
         "Tailored customer relationship management system with advanced automation and reporting.",
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f",
       tags: ["CRM", "Automation", "Angular", "Django"],
+      link: "https://example-crm-system.com",
     },
   ];
 
@@ -65,21 +71,24 @@ const Portfolio = () => {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {projects.map((project, index) => (
-            <Card
+            <a
               key={index}
-              className="overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 group cursor-pointer animate-slide-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
             >
-              <div className="relative overflow-hidden h-56">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <ExternalLink className="w-12 h-12 text-primary-foreground" />
+              <Card className="overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 group cursor-pointer animate-slide-up h-full">
+                <div className="relative overflow-hidden h-48 sm:h-56">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <ExternalLink className="w-10 h-10 sm:w-12 sm:h-12 text-primary-foreground" />
+                  </div>
                 </div>
-              </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                   {project.title}
@@ -99,7 +108,8 @@ const Portfolio = () => {
                   ))}
                 </div>
               </div>
-            </Card>
+              </Card>
+            </a>
           ))}
         </div>
       </div>

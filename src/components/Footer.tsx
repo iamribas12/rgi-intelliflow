@@ -16,10 +16,10 @@ const Footer = () => {
       { name: "Case Studies", href: "/services#case-studies" },
     ],
     Legal: [
-      { name: "Privacy Policy", href: "#privacy" },
-      { name: "Terms of Service", href: "#terms" },
-      { name: "Cookie Policy", href: "#cookies" },
-      { name: "Security", href: "#security" },
+      { name: "Privacy Policy", href: "/privacy-policy" },
+      { name: "Terms of Service", href: "/terms-of-service" },
+      { name: "Cookie Policy", href: "/cookie-policy" },
+      { name: "Security", href: "/security" },
     ],
   };
 
