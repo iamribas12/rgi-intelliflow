@@ -12,7 +12,7 @@ import { blogPosts } from "@/data/blogPosts";
 const Index = () => {
   return (
     <>
-      <DiscountBanner />
+      {/* <DiscountBanner /> */}
       <Hero />
       <Services />
       <WhyChooseUs />
