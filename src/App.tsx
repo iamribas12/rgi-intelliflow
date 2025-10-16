@@ -11,8 +11,16 @@ import BlogPage from "./pages/blog";
 import CareersPage from "./pages/Careers";
 import ContactPage from "./pages/contact";
 import PortfolioPage from "./pages/portfolio";
+import JobDetail from "./pages/JobDetail";
+import CaseStudy from "./pages/CaseStudy";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import CookiePolicy from "./pages/CookiePolicy";
+import Security from "./pages/Security";
+import BlogDetail from "./pages/BlogDetail";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import CookieBanner from "@/components/CookieBanner";
 
 const queryClient = new QueryClient();
 
@@ -28,12 +36,20 @@ const App = () => (
           <Route path="/about" element={<AboutPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:blogId" element={<BlogDetail />} />
           <Route path="/careers" element={<CareersPage />} />
+          <Route path="/careers/:jobId" element={<JobDetail />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/case-study/:caseId" element={<CaseStudy />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/cookie-policy" element={<CookiePolicy />} />
+          <Route path="/security" element={<Security />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
+        <CookieBanner />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

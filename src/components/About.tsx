@@ -288,6 +288,51 @@ const About = () => {
             </div>
           </div>
         </div>
+
+        {/* Team Members Section */}
+        <div className="mt-16 sm:mt-20 lg:mt-24">
+          <div className="text-center mb-10 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+              Our <span className="text-primary">Team</span>
+            </h2>
+            <div className="w-20 h-1 bg-primary mx-auto mb-5"></div>
+            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
+              Meet the talented professionals driving our success
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 max-w-6xl mx-auto">
+            {[
+              { name: "Priya Sharma", designation: "Senior AI Engineer" },
+              { name: "Rajesh Kumar", designation: "Full Stack Developer" },
+              { name: "Anita Desai", designation: "UX/UI Designer" },
+              { name: "Amit Patel", designation: "DevOps Engineer" },
+              { name: "Sneha Reddy", designation: "Product Manager" },
+              { name: "Karthik Iyer", designation: "Data Scientist" },
+              { name: "Neha Gupta", designation: "QA Lead" },
+              { name: "Arjun Singh", designation: "Backend Developer" },
+              { name: "Deepa Nair", designation: "Frontend Developer" },
+              { name: "Rohan Mehta", designation: "Cloud Architect" },
+            ].map((member, index) => (
+              <Card
+                key={index}
+                className="p-4 text-center hover:shadow-lg transition-all duration-300 group"
+              >
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 mx-auto mb-3 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <span className="text-xl sm:text-2xl font-bold text-primary">
+                    {member.name.split(" ").map((n) => n[0]).join("")}
+                  </span>
+                </div>
+                <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-1">
+                  {member.name}
+                </h4>
+                <p className="text-xs text-muted-foreground">
+                  {member.designation}
+                </p>
+              </Card>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
