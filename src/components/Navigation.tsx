@@ -140,7 +140,7 @@ const Navigation = () => {
                 asChild
                 className="bg-primary hover:bg-primary/90 text-primary-foreground"
               >
-                <a href="#contact">Get Started</a>
+                <a href="/contact">Get Started</a>
               </Button>
             </div>
 
@@ -208,7 +208,7 @@ const Navigation = () => {
                   asChild
                   className="bg-primary hover:bg-primary/90 text-primary-foreground mt-4"
                 >
-                  <a href="#contact" onClick={closeMobileMenu}>
+                  <a href="/contact" onClick={closeMobileMenu}>
                     Get Started
                   </a>
                 </Button>

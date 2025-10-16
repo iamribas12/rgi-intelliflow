@@ -63,7 +63,7 @@ const About = () => {
       role: "National Manager",
       image: nationalManager,
       email: "vikram.singh@rgiintelligence.com",
-      linkedin: "https://linkedin.com/in/vikramsingh",
+      linkedin: "https://www.linkedin.com/in/dahiru-abdul-gabdo-742425374?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
       bio: "Managing nationwide operations and client relationships, with expertise in scaling technology services across diverse industries.",
       expertise: ["Operations", "Business Development", "Team Leadership"],
     },
