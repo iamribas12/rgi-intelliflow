@@ -33,9 +33,9 @@ const Footer = () => {
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand Section */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 flex flex-col">
             <a href="#home" className="inline-flex items-center gap-2 mb-4 group">
               <div className="w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0">
                 <img 
@@ -55,13 +55,13 @@ const Footer = () => {
             <div className="space-y-3">
               <a
                 href="mailto:contact@rgiintelligence.com"
-                className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm sm:text-base"
+                className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm sm:text-base break-all"
               >
                 <Mail className="w-4 h-4 flex-shrink-0" />
-                <span className="break-all">contact@rgiintelligence.com</span>
+                contact@rgiintelligence.com
               </a>
               <a
-                href="tel:+1234567890"
+                href="tel:+917439707204"
                 className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm sm:text-base"
               >
                 <Phone className="w-4 h-4 flex-shrink-0" />
@@ -72,7 +72,7 @@ const Footer = () => {
 
           {/* Links Sections */}
           {Object.entries(footerLinks).map(([title, links]) => (
-            <div key={title}>
+            <div key={title} className="flex flex-col">
               <h3 className="font-bold text-foreground mb-4 text-sm sm:text-base">{title}</h3>
               <ul className="space-y-3">
                 {links.map((link) => (
@@ -94,8 +94,7 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-muted-foreground text-xs sm:text-sm text-center md:text-left">
-              © {new Date().getFullYear()} RGI Intelligence. All rights
-              reserved.
+              © {new Date().getFullYear()} RGI Intelligence. All rights reserved.
             </p>
 
             {/* Social Links */}

@@ -3,122 +3,316 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  Upload,
+  CheckCircle,
+  AlertCircle,
+  Loader2,
+} from "lucide-react";
 import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
+import countryCodes from "@/data/countrycode";
 
 const Contact = () => {
-  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     company: "",
+    countryCode: "+91",
+    phone: "",
+    country: "",
+    serviceType: "",
+    websiteType: "",
+    contactMethod: "Email",
     message: "",
+    file: null,
   });
+
+  const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/d/YOUR_SCRIPT_ID/usercontent/do"; // Replace with your Script ID
+  const countries = [
+    "Afghanistan",
+    "Albania",
+    "Algeria",
+    "Andorra",
+    "Angola",
+    "Argentina",
+    "Armenia",
+    "Australia",
+    "Austria",
+    "Azerbaijan",
+    "Bahrain",
+    "Bangladesh",
+    "Belarus",
+    "Belgium",
+    "Brazil",
+    "Bulgaria",
+    "Canada",
+    "Chile",
+    "China",
+    "Colombia",
+    "Costa Rica",
+    "Croatia",
+    "Cyprus",
+    "Czech Republic",
+    "Denmark",
+    "Egypt",
+    "Estonia",
+    "Ethiopia",
+    "Finland",
+    "France",
+    "Georgia",
+    "Germany",
+    "Ghana",
+    "Greece",
+    "Hong Kong",
+    "Hungary",
+    "Iceland",
+    "India",
+    "Indonesia",
+    "Iran",
+    "Iraq",
+    "Ireland",
+    "Israel",
+    "Italy",
+    "Japan",
+    "Jordan",
+    "Kazakhstan",
+    "Kenya",
+    "Kuwait",
+    "Latvia",
+    "Lebanon",
+    "Lithuania",
+    "Malaysia",
+    "Mexico",
+    "Morocco",
+    "Netherlands",
+    "New Zealand",
+    "Nigeria",
+    "Norway",
+    "Oman",
+    "Pakistan",
+    "Philippines",
+    "Poland",
+    "Portugal",
+    "Qatar",
+    "Romania",
+    "Russia",
+    "Saudi Arabia",
+    "Singapore",
+    "Slovakia",
+    "Slovenia",
+    "South Africa",
+    "South Korea",
+    "Spain",
+    "Sri Lanka",
+    "Sudan",
+    "Sweden",
+    "Switzerland",
+    "Syria",
+    "Taiwan",
+    "Thailand",
+    "Turkey",
+    "Ukraine",
+    "United Arab Emirates",
+    "United Kingdom",
+    "United States",
+    "Vietnam",
+    "Others",
+  ];
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const services = [
+    "Web Development",
+    "AI & Automation",
+    "Mobile App Development",
+    "Data Analytics",
+    "Digital Marketing",
+    "Consulting",
+    "Others",
+  ];
+
+  const validateField = (name, value) => {
+    let error = "";
+    switch (name) {
+      case "name":
+        if (!value.trim()) error = "Name is required";
+        else if (value.trim().length < 2)
+          error = "Name must be at least 2 characters";
+        break;
+      case "email":
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!value.trim()) error = "Email is required";
+        else if (!emailRegex.test(value)) error = "Invalid email format";
+        break;
+      case "phone":
+        if (value && !/^\d{7,15}$/.test(value))
+          error = "Phone must be 7-15 digits";
+        break;
+      case "message":
+        if (!value.trim()) error = "Message is required";
+        else if (value.trim().length < 10)
+          error = "Message must be at least 10 characters";
+        break;
+    }
+    return error;
+  };
+
+  const handleChange = (e) => {
+    const { name, value, type, files } = e.target;
+
+    if (type === "file") {
+      const file = files[0];
+      if (file && file.size > 5 * 1024 * 1024) {
+        setErrors({ ...errors, file: "File size must be less than 5MB" });
+        return;
+      }
+      setFormData({ ...formData, [name]: file });
+      setErrors({ ...errors, file: "" });
+    } else {
+      setFormData({ ...formData, [name]: value });
+      const error = validateField(name, value);
+      setErrors({ ...errors, [name]: error });
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Basic validation
-    if (!formData.name || !formData.email || !formData.message) {
-      toast({
-        title: "Validation Error",
-        description: "Please fill in all required fields.",
-        variant: "destructive",
-      });
+
+    const newErrors = {};
+    newErrors.name = validateField("name", formData.name);
+    newErrors.email = validateField("email", formData.email);
+    newErrors.message = validateField("message", formData.message);
+    if (formData.phone)
+      newErrors.phone = validateField("phone", formData.phone);
+
+    const validErrors = Object.fromEntries(
+      Object.entries(newErrors).filter(([_, value]) => value !== "")
+    );
+
+    if (Object.keys(validErrors).length > 0) {
+      setErrors(validErrors);
+      setSubmitStatus("error");
+      setTimeout(() => setSubmitStatus(null), 3000);
       return;
     }
 
     setIsSubmitting(true);
+    setSubmitStatus(null);
 
     try {
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
-        method: "POST",
-        body: new FormData(
-          Object.assign(document.createElement("form"), {
-            elements: [
-              { name: "name", value: formData.name },
-              { name: "email", value: formData.email },
-              { name: "company", value: formData.company },
-              { name: "message", value: formData.message },
-            ],
-          })
-        ),
-      });
+      const submissionData = {
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        phone: formData.phone
+          ? `${formData.countryCode} ${formData.phone}`
+          : "Not provided",
+        country: formData.country || "Not specified",
+        serviceType: formData.serviceType || "Not specified",
+        websiteType: formData.websiteType || "N/A",
+        contactMethod: formData.contactMethod,
+        message: formData.message,
+        fileName: formData.file ? formData.file.name : "No file uploaded",
+      };
 
-      if (response.ok) {
-        toast({
-          title: "Message Sent!",
-          description: "Thank you for reaching out. We'll get back to you soon.",
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setSubmitStatus("success");
+
+      setTimeout(() => {
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          countryCode: "+91",
+          phone: "",
+          country: "",
+          serviceType: "",
+          websiteType: "",
+          contactMethod: "Email",
+          message: "",
+          file: null,
         });
-        setFormData({ name: "", email: "", company: "", message: "" });
-      } else {
-        toast({
-          title: "Error",
-          description: "Failed to send message. Please try again.",
-          variant: "destructive",
-        });
-      }
+        setSubmitStatus(null);
+      }, 3000);
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "An error occurred. Please try again later.",
-        variant: "destructive",
-      });
-      console.error("Error:", error);
+      console.error("Submission error:", error);
+      setSubmitStatus("error");
+      setTimeout(() => setSubmitStatus(null), 3000);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const selectedCountry = countryCodes.find(
+    (c) => c.code === formData.countryCode
+  );
 
   return (
-    <section id="contact" className="py-20 lg:py-32 gradient-subtle">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+    <section
+      id="contact"
+      className="py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-gray-50 to-gray-100"
+    >
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-10 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 px-4">
             Ready to Build Your Next{" "}
-            <span className="text-primary">Intelligent Solution?</span>
+            <span className="text-blue-600">Intelligent Solution?</span>
           </h2>
-          <div className="w-24 h-1 bg-primary mx-auto mb-6"></div>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
+          <div className="w-20 sm:w-24 h-1 bg-blue-600 mx-auto mb-4 sm:mb-6"></div>
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-4">
             Let's discuss how we can transform your business with AI and
             automation
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
-          {/* Contact Form */}
-          <Card className="p-8 shadow-card animate-slide-up">
-            <h3 className="text-2xl font-bold text-foreground mb-6">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
+          <Card className="p-4 sm:p-6 lg:p-8 shadow-lg bg-white">
+            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">
               Send Us a Message
             </h3>
-            <form onSubmit={handleSubmit} className="space-y-6" >
+
+            <div className="space-y-4">
               <div>
-                <Label htmlFor="name">Name *</Label>
+                <Label
+                  htmlFor="name"
+                  className="text-sm sm:text-base text-gray-700"
+                >
+                  Name *
+                </Label>
                 <Input
                   id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Your full name"
-                  required
-                  className="mt-2"
+                  className={`mt-1.5 text-sm sm:text-base ${
+                    errors.name ? "border-red-500" : ""
+                  }`}
                   disabled={isSubmitting}
                 />
+                {errors.name && (
+                  <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center gap-1">
+                    <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />{" "}
+                    {errors.name}
+                  </p>
+                )}
               </div>
 
               <div>
-                <Label htmlFor="email">Email *</Label>
+                <Label
+                  htmlFor="email"
+                  className="text-sm sm:text-base text-gray-700"
+                >
+                  Email *
+                </Label>
                 <Input
                   id="email"
                   name="email"
@@ -126,71 +320,296 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="your.email@company.com"
-                  required
-                  className="mt-2"
+                  className={`mt-1.5 text-sm sm:text-base ${
+                    errors.email ? "border-red-500" : ""
+                  }`}
                   disabled={isSubmitting}
                 />
+                {errors.email && (
+                  <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center gap-1">
+                    <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />{" "}
+                    {errors.email}
+                  </p>
+                )}
               </div>
 
               <div>
-                <Label htmlFor="company">Company</Label>
+                <Label
+                  htmlFor="company"
+                  className="text-sm sm:text-base text-gray-700"
+                >
+                  Company
+                </Label>
                 <Input
                   id="company"
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
                   placeholder="Your company name"
-                  className="mt-2"
+                  className="mt-1.5 text-sm sm:text-base"
                   disabled={isSubmitting}
                 />
               </div>
 
               <div>
-                <Label htmlFor="message">Message *</Label>
+                <Label
+                  htmlFor="phone"
+                  className="text-sm sm:text-base text-gray-700"
+                >
+                  Contact Number
+                </Label>
+                <div className="mt-1.5">
+                  <PhoneInput
+                    country={"us"}
+                    value={formData.phone}
+                    onChange={(phone, data) => {
+                      setFormData({
+                        ...formData,
+                        phone: phone,
+                        countryCode: `+${data.dialCode}`,
+                      });
+                    }}
+                    inputProps={{
+                      name: "phone",
+                      required: false,
+                      autoFocus: false,
+                    }}
+                    enableSearch={true}
+                    disableSearchIcon={false}
+                    inputClass="!w-full !py-2.5 !pl-12 !pr-3 !border !border-gray-300 !rounded-md !text-sm !bg-white focus:!ring-2 focus:!ring-blue-500 focus:!border-blue-500"
+                    buttonClass="!border !border-gray-300 !bg-white !rounded-l-md hover:!bg-gray-50"
+                    dropdownClass="!text-sm !max-h-60"
+                    containerClass="!w-full"
+                    disabled={isSubmitting}
+                  />
+                  {errors.phone && (
+                    <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center gap-1">
+                      <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />{" "}
+                      {errors.phone}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <Label
+                  htmlFor="country"
+                  className="text-sm sm:text-base text-gray-700"
+                >
+                  Country
+                </Label>
+                <select
+                  id="country"
+                  name="country"
+                  value={formData.country}
+                  onChange={handleChange}
+                  className="w-full mt-1.5 px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  disabled={isSubmitting}
+                >
+                  <option value="">Select your country</option>
+                  {countries.map((country) => (
+                    <option key={country} value={country}>
+                      {country}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <Label
+                  htmlFor="serviceType"
+                  className="text-sm sm:text-base text-gray-700"
+                >
+                  Service Type
+                </Label>
+                <select
+                  id="serviceType"
+                  name="serviceType"
+                  value={formData.serviceType}
+                  onChange={handleChange}
+                  className="w-full mt-1.5 px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  disabled={isSubmitting}
+                >
+                  <option value="">Select a service</option>
+                  {services.map((service) => (
+                    <option key={service} value={service}>
+                      {service}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {formData.serviceType === "Web Development" && (
+                <div className="animate-in slide-in-from-top-2 duration-300">
+                  <Label
+                    htmlFor="websiteType"
+                    className="text-sm sm:text-base text-gray-700"
+                  >
+                    Website Type
+                  </Label>
+                  <select
+                    id="websiteType"
+                    name="websiteType"
+                    value={formData.websiteType}
+                    onChange={handleChange}
+                    className="w-full mt-1.5 px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                    disabled={isSubmitting}
+                  >
+                    <option value="">Select website type</option>
+                    <option value="Business">Business Website</option>
+                    <option value="E-commerce">E-commerce</option>
+                    <option value="Portfolio">Portfolio</option>
+                    <option value="Landing Page">Landing Page</option>
+                    <option value="Web App">Web Application</option>
+                  </select>
+                </div>
+              )}
+
+              <div>
+                <Label className="text-sm sm:text-base text-gray-700 mb-2 sm:mb-3 block">
+                  Preferred Contact Method
+                </Label>
+                <div className="flex flex-wrap gap-3 sm:gap-4">
+                  {["Email", "WhatsApp", "Phone Call"].map((method) => (
+                    <label
+                      key={method}
+                      className="flex items-center gap-2 cursor-pointer"
+                    >
+                      <input
+                        type="radio"
+                        name="contactMethod"
+                        value={method}
+                        checked={formData.contactMethod === method}
+                        onChange={handleChange}
+                        className="w-4 h-4 text-blue-600 focus:ring-blue-500"
+                        disabled={isSubmitting}
+                      />
+                      <span className="text-sm sm:text-base text-gray-700">
+                        {method}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <Label
+                  htmlFor="message"
+                  className="text-sm sm:text-base text-gray-700"
+                >
+                  Message *
+                </Label>
                 <Textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Tell us about your project..."
-                  required
-                  rows={6}
-                  className="mt-2"
+                  rows={5}
+                  className={`mt-1.5 text-sm sm:text-base ${
+                    errors.message ? "border-red-500" : ""
+                  }`}
                   disabled={isSubmitting}
                 />
+                {errors.message && (
+                  <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center gap-1">
+                    <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />{" "}
+                    {errors.message}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <Label
+                  htmlFor="file"
+                  className="text-sm sm:text-base text-gray-700"
+                >
+                  Attach Document (Optional)
+                </Label>
+                <div className="mt-1.5">
+                  <label className="flex items-center justify-center w-full px-3 sm:px-4 py-2.5 sm:py-3 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-blue-500 transition-colors">
+                    <Upload className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 mr-2 flex-shrink-0" />
+                    <span className="text-xs sm:text-sm text-gray-600 truncate">
+                      {formData.file
+                        ? formData.file.name
+                        : "Upload file (Max 5MB)"}
+                    </span>
+                    <input
+                      id="file"
+                      name="file"
+                      type="file"
+                      onChange={handleChange}
+                      className="hidden"
+                      accept=".pdf,.doc,.docx,.txt"
+                      disabled={isSubmitting}
+                    />
+                  </label>
+                  {errors.file && (
+                    <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center gap-1">
+                      <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />{" "}
+                      {errors.file}
+                    </p>
+                  )}
+                </div>
               </div>
 
               <Button
-                type="submit"
+                onClick={handleSubmit}
                 size="lg"
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base"
                 disabled={isSubmitting}
               >
-                <Send className="w-5 h-5 mr-2" />
-                {isSubmitting ? "Sending..." : "Send Message"}
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 mr-2 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                    Send Message
+                  </>
+                )}
               </Button>
-            </form>
+
+              {submitStatus === "success" && (
+                <div className="flex items-start gap-2 p-3 sm:p-4 bg-green-50 border border-green-200 rounded-md text-green-700">
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5" />
+                  <span className="text-xs sm:text-sm">
+                    Message sent successfully! We'll get back to you soon.
+                  </span>
+                </div>
+              )}
+              {submitStatus === "error" && (
+                <div className="flex items-start gap-2 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-md text-red-700">
+                  <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5" />
+                  <span className="text-xs sm:text-sm">
+                    Failed to send. Please check all fields and try again.
+                  </span>
+                </div>
+              )}
+            </div>
           </Card>
 
-          {/* Contact Information */}
-          <div className="space-y-6 animate-slide-up" style={{ animationDelay: "0.2s" }}>
-            <Card className="p-6 shadow-card">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-6 h-6 text-primary" />
+          <div className="space-y-4 sm:space-y-6">
+            <Card className="p-4 sm:p-6 shadow-lg bg-white">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
                 </div>
-                <div>
-                  <h4 className="font-bold text-foreground mb-2">Email Us</h4>
+                <div className="min-w-0">
+                  <h4 className="font-bold text-gray-900 mb-1.5 sm:mb-2 text-sm sm:text-base">
+                    Email Us
+                  </h4>
                   <a
                     href="mailto:contact@rgiintelligence.com"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="text-xs sm:text-sm text-gray-600 hover:text-blue-600 break-all block mb-1"
                   >
                     contact@rgiintelligence.com
                   </a>
-                  <br />
                   <a
                     href="mailto:info.rgiintelligence.co.in@gmail.com"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="text-xs sm:text-sm text-gray-600 hover:text-blue-600 break-all block"
                   >
                     info.rgiintelligence.co.in@gmail.com
                   </a>
@@ -198,38 +617,41 @@ const Contact = () => {
               </div>
             </Card>
 
-            <Card className="p-6 shadow-card">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-6 h-6 text-accent" />
+            <Card className="p-4 sm:p-6 shadow-lg bg-white">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Phone className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-foreground mb-2">Call Us</h4>
+                  <h4 className="font-bold text-gray-900 mb-1.5 sm:mb-2 text-sm sm:text-base">
+                    Call Us
+                  </h4>
                   <a
                     href="tel:+917439707204"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="text-xs sm:text-sm text-gray-600 hover:text-blue-600 flex items-center gap-1 mb-1"
                   >
-                    +91 7439707204
+                    <span className="text-base">🇮🇳</span> +91 7439707204
                   </a>
-                  <br />
                   <a
                     href="tel:+917643860384"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="text-xs sm:text-sm text-gray-600 hover:text-blue-600 flex items-center gap-1"
                   >
-                    +91 7643860384
+                    <span className="text-base">🇮🇳</span> +91 7643860384
                   </a>
                 </div>
               </div>
             </Card>
 
-            <Card className="p-6 shadow-card">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-6 h-6 text-primary" />
+            <Card className="p-4 sm:p-6 shadow-lg bg-white">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-foreground mb-2">Visit Us</h4>
-                  <p className="text-muted-foreground">
+                  <h4 className="font-bold text-gray-900 mb-1.5 sm:mb-2 text-sm sm:text-base">
+                    Visit Us
+                  </h4>
+                  <p className="text-xs sm:text-sm text-gray-600">
                     Dhudwala Complex, E Wing, Jehangir Boman Behram Rd
                     <br />
                     RBI Staff Colony, Mumbai Central
@@ -240,10 +662,9 @@ const Contact = () => {
               </div>
             </Card>
 
-            {/* WhatsApp CTA */}
             <Button
               size="lg"
-              className="w-full bg-green-500 hover:bg-green-600 text-white"
+              className="w-full bg-green-500 hover:bg-green-600 text-white text-sm sm:text-base"
               asChild
             >
               <a
@@ -251,17 +672,16 @@ const Contact = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Phone className="w-5 h-5 mr-2" />
+                <Phone className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                 Chat on WhatsApp
               </a>
             </Button>
 
-            {/* Google Maps */}
-            <Card className="overflow-hidden shadow-card">
+            <Card className="overflow-hidden shadow-lg">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.1584585081105!2d72.82027971091269!3d18.968608055260745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cf2891ec075b%3A0x732d00a93b94c931!2sDudhwala%20Complex%20E!5e0!3m2!1sen!2sin!4v1760475825829!5m2!1sen!2sin"
                 width="100%"
-                height="300"
+                height="250"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
