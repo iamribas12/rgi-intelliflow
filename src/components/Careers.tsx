@@ -307,6 +307,9 @@ const Careers = () => {
   ];
   const locations = ["Remote", "Hybrid", "On-site"];
 
+  // Limit to first 10 jobs
+  const displayedJobs = filteredJobs.slice(0, 10);
+
   return (
     <section className="py-16 sm:py-20 lg:py-28 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-10">
@@ -554,7 +557,7 @@ const Careers = () => {
           {/* Job List */}
           <motion.div className="flex-1 flex flex-col gap-6">
             <AnimatePresence>
-              {filteredJobs.map((job) => (
+              {displayedJobs.map((job) => (
                 <motion.div
                   key={job.title}
                   layout
@@ -626,12 +629,16 @@ const Careers = () => {
           </motion.div>
         </div>
 
-        {/* Load More */}
-        <div className="flex justify-center mt-6">
-          <Button variant="outline" className="px-8">
-            Load More Jobs
-          </Button>
-        </div>
+        {/* Results count */}
+        {displayedJobs.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-lg text-muted-foreground">No jobs found matching your criteria.</p>
+          </div>
+        ) : (
+          <p className="text-sm text-muted-foreground mb-4 text-center">
+            Showing {displayedJobs.length} of {filteredJobs.length} job{filteredJobs.length !== 1 ? 's' : ''}
+          </p>
+        )}
       </div>
     </section>
   );

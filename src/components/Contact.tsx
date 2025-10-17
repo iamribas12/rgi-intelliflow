@@ -31,10 +31,10 @@ const Contact = () => {
     websiteType: "",
     contactMethod: "Email",
     message: "",
-    file: null,
+    file: null as File | null,
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
@@ -183,10 +183,10 @@ const Contact = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newErrors = {};
+    const newErrors: Record<string, string> = {};
     newErrors.name = validateField("name", formData.name);
     newErrors.email = validateField("email", formData.email);
     newErrors.message = validateField("message", formData.message);
@@ -362,11 +362,11 @@ const Contact = () => {
                   <PhoneInput
                     country={"us"}
                     value={formData.phone}
-                    onChange={(phone, data) => {
+                    onChange={(phone, data: any) => {
                       setFormData({
                         ...formData,
                         phone: phone,
-                        countryCode: `+${data.dialCode}`,
+                        countryCode: `+${data.dialCode || ""}`,
                       });
                     }}
                     inputProps={{
