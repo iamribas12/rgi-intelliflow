@@ -619,7 +619,7 @@ const Careers = () => {
                         </div>
                       </div>
                       <Button className="w-full">
-                        <a href="#contact">Apply Now</a>
+                        <a href="#contact">See More</a>
                       </Button>
                     </div>
                   </Card>
