@@ -1,7 +1,7 @@
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import WhyChooseUs from "@/components/WhyChooseUs";
-import Portfolio from "@/components/Portfolio";
+import HeroProjects from "@/components/HeroProjects";
 import Testimonials from "@/components/Testimonials";
 import DiscountBanner from "@/components/DiscountBanner";
 import { Card } from "@/components/ui/card";
@@ -16,7 +16,7 @@ const Index = () => {
       <Hero />
       <Services />
       <WhyChooseUs />
-      <Portfolio />
+      <HeroProjects />
       <Testimonials />
       
       {/* Latest Blog Posts Section */}

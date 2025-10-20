@@ -108,8 +108,11 @@ export default function JobDetail() {
                 </div>
               </div>
               <div className="pt-4 border-t">
-                <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm sm:text-base py-6" asChild>
-                  <a href={job.applyUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">Apply Now<ExternalLink className="w-4 h-4" /></a>
+                <Button 
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm sm:text-base py-6" 
+                  onClick={() => navigate(`/apply/${jobId}`)}
+                >
+                  Apply Now
                 </Button>
                 <p className="text-xs text-muted-foreground mt-4 text-center">Questions? Email us at <br /><a href="mailto:careers@rgiintelligence.com" className="text-primary hover:underline">careers@rgiintelligence.com</a></p>
               </div>

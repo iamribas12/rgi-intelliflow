@@ -25,7 +25,6 @@ const Navigation = () => {
     { name: "About", href: "/about" },
     { name: "Blog", href: "/blog" },
     { name: "Portfolio", href: "/portfolio" },
-    { name: "Careers", href: "/careers" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -84,18 +83,14 @@ const Navigation = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
-            <a href="/" className="flex items-center space-x-2 sm:space-x-3 group">
-              <div className="relative w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 flex items-center justify-center transition-transform group-hover:scale-110">
+            <a href="/" className="flex items-center group">
+              <div className="relative w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 flex items-center justify-center transition-transform group-hover:scale-105">
                 <img
                   src={NavLogo}
                   alt="RGI Intelligence Logo"
                   className="w-full h-full object-contain"
                 />
               </div>
-              <span className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold">
-                <span className="text-accent">RGI</span>{" "}
-                <span className="text-primary">Intelligence</span>
-              </span>
             </a>
 
             {/* Desktop Navigation */}

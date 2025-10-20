@@ -12,6 +12,7 @@ import CareersPage from "./pages/Careers";
 import ContactPage from "./pages/contact";
 import PortfolioPage from "./pages/portfolio";
 import JobDetail from "./pages/JobDetail";
+import JobApplicationForm from "./pages/JobApplicationForm";
 import CaseStudy from "./pages/CaseStudy";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/blog/:blogId" element={<BlogDetail />} />
           <Route path="/careers" element={<CareersPage />} />
           <Route path="/careers/:jobId" element={<JobDetail />} />
+          <Route path="/apply/:jobId" element={<JobApplicationForm />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/case-study/:caseId" element={<CaseStudy />} />

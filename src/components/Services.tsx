@@ -22,48 +22,70 @@ const Services = () => {
       title: "AI & Automation Systems",
       description:
         "Intelligent automation solutions that streamline operations, reduce manual tasks, and enhance decision-making processes.",
+      relatedProjects: [
+        { title: "E-Commerce Automation Suite", url: "https://example-ecommerce.com" },
+        { title: "IoT Fleet Management System", url: "https://example-fleet.com" },
+      ]
     },
     {
       icon: MessageSquare,
       title: "AI Chatbots & Custom AI Agents",
       description:
         "Advanced conversational AI and custom agents tailored to your business needs, providing 24/7 customer support and engagement.",
+      relatedProjects: [
+        { title: "Enterprise AI Chatbot Platform", url: "https://www.techugo.com/enterprise-ai-chatbot-development-company" },
+      ]
     },
     {
       icon: Code,
       title: "Web & App Development",
       description:
         "Full-stack development services for web and mobile applications using modern frameworks and best practices.",
+      relatedProjects: [
+        { title: "Online Learning Management System", url: "https://example-lms.com" },
+        { title: "Custom CRM & Sales Pipeline", url: "https://example-crm-system.com" },
+      ]
     },
     {
       icon: Workflow,
       title: "Software & API Integration",
       description:
         "Seamless integration of third-party services, custom APIs, and legacy systems to create unified digital ecosystems.",
+      relatedProjects: [
+        { title: "E-Commerce Payment Gateway", url: "https://example-payments.com" },
+      ]
     },
     {
       icon: Database,
       title: "Data-Driven Business Intelligence",
       description:
         "Transform raw data into actionable insights with our analytics platforms, dashboards, and reporting systems.",
+      relatedProjects: [
+        { title: "Financial Analytics Dashboard", url: "https://example-analytics-dashboard.com" },
+      ]
     },
     {
       icon: Cloud,
       title: "IT Support & Cloud Consulting",
       description:
         "Comprehensive cloud migration, infrastructure management, and ongoing technical support for your business.",
+      relatedProjects: []
     },
     {
       icon: Zap,
       title: "Enterprise Workflow Solutions",
       description:
         "Future-ready solutions designed to optimize enterprise workflows and boost organizational efficiency.",
+      relatedProjects: [
+        { title: "Healthcare Management System", url: "https://example-healthcare.com" },
+      ]
     },
     {
       icon: Shield,
       title: "Security & Compliance",
       description:
         "Robust security implementations and compliance solutions to protect your digital assets and meet regulatory requirements.",
+      relatedProjects: []
     },
   ];
 
@@ -161,9 +183,27 @@ const Services = () => {
                 <h3 className="text-base sm:text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                   {service.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-3">
                   {service.description}
                 </p>
+                {service.relatedProjects.length > 0 && (
+                  <div className="mt-4 pt-4 border-t border-border">
+                    <p className="text-xs font-semibold text-muted-foreground mb-2">Related Projects:</p>
+                    <div className="space-y-1">
+                      {service.relatedProjects.map((project, idx) => (
+                        <a
+                          key={idx}
+                          href={project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block text-xs text-primary hover:underline"
+                        >
+                          → {project.title}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </Card>
             ))}
           </div>
