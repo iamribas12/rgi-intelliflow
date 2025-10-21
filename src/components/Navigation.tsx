@@ -22,10 +22,15 @@ const Navigation = () => {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "About Us", href: "/about" },
     { name: "Blog", href: "/blog" },
-    { name: "Portfolio", href: "/portfolio" },
     { name: "Contact Us", href: "/contact" },
+  ];
+
+  const aboutDropdown = [
+    { name: "About Us", href: "/about" },
+    { name: "Portfolio", href: "/portfolio" },
+    { name: "Pricing", href: "/pricing" },
+    { name: "Careers", href: "/careers" },
   ];
 
   const serviceCategories = [
@@ -98,7 +103,7 @@ const Navigation = () => {
           <div className="flex items-center justify-between h-20 lg:h-24">
             {/* Logo - Increased Size */}
             <a href="/" className="flex items-center group">
-              <div className="relative w-34 h-34 sm:w-28 sm:h-28 lg:w-32 lg:h-32 flex items-center justify-center transition-transform group-hover:scale-105">
+              <div className="relative w-32 h-20 sm:w-36 sm:h-24 lg:w-40 lg:h-28 flex items-center justify-center transition-transform group-hover:scale-105">
                 <img
                   src={NavLogo}
                   alt="RGI Intelligence Logo"
@@ -109,19 +114,42 @@ const Navigation = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-1">
-              {navLinks.slice(0, 2).map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                    currentPath === link.href
-                      ? "text-primary font-semibold"
-                      : "text-muted-foreground hover:text-primary"
-                  } ${hoverUnderlineClass}`}
-                >
-                  {link.name}
-                </a>
-              ))}
+              <a
+                href="/"
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  currentPath === "/"
+                    ? "text-primary font-semibold"
+                    : "text-muted-foreground hover:text-primary"
+                } ${hoverUnderlineClass}`}
+              >
+                Home
+              </a>
+
+              {/* About Us Dropdown */}
+              <NavigationMenu>
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors bg-transparent hover:bg-secondary">
+                      About Us
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="w-[200px] p-3 bg-card border border-border shadow-xl rounded-lg">
+                        <div className="space-y-1">
+                          {aboutDropdown.map((item) => (
+                            <a
+                              key={item.name}
+                              href={item.href}
+                              className="block rounded-md p-3 text-sm leading-snug text-muted-foreground hover:text-primary hover:bg-accent/50 transition-colors"
+                            >
+                              {item.name}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
 
               {/* Services Dropdown - Structured */}
               <NavigationMenu>
@@ -158,7 +186,7 @@ const Navigation = () => {
                 </NavigationMenuList>
               </NavigationMenu>
 
-              {navLinks.slice(2).map((link) => (
+              {navLinks.slice(1).map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
@@ -197,24 +225,21 @@ const Navigation = () => {
           {isMobileMenuOpen && (
             <div className="lg:hidden pb-4 animate-fade-in">
               <div className="flex flex-col space-y-2">
-                {navLinks.slice(0, 2).map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    className="px-4 py-3 text-base font-medium text-muted-foreground hover:text-primary hover:bg-secondary rounded-lg transition-colors"
-                    onClick={closeMobileMenu}
-                  >
-                    {link.name}
-                  </a>
-                ))}
+                <a
+                  href="/"
+                  className="px-4 py-3 text-base font-medium text-muted-foreground hover:text-primary hover:bg-secondary rounded-lg transition-colors"
+                  onClick={closeMobileMenu}
+                >
+                  Home
+                </a>
 
-                {/* Mobile Services Dropdown - Structured */}
+                {/* Mobile About Us Dropdown */}
                 <div>
                   <button
                     onClick={() => setIsServicesOpen(!isServicesOpen)}
                     className="w-full px-4 py-3 text-base font-medium text-muted-foreground hover:text-primary hover:bg-secondary rounded-lg transition-colors flex items-center justify-between"
                   >
-                    Services
+                    About Us
                     <ChevronDown
                       className={`w-4 h-4 transition-transform ${
                         isServicesOpen ? "rotate-180" : ""
@@ -222,29 +247,48 @@ const Navigation = () => {
                     />
                   </button>
                   {isServicesOpen && (
-                    <div className="pl-2 py-2 space-y-4">
-                      {serviceCategories.map((category) => (
-                        <div key={category.category} className="space-y-1">
-                          <div className="px-4 py-1 text-xs font-semibold text-primary uppercase tracking-wider">
-                            {category.category}
-                          </div>
-                          {category.items.map((service) => (
-                            <a
-                              key={service.title}
-                              href={service.href}
-                              onClick={closeMobileMenu}
-                              className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-secondary rounded-lg transition-colors"
-                            >
-                              {service.title}
-                            </a>
-                          ))}
-                        </div>
+                    <div className="pl-2 py-2 space-y-1">
+                      {aboutDropdown.map((item) => (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          onClick={closeMobileMenu}
+                          className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-secondary rounded-lg transition-colors"
+                        >
+                          {item.name}
+                        </a>
                       ))}
                     </div>
                   )}
                 </div>
 
-                {navLinks.slice(2).map((link) => (
+                {/* Mobile Services Dropdown - Structured */}
+                <div>
+                  <div className="px-4 py-2 text-xs font-semibold text-primary uppercase tracking-wider">
+                    Services
+                  </div>
+                  <div className="pl-2 py-2 space-y-4">
+                    {serviceCategories.map((category) => (
+                      <div key={category.category} className="space-y-1">
+                        <div className="px-4 py-1 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                          {category.category}
+                        </div>
+                        {category.items.map((service) => (
+                          <a
+                            key={service.title}
+                            href={service.href}
+                            onClick={closeMobileMenu}
+                            className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-secondary rounded-lg transition-colors"
+                          >
+                            {service.title}
+                          </a>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {navLinks.slice(1).map((link) => (
                   <a
                     key={link.name}
                     href={link.href}

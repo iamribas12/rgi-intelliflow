@@ -430,20 +430,9 @@ const Portfolio = () => {
                           <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                             {project.title}
                           </h3>
-                          <p className="text-muted-foreground mb-4 leading-relaxed line-clamp-3">
+                          <p className="text-sm text-muted-foreground leading-relaxed">
                             {project.description}
                           </p>
-                          <div className="flex flex-wrap gap-2">
-                            {project.tags.map((tag, tagIndex) => (
-                              <Badge
-                                key={tagIndex}
-                                variant="secondary"
-                                className="bg-secondary text-secondary-foreground text-xs"
-                              >
-                                {tag}
-                              </Badge>
-                            ))}
-                          </div>
                         </div>
                       </Card>
                     </a>

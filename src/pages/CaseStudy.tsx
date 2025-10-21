@@ -200,31 +200,57 @@ export default function CaseStudy() {
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <Card className="p-6 sticky top-24">
-              <h3 className="text-lg sm:text-xl font-bold text-foreground mb-4">
-                Technologies Used
-              </h3>
-              <div className="flex flex-wrap gap-2 mb-6">
-                {study.technologies.map((tech, index) => (
-                  <Badge key={index} variant="outline" className="text-xs sm:text-sm">
-                    {tech}
-                  </Badge>
-                ))}
+            <Card className="p-6 sm:p-8 sticky top-24 bg-gradient-to-br from-primary/5 to-accent/5 border-2 border-primary/20">
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg sm:text-xl font-bold text-foreground mb-3 flex items-center gap-2">
+                    <div className="w-2 h-8 bg-primary rounded-full"></div>
+                    Project Details
+                  </h3>
+                  <div className="space-y-3 pl-4">
+                    <div>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">
+                        Industry
+                      </p>
+                      <p className="text-sm sm:text-base text-foreground font-medium">
+                        {study.industry}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">
+                        Timeline
+                      </p>
+                      <p className="text-sm sm:text-base text-foreground font-medium">
+                        {study.timeline}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-border">
+                  <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+                    Technologies
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {study.technologies.map((tech, index) => (
+                      <Badge 
+                        key={index} 
+                        variant="outline" 
+                        className="text-xs sm:text-sm border-primary/30 bg-primary/5"
+                      >
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                <Button
+                  className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground text-sm sm:text-base font-semibold py-6 shadow-lg hover:shadow-xl transition-all"
+                  onClick={() => navigate("/contact")}
+                >
+                  Start Your Project
+                </Button>
               </div>
-
-              <h3 className="text-lg sm:text-xl font-bold text-foreground mb-4">
-                Project Timeline
-              </h3>
-              <p className="text-sm sm:text-base text-muted-foreground mb-6">
-                {study.timeline}
-              </p>
-
-              <Button
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm sm:text-base"
-                onClick={() => navigate("/contact")}
-              >
-                Start Your Project
-              </Button>
             </Card>
           </div>
         </div>

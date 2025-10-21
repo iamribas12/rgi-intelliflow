@@ -19,9 +19,11 @@ import TermsOfService from "./pages/TermsOfService";
 import CookiePolicy from "./pages/CookiePolicy";
 import Security from "./pages/Security";
 import BlogDetail from "./pages/BlogDetail";
+import Pricing from "./pages/Pricing";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +45,7 @@ const App = () => (
           <Route path="/apply/:jobId" element={<JobApplicationForm />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/pricing" element={<Pricing />} />
           <Route path="/case-study/:caseId" element={<CaseStudy />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
@@ -52,6 +55,7 @@ const App = () => (
         </Routes>
         <Footer />
         <CookieBanner />
+        <WhatsAppButton />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

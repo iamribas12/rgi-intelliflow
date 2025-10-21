@@ -12,6 +12,7 @@ import {
   Shield,
   ChevronLeft,
   ChevronRight,
+  CheckCircle2,
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 
@@ -22,6 +23,12 @@ const Services = () => {
       title: "AI & Automation Systems",
       description:
         "Intelligent automation solutions that streamline operations, reduce manual tasks, and enhance decision-making processes.",
+      benefits: [
+        "Reduce operational costs by up to 60%",
+        "24/7 automated customer support",
+        "Intelligent decision-making capabilities",
+        "Seamless integration with existing systems",
+      ],
       relatedProjects: [
         { title: "E-Commerce Automation Suite", url: "https://example-ecommerce.com" },
         { title: "IoT Fleet Management System", url: "https://example-fleet.com" },
@@ -32,6 +39,12 @@ const Services = () => {
       title: "AI Chatbots & Custom AI Agents",
       description:
         "Advanced conversational AI and custom agents tailored to your business needs, providing 24/7 customer support and engagement.",
+      benefits: [
+        "Instant response to customer queries",
+        "Multi-language support",
+        "Contextual understanding and memory",
+        "Scalable to handle unlimited conversations",
+      ],
       relatedProjects: [
         { title: "Enterprise AI Chatbot Platform", url: "https://www.techugo.com/enterprise-ai-chatbot-development-company" },
       ]
@@ -41,6 +54,12 @@ const Services = () => {
       title: "Web & App Development",
       description:
         "Full-stack development services for web and mobile applications using modern frameworks and best practices.",
+      benefits: [
+        "Cross-platform compatibility",
+        "Modern, user-friendly interfaces",
+        "Fast load times and performance",
+        "SEO-optimized for visibility",
+      ],
       relatedProjects: [
         { title: "Online Learning Management System", url: "https://example-lms.com" },
         { title: "Custom CRM & Sales Pipeline", url: "https://example-crm-system.com" },
@@ -51,6 +70,12 @@ const Services = () => {
       title: "Software & API Integration",
       description:
         "Seamless integration of third-party services, custom APIs, and legacy systems to create unified digital ecosystems.",
+      benefits: [
+        "Connect disparate systems effortlessly",
+        "Automated data synchronization",
+        "Reduced manual data entry",
+        "Enhanced system interoperability",
+      ],
       relatedProjects: [
         { title: "E-Commerce Payment Gateway", url: "https://example-payments.com" },
       ]
@@ -60,6 +85,12 @@ const Services = () => {
       title: "Data-Driven Business Intelligence",
       description:
         "Transform raw data into actionable insights with our analytics platforms, dashboards, and reporting systems.",
+      benefits: [
+        "Real-time data visualization",
+        "Predictive analytics and forecasting",
+        "Automated reporting and alerts",
+        "Custom dashboards for stakeholders",
+      ],
       relatedProjects: [
         { title: "Financial Analytics Dashboard", url: "https://example-analytics-dashboard.com" },
       ]
@@ -69,6 +100,12 @@ const Services = () => {
       title: "IT Support & Cloud Consulting",
       description:
         "Comprehensive cloud migration, infrastructure management, and ongoing technical support for your business.",
+      benefits: [
+        "99.9% uptime guarantee",
+        "Proactive monitoring and maintenance",
+        "Cost-effective cloud solutions",
+        "Expert technical support team",
+      ],
       relatedProjects: []
     },
     {
@@ -76,6 +113,12 @@ const Services = () => {
       title: "Enterprise Workflow Solutions",
       description:
         "Future-ready solutions designed to optimize enterprise workflows and boost organizational efficiency.",
+      benefits: [
+        "Streamlined approval processes",
+        "Reduced processing time by 70%",
+        "Audit trails and compliance tracking",
+        "Customizable workflows for any department",
+      ],
       relatedProjects: [
         { title: "Healthcare Management System", url: "https://example-healthcare.com" },
       ]
@@ -85,6 +128,12 @@ const Services = () => {
       title: "Security & Compliance",
       description:
         "Robust security implementations and compliance solutions to protect your digital assets and meet regulatory requirements.",
+      benefits: [
+        "Industry-standard security protocols",
+        "Regular vulnerability assessments",
+        "Compliance with GDPR, HIPAA, SOC 2",
+        "24/7 security monitoring",
+      ],
       relatedProjects: []
     },
   ];
@@ -186,6 +235,26 @@ const Services = () => {
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-3">
                   {service.description}
                 </p>
+
+                {service.benefits && service.benefits.length > 0 && (
+                  <div className="mb-3">
+                    <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">
+                      Key Benefits:
+                    </p>
+                    <ul className="space-y-1.5">
+                      {service.benefits.map((benefit, idx) => (
+                        <li
+                          key={idx}
+                          className="text-xs text-muted-foreground flex items-start gap-2"
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5 text-primary flex-shrink-0 mt-0.5" />
+                          {benefit}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
                 {service.relatedProjects.length > 0 && (
                   <div className="mt-4 pt-4 border-t border-border">
                     <p className="text-xs font-semibold text-muted-foreground mb-2">Related Projects:</p>
