@@ -289,7 +289,7 @@ const About = () => {
           </div>
         </div>
 
-        {/* Team Members Section */}
+        {/* Team Members Section
         <div className="mt-16 sm:mt-20 lg:mt-24">
           <div className="text-center mb-10 sm:mb-12">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-3">
@@ -332,7 +332,7 @@ const About = () => {
               </Card>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

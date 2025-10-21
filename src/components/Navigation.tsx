@@ -22,21 +22,36 @@ const Navigation = () => {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
+    { name: "About Us", href: "/about" },
     { name: "Blog", href: "/blog" },
     { name: "Portfolio", href: "/portfolio" },
-    { name: "Contact", href: "/contact" },
+    { name: "Contact Us", href: "/contact" },
   ];
 
-  const services = [
-    { title: "AI & Automation Systems", href: "/services#ai" },
-    { title: "AI Chatbots & Custom AI Agents", href: "/services#chatbots" },
-    { title: "Web & App Development", href: "/services#webapp" },
-    { title: "Software & API Integration", href: "/services#api" },
-    { title: "Data-Driven Business Intelligence", href: "/services#data" },
-    { title: "IT Support & Cloud Consulting", href: "/services#it" },
-    { title: "Enterprise Workflow Solutions", href: "/services#workflow" },
-    { title: "Security & Compliance", href: "/services#security" },
+  const serviceCategories = [
+    {
+      category: "AI Solutions",
+      items: [
+        { title: "AI & Automation Systems", href: "/services#ai" },
+        { title: "AI Chatbots & Custom AI Agents", href: "/services#chatbots" },
+        { title: "Data-Driven Business Intelligence", href: "/services#data" },
+      ]
+    },
+    {
+      category: "Development",
+      items: [
+        { title: "Web & App Development", href: "/services#webapp" },
+        { title: "Software & API Integration", href: "/services#api" },
+        { title: "Enterprise Workflow Solutions", href: "/services#workflow" },
+      ]
+    },
+    {
+      category: "Infrastructure",
+      items: [
+        { title: "IT Support & Cloud Consulting", href: "/services#it" },
+        { title: "Security & Compliance", href: "/services#security" },
+      ]
+    }
   ];
 
   useEffect(() => {
@@ -65,7 +80,6 @@ const Navigation = () => {
     setIsServicesOpen(false);
   };
 
-  // Tailwind class for hover underline animation
   const hoverUnderlineClass =
     "relative after:block after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 after:absolute after:left-0 after:bottom-0 hover:after:w-full";
 
@@ -81,10 +95,10 @@ const Navigation = () => {
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20">
-            {/* Logo */}
+          <div className="flex items-center justify-between h-20 lg:h-24">
+            {/* Logo - Increased Size */}
             <a href="/" className="flex items-center group">
-              <div className="relative w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 flex items-center justify-center transition-transform group-hover:scale-105">
+              <div className="relative w-34 h-34 sm:w-28 sm:h-28 lg:w-32 lg:h-32 flex items-center justify-center transition-transform group-hover:scale-105">
                 <img
                   src={NavLogo}
                   alt="RGI Intelligence Logo"
@@ -109,7 +123,7 @@ const Navigation = () => {
                 </a>
               ))}
 
-              {/* Services Dropdown */}
+              {/* Services Dropdown - Structured */}
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
@@ -117,18 +131,27 @@ const Navigation = () => {
                       Services
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <div className="grid w-[400px] gap-2 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-card border border-border shadow-lg">
-                        {services.map((service) => (
-                          <a
-                            key={service.title}
-                            href={service.href}
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                          >
-                            <div className="text-sm font-medium leading-none">
-                              {service.title}
+                      <div className="w-[700px] p-6 bg-card border border-border shadow-xl rounded-lg">
+                        <div className="grid grid-cols-3 gap-6">
+                          {serviceCategories.map((category) => (
+                            <div key={category.category} className="space-y-3">
+                              <h3 className="text-sm font-semibold text-primary uppercase tracking-wider border-b border-border pb-2">
+                                {category.category}
+                              </h3>
+                              <div className="space-y-2">
+                                {category.items.map((service) => (
+                                  <a
+                                    key={service.title}
+                                    href={service.href}
+                                    className="block rounded-md p-2 text-sm leading-snug text-muted-foreground hover:text-primary hover:bg-accent/50 transition-colors"
+                                  >
+                                    {service.title}
+                                  </a>
+                                ))}
+                              </div>
                             </div>
-                          </a>
-                        ))}
+                          ))}
+                        </div>
                       </div>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
@@ -164,6 +187,7 @@ const Navigation = () => {
             <button
               className="lg:hidden p-2 text-foreground hover:bg-secondary rounded-lg transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -184,7 +208,7 @@ const Navigation = () => {
                   </a>
                 ))}
 
-                {/* Mobile Services Dropdown */}
+                {/* Mobile Services Dropdown - Structured */}
                 <div>
                   <button
                     onClick={() => setIsServicesOpen(!isServicesOpen)}
@@ -198,16 +222,23 @@ const Navigation = () => {
                     />
                   </button>
                   {isServicesOpen && (
-                    <div className="pl-4 py-2 space-y-1">
-                      {services.map((service) => (
-                        <a
-                          key={service.title}
-                          href={service.href}
-                          onClick={closeMobileMenu}
-                          className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-secondary rounded-lg transition-colors"
-                        >
-                          {service.title}
-                        </a>
+                    <div className="pl-2 py-2 space-y-4">
+                      {serviceCategories.map((category) => (
+                        <div key={category.category} className="space-y-1">
+                          <div className="px-4 py-1 text-xs font-semibold text-primary uppercase tracking-wider">
+                            {category.category}
+                          </div>
+                          {category.items.map((service) => (
+                            <a
+                              key={service.title}
+                              href={service.href}
+                              onClick={closeMobileMenu}
+                              className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-secondary rounded-lg transition-colors"
+                            >
+                              {service.title}
+                            </a>
+                          ))}
+                        </div>
                       ))}
                     </div>
                   )}
