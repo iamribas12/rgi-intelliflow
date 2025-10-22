@@ -24,6 +24,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import IndustryTemplate from "./pages/industries/IndustryTemplate";
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,7 @@ const App = () => (
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/cookie-policy" element={<CookiePolicy />} />
           <Route path="/security" element={<Security />} />
+          <Route path="/industries/:industry" element={<IndustryTemplate />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 import SearchBar from "@/components/SearchBar";
 import { blogPosts } from "@/data/blogPosts";
+import PageHero from "@/components/PageHero";
 
 export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -15,20 +16,15 @@ export default function BlogPage() {
   );
 
   return (
-    <main className="pt-20 min-h-screen">
-      <section className="py-12 sm:py-16 lg:py-20 gradient-subtle">
+    <main className="pt-16">
+      <PageHero 
+        title="Blog & Insights"
+        description="Stay updated with the latest trends and expert insights in technology"
+      />
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Page Header */}
+          {/* Search Bar */}
           <div className="text-center mb-8 sm:mb-12 animate-fade-in">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-              Our <span className="text-primary">Blog</span>
-            </h1>
-            <div className="w-24 h-1 bg-primary mx-auto mb-6"></div>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
-              Insights, trends, and best practices in technology and business
-            </p>
-            
-            {/* Search Bar */}
             <SearchBar
               placeholder="Search articles..."
               value={searchQuery}

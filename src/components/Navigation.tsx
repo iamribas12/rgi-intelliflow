@@ -33,28 +33,60 @@ const Navigation = () => {
     { name: "Careers", href: "/careers" },
   ];
 
+  const industryCategories = [
+    { name: "E-learning", href: "/industries/e-learning", icon: "GraduationCap" },
+    { name: "Healthcare", href: "/industries/healthcare", icon: "Heart" },
+    { name: "Entertainment", href: "/industries/entertainment", icon: "Tv" },
+    { name: "Food Industry", href: "/industries/food", icon: "UtensilsCrossed" },
+    { name: "Social Networking", href: "/industries/social", icon: "Share2" },
+    { name: "Ecommerce", href: "/industries/ecommerce", icon: "ShoppingCart" },
+    { name: "Travel & Tourism", href: "/industries/travel", icon: "Plane" },
+    { name: "Fintech", href: "/industries/fintech", icon: "CreditCard" },
+    { name: "Sports App", href: "/industries/sports", icon: "Trophy" },
+    { name: "E-scooter", href: "/industries/escooter", icon: "Bike" },
+    { name: "On-Demand", href: "/industries/on-demand", icon: "Package" },
+    { name: "Drone App", href: "/industries/drone", icon: "Plane" },
+  ];
+
   const serviceCategories = [
     {
-      category: "AI Solutions",
+      category: "Mobile Development",
       items: [
-        { title: "AI & Automation Systems", href: "/services#ai" },
-        { title: "AI Chatbots & Custom AI Agents", href: "/services#chatbots" },
-        { title: "Data-Driven Business Intelligence", href: "/services#data" },
+        { title: "Android Development", href: "/services/android" },
+        { title: "iOS Development", href: "/services/ios" },
+        { title: "Ionic Development", href: "/services/ionic" },
+        { title: "Flutter", href: "/services/flutter" },
+        { title: "React Native", href: "/services/react-native" },
+        { title: "Cross Platform App", href: "/services/cross-platform" },
       ]
     },
     {
-      category: "Development",
+      category: "Web Development",
       items: [
-        { title: "Web & App Development", href: "/services#webapp" },
-        { title: "Software & API Integration", href: "/services#api" },
-        { title: "Enterprise Workflow Solutions", href: "/services#workflow" },
+        { title: "PHP/Node JS Development", href: "/services/php-node" },
+        { title: "React Development", href: "/services/react" },
+        { title: "Progressive Web App", href: "/services/pwa" },
+        { title: "Cloud Computing", href: "/services/cloud" },
       ]
     },
     {
-      category: "Infrastructure",
+      category: "Emerging Technologies",
       items: [
-        { title: "IT Support & Cloud Consulting", href: "/services#it" },
-        { title: "Security & Compliance", href: "/services#security" },
+        { title: "Blockchain Development", href: "/services/blockchain" },
+        { title: "Artificial Intelligence", href: "/services/ai" },
+        { title: "Augmented Reality", href: "/services/ar" },
+        { title: "VR Development", href: "/services/vr" },
+        { title: "Internet of Things", href: "/services/iot" },
+        { title: "Chatbots", href: "/services/chatbots" },
+      ]
+    },
+    {
+      category: "Design & Quality",
+      items: [
+        { title: "UI/UX Design", href: "/services/ui-ux" },
+        { title: "Testing & QA", href: "/services/testing" },
+        { title: "Wearables", href: "/services/wearables" },
+        { title: "POS Software", href: "/services/pos" },
       ]
     }
   ];
@@ -103,7 +135,7 @@ const Navigation = () => {
           <div className="flex items-center justify-between h-20 lg:h-24">
             {/* Logo - Increased Size */}
             <a href="/" className="flex items-center group">
-              <div className="relative w-32 h-20 sm:w-36 sm:h-24 lg:w-40 lg:h-28 flex items-center justify-center transition-transform group-hover:scale-105">
+              <div className="relative w-28 h-16 sm:w-32 sm:h-20 lg:w-36 lg:h-24 flex items-center justify-center transition-transform group-hover:scale-105">
                 <img
                   src={NavLogo}
                   alt="RGI Intelligence Logo"
@@ -133,7 +165,7 @@ const Navigation = () => {
                       About Us
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <div className="w-[200px] p-3 bg-card border border-border shadow-xl rounded-lg">
+                      <div className="w-[220px] p-4 bg-card border border-border shadow-xl rounded-lg">
                         <div className="space-y-1">
                           {aboutDropdown.map((item) => (
                             <a
@@ -159,25 +191,54 @@ const Navigation = () => {
                       Services
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <div className="w-[700px] p-6 bg-card border border-border shadow-xl rounded-lg">
-                        <div className="grid grid-cols-3 gap-6">
+                      <div className="w-[800px] p-6 bg-card border border-border shadow-xl rounded-lg max-h-[70vh] overflow-y-auto">
+                        <div className="grid grid-cols-4 gap-6">
                           {serviceCategories.map((category) => (
                             <div key={category.category} className="space-y-3">
-                              <h3 className="text-sm font-semibold text-primary uppercase tracking-wider border-b border-border pb-2">
+                              <h3 className="text-xs font-semibold text-primary uppercase tracking-wider border-b border-border pb-2">
                                 {category.category}
                               </h3>
-                              <div className="space-y-2">
+                              <div className="space-y-1">
                                 {category.items.map((service) => (
                                   <a
                                     key={service.title}
                                     href={service.href}
-                                    className="block rounded-md p-2 text-sm leading-snug text-muted-foreground hover:text-primary hover:bg-accent/50 transition-colors"
+                                    className="block rounded-md px-2 py-1.5 text-xs leading-snug text-muted-foreground hover:text-primary hover:bg-accent/50 transition-colors"
                                   >
                                     {service.title}
                                   </a>
                                 ))}
                               </div>
                             </div>
+                          ))}
+                        </div>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
+
+              {/* Industries Dropdown */}
+              <NavigationMenu>
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors bg-transparent hover:bg-secondary">
+                      Industries
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="w-[700px] p-6 bg-card border border-border shadow-xl rounded-lg">
+                        <div className="grid grid-cols-3 gap-4">
+                          {industryCategories.map((industry) => (
+                            <a
+                              key={industry.name}
+                              href={industry.href}
+                              className="flex items-center gap-3 rounded-md p-3 text-sm leading-snug text-muted-foreground hover:text-primary hover:bg-accent/50 transition-colors"
+                            >
+                              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                <span className="text-primary text-xs">●</span>
+                              </div>
+                              <span>{industry.name}</span>
+                            </a>
                           ))}
                         </div>
                       </div>
@@ -223,7 +284,7 @@ const Navigation = () => {
 
           {/* Mobile Menu */}
           {isMobileMenuOpen && (
-            <div className="lg:hidden pb-4 animate-fade-in">
+            <div className="lg:hidden pb-4 animate-fade-in max-h-[calc(100vh-6rem)] overflow-y-auto">
               <div className="flex flex-col space-y-2">
                 <a
                   href="/"
@@ -284,6 +345,25 @@ const Navigation = () => {
                           </a>
                         ))}
                       </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Mobile Industries Dropdown */}
+                <div>
+                  <div className="px-4 py-2 text-xs font-semibold text-primary uppercase tracking-wider">
+                    Industries
+                  </div>
+                  <div className="pl-2 py-2 space-y-1">
+                    {industryCategories.map((industry) => (
+                      <a
+                        key={industry.name}
+                        href={industry.href}
+                        onClick={closeMobileMenu}
+                        className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-secondary rounded-lg transition-colors"
+                      >
+                        {industry.name}
+                      </a>
                     ))}
                   </div>
                 </div>

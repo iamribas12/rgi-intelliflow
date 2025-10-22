@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import PageHero from "@/components/PageHero";
 
 const pricingPlans = [
   {
@@ -63,18 +64,12 @@ const pricingPlans = [
 
 export default function Pricing() {
   return (
-    <main className="pt-20 min-h-screen bg-background">
+    <main className="pt-16">
+      <PageHero 
+        title="Simple, Transparent Pricing"
+        description="Choose the perfect plan for your business needs"
+      />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4 sm:mb-6">
-            Transparent Pricing
-          </h1>
-          <p className="text-base sm:text-lg lg:text-xl text-muted-foreground">
-            Choose the perfect plan for your business needs. All plans include our
-            commitment to excellence and timely delivery.
-          </p>
-        </div>
 
         {/* Pricing Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
