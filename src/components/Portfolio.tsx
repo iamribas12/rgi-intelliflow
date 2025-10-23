@@ -18,7 +18,7 @@ const Portfolio = () => {
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
       tags: ["AI", "NLP", "React", "Python"],
       industry: "AI & Automation",
-      link: "https://www.techugo.com/enterprise-ai-chatbot-development-company",
+      link: "https://www.enterprisebot.ai/",
     },
     {
       title: "Healthcare Management System",
