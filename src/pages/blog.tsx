@@ -31,7 +31,7 @@ const Blog = () => {
       category: "AI & Automation",
       date: "Mar 15, 2024",
       readTime: "5 min read",
-      author: "John Smith",
+      author: "RGI Intelligence",
     },
     {
       title: "Building Scalable Web Applications in 2024",
@@ -41,7 +41,7 @@ const Blog = () => {
       category: "Development",
       date: "Mar 10, 2024",
       readTime: "7 min read",
-      author: "Sarah Johnson",
+      author: "RGI Intelligence",
     },
     {
       title: "Custom AI Agents: Transforming Customer Experience",
@@ -51,7 +51,7 @@ const Blog = () => {
       category: "AI Solutions",
       date: "Mar 5, 2024",
       readTime: "6 min read",
-      author: "Michael Chen",
+      author: "RGI Intelligence",
     },
     {
       title: "Cloud Migration Strategies for Modern Enterprises",
@@ -61,7 +61,7 @@ const Blog = () => {
       category: "Cloud & Infrastructure",
       date: "Feb 28, 2024",
       readTime: "8 min read",
-      author: "Emily Davis",
+      author: "RGI Intelligence",
     },
     {
       title: "Data-Driven Decision Making: A Complete Guide",
@@ -71,7 +71,7 @@ const Blog = () => {
       category: "Business Intelligence",
       date: "Feb 22, 2024",
       readTime: "6 min read",
-      author: "David Wilson",
+      author: "RGI Intelligence",
     },
     {
       title: "E-Commerce Trends Shaping 2024",
@@ -81,7 +81,7 @@ const Blog = () => {
       category: "E-Commerce",
       date: "Feb 18, 2024",
       readTime: "5 min read",
-      author: "Lisa Anderson",
+      author: "RGI Intelligence",
     },
   ];
 
