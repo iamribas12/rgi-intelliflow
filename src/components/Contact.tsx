@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-// import PhoneInput from "react-phone-input-2"; // Cannot be resolved in this environment
-// import "react-phone-input-2/lib/style.css"; // Cannot be resolved in this environment
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 // import emailjs from "@emailjs/browser"; // No longer needed
-// import ReCAPTCHA from "react-google-recaptcha"; // Cannot be resolved in this environment
+import ReCAPTCHA from "react-google-recaptcha";
 
 import {
   Mail,
@@ -19,17 +19,17 @@ import {
   Loader2,
 } from "lucide-react";
 import { useState, useRef } from "react";
-import countryCodes from "@/data/countrycode"; // Assuming you have this file
+// import countryCodes from "@/data/countrycode"; // You may or may not need this
 
 // Get the ReCAPTCHA key from environment variables
 // Make sure this is in your .env file:
 // VITE_RECAPTCHA_SITE_KEY=your-recaptcha-site-key
 // And also in your Netlify environment variables
-// const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LcJn_UrAAAAAJ3y1uCGQrAGKiplMnZEf8-XZPBL"; // Removed for preview
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
 const Contact = () => {
   const formRef = useRef<HTMLFormElement>(null);
-  // const recaptchaRef = useRef<ReCAPTCHA>(null); // Ref for recaptcha
+  const recaptchaRef = useRef<ReCAPTCHA>(null); // Ref for recaptcha
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -42,7 +42,7 @@ const Contact = () => {
     contactMethod: "Email",
     message: "",
     file: null as File | null,
-    // captcha: "", // Restored captcha state
+    captcha: "", // Restored captcha state
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -88,7 +88,7 @@ const Contact = () => {
         break;
       case "phone":
         // Use a simple check for the phone component
-        if (value && !/^\d{7,15}$/.test(value))
+        if (value && value.length < 7) // react-phone-input-2's value includes country code
           error = "Please enter a valid phone number";
         break;
       case "message":
@@ -129,9 +129,9 @@ const Contact = () => {
       newErrors.phone = validateField("phone", formData.phone);
     
     // Restore captcha check
-    // if (!formData.captcha) { // Removed for preview
-    //     newErrors.captcha = "Please verify the CAPTCHA";
-    // }
+    if (!formData.captcha) {
+        newErrors.captcha = "Please verify the CAPTCHA";
+    }
 
     const validErrors = Object.fromEntries(
       Object.entries(newErrors).filter(([_, value]) => value !== "")
@@ -153,16 +153,16 @@ const Contact = () => {
         from_name: formData.name,
         from_email: formData.email,
         company: formData.company || "Not provided",
-        phone: (formData.countryCode && formData.phone) // Use the simple inputs
-          ? `${formData.countryCode} ${formData.phone}`
-          : (formData.phone || "Not provided"),
+        phone: formData.phone // PhoneInput value already includes country code
+          ? formData.phone
+          : "Not provided",
         country: formData.country || "Not specified",
         service_type: formData.serviceType || "Not specified",
         website_type: formData.websiteType || "N/A",
         contact_method: formData.contactMethod,
         message: formData.message,
         file_name: formData.file ? formData.file.name : "No file uploaded",
-        // 'g-recaptcha-response': formData.captcha, // Restore captcha
+        'g-recaptcha-response': formData.captcha, // Restore captcha
       };
 
       // Call your secure serverless function
@@ -194,9 +194,9 @@ const Contact = () => {
           contactMethod: "Email",
           message: "",
           file: null,
-          // captcha: "", // Removed for preview
+          captcha: "",
         });
-        // recaptchaRef.current?.reset(); // Reset recaptcha
+        recaptchaRef.current?.reset(); // Reset recaptcha
         setSubmitStatus(null);
       }, 3000);
 
@@ -313,38 +313,39 @@ const Contact = () => {
                 >
                   Contact Number
                 </Label>
-                {/* Fallback for preview environment */}
-                <div className="flex mt-1.5 gap-2">
-                  <select
-                    name="countryCode"
-                    value={formData.countryCode}
-                    onChange={handleChange}
-                    className="w-1/3 px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-                    disabled={isSubmitting}
-                  >
-                    <option value="+91">IN +91</option>
-                    <option value="+1">US +1</option>
-                    <option value="+44">UK +44</option>
-                  </select>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    type="tel"
+                <div className="mt-1.5">
+                  <PhoneInput
+                    country={"us"} // Your original default
                     value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="7-15 digits"
-                    className={`w-2/3 text-sm sm:text-base ${
-                      errors.phone ? "border-red-500" : ""
-                    }`}
+                    onChange={(phone, data: any) => {
+                      setFormData({
+                        ...formData,
+                        phone: phone, // This 'phone' variable already has the country code
+                        countryCode: `+${data.dialCode || ""}`, // We still save this just in case
+                      });
+                       const error = validateField("phone", phone);
+                       setErrors({ ...errors, phone: error });
+                    }}
+                    inputProps={{
+                      name: "phone",
+                      required: false,
+                      autoFocus: false,
+                    }}
+                    enableSearch={true}
+                    disableSearchIcon={false}
+                    inputClass={`!w-full !py-2.5 !pl-12 !pr-3 !border !rounded-md !text-sm !bg-white focus:!ring-2 focus:!ring-blue-500 focus:!border-blue-500 ${errors.phone ? '!border-red-500' : '!border-gray-300'}`}
+                    buttonClass={`!border !bg-white !rounded-l-md hover:!bg-gray-50 ${errors.phone ? '!border-red-500' : '!border-gray-300'}`}
+                    dropdownClass="!text-sm !max-h-60"
+                    containerClass="!w-full"
                     disabled={isSubmitting}
                   />
-                </div>
                   {errors.phone && (
                     <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center gap-1">
                       <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />{" "}
                       {errors.phone}
                     </p>
                   )}
+                </div>
               </div>
               {/* END RESTORED PhoneInput */}
 
@@ -512,7 +513,7 @@ const Contact = () => {
               
               {/* RESTORED ReCAPTCHA block */}
               <div className="mt-4">
-                {/* {RECAPTCHA_SITE_KEY ? (
+                {RECAPTCHA_SITE_KEY ? (
                   <ReCAPTCHA
                     ref={recaptchaRef}
                     sitekey={RECAPTCHA_SITE_KEY}
@@ -523,9 +524,8 @@ const Contact = () => {
                     size="normal"
                   />
                 ) : (
-                  <p className="text-red-500 text-sm">ReCAPTCHA key not loaded.</p>
-                )} */}
-                <p className="text-sm text-gray-500">ReCAPTCHA will be displayed on your live site.</p>
+                  <p className="text-red-500 text-sm">ReCAPTCHA site key is missing.</p>
+                )}
                 {errors.captcha && (
                   <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center gap-1">
                     <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
@@ -662,7 +662,7 @@ const Contact = () => {
             {/* RESTORED/FIXED Google Map iframe */}
             <Card className="overflow-hidden shadow-lg">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.1584585081105!2d72.82027971091269!3d18.968608055260745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cf2891ec075b%3A0x732d00a93b94c931!2sDudhwala%20Complex%20E!5e0!3m2!1sen!2sin!4v1760475825829!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.1584585081105!2d72.82027971091269!3d18.968608055260745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cf2891ec075b%3A0x732d00a93b94c931!2sDudhwala%20Complex%2C%20E!5e0!3m2!1sen!2sin!4v1760475825829!5m2!1sen!2sin"
                 width="100%"
                 height="250"
                 style={{ border: 0 }}
@@ -680,5 +680,4 @@ const Contact = () => {
 };
 
 export default Contact;
-
 
