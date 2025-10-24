@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-// import PhoneInput from "react-phone-input-2"; // REMOVED - Caused build error
-// import "react-phone-input-2/lib/style.css"; // REMOVED - Caused build error
-// import emailjs from "@emailjs/browser"; // NO LONGER NEEDED
-// import ReCAPTCHA from "react-google-recaptcha"; // REMOVED - Caused build error
+// import PhoneInput from "react-phone-input-2"; // Cannot be resolved in this environment
+// import "react-phone-input-2/lib/style.css"; // Cannot be resolved in this environment
+// import emailjs from "@emailjs/browser"; // No longer needed
+// import ReCAPTCHA from "react-google-recaptcha"; // Cannot be resolved in this environment
 
 import {
   Mail,
@@ -19,14 +19,17 @@ import {
   Loader2,
 } from "lucide-react";
 import { useState, useRef } from "react";
-// import countryCodes from "@/data/countrycode"; // REMOVED - Not used by new phone input
+import countryCodes from "@/data/countrycode"; // Assuming you have this file
 
-// REMOVED ReCAPTCHA key - Component is not available in this environment
-// const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
-
+// Get the ReCAPTCHA key from environment variables
+// Make sure this is in your .env file:
+// VITE_RECAPTCHA_SITE_KEY=your-recaptcha-site-key
+// And also in your Netlify environment variables
+// const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LcJn_UrAAAAAJ3y1uCGQrAGKiplMnZEf8-XZPBL"; // Removed for preview
 
 const Contact = () => {
   const formRef = useRef<HTMLFormElement>(null);
+  // const recaptchaRef = useRef<ReCAPTCHA>(null); // Ref for recaptcha
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -39,7 +42,7 @@ const Contact = () => {
     contactMethod: "Email",
     message: "",
     file: null as File | null,
-    // captcha: "", // REMOVED
+    // captcha: "", // Restored captcha state
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -47,11 +50,6 @@ const Contact = () => {
   const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(
     null
   );
-
-  // This useEffect is no longer needed
-  // useEffect(() => {
-  //   emailjs.init("A1KfqBc9-1oIBBetE"); 
-  // }, []);
 
   const countries = [
     "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina", 
@@ -89,9 +87,9 @@ const Contact = () => {
         else if (!emailRegex.test(value)) error = "Invalid email format";
         break;
       case "phone":
-        // Clean the phone value for validation
+        // Use a simple check for the phone component
         if (value && !/^\d{7,15}$/.test(value))
-          error = "Phone must be 7-15 digits";
+          error = "Please enter a valid phone number";
         break;
       case "message":
         if (!value.trim()) error = "Message is required";
@@ -130,8 +128,8 @@ const Contact = () => {
     if (formData.phone)
       newErrors.phone = validateField("phone", formData.phone);
     
-    // REMOVED: Captcha check
-    // if (!formData.captcha) {
+    // Restore captcha check
+    // if (!formData.captcha) { // Removed for preview
     //     newErrors.captcha = "Please verify the CAPTCHA";
     // }
 
@@ -151,13 +149,11 @@ const Contact = () => {
     setErrors({}); // Clear errors
 
     try {
-      // ** MODIFIED PART **
-      // 1. Create the same templateParams object
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
         company: formData.company || "Not provided",
-        phone: (formData.countryCode && formData.phone)
+        phone: (formData.countryCode && formData.phone) // Use the simple inputs
           ? `${formData.countryCode} ${formData.phone}`
           : (formData.phone || "Not provided"),
         country: formData.country || "Not specified",
@@ -165,13 +161,11 @@ const Contact = () => {
         website_type: formData.websiteType || "N/A",
         contact_method: formData.contactMethod,
         message: formData.message,
-        // NOTE: File content is NOT sent, only the name.
         file_name: formData.file ? formData.file.name : "No file uploaded",
-        // REMOVED: Captcha response
-        // 'g-recaptcha-response': formData.captcha,
+        // 'g-recaptcha-response': formData.captcha, // Restore captcha
       };
 
-      // 2. Call your OWN serverless function
+      // Call your secure serverless function
       const response = await fetch("/.netlify/functions/send-email", {
         method: "POST",
         headers: {
@@ -181,16 +175,11 @@ const Contact = () => {
       });
 
       if (!response.ok) {
-        // If the server function itself fails
         const errorData = await response.json();
         console.error("Function error:", errorData);
         throw new Error("Server function failed");
       }
       
-      // const result = await response.json();
-      // console.log("Function success:", result);
-
-      // 3. Handle success
       setSubmitStatus("success");
       setTimeout(() => {
         setFormData({
@@ -205,13 +194,13 @@ const Contact = () => {
           contactMethod: "Email",
           message: "",
           file: null,
-          // captcha: "", // REMOVED
+          // captcha: "", // Removed for preview
         });
+        // recaptchaRef.current?.reset(); // Reset recaptcha
         setSubmitStatus(null);
       }, 3000);
 
     } catch (error) {
-      // 4. Handle failure
       console.error("Submission error:", error);
       setSubmitStatus("error");
       setTimeout(() => setSubmitStatus(null), 3000);
@@ -219,7 +208,6 @@ const Contact = () => {
       setIsSubmitting(false);
     }
   };
-
 
   return (
     <section
@@ -245,7 +233,6 @@ const Contact = () => {
               Send Us a Message
             </h3>
             
-            {/* Form Tag: Add ref and onSubmit */}
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <Label
@@ -318,7 +305,7 @@ const Contact = () => {
                 />
               </div>
 
-              {/* REPLACED PhoneInput */}
+              {/* RESTORED PhoneInput */}
               <div>
                 <Label
                   htmlFor="phone"
@@ -326,6 +313,7 @@ const Contact = () => {
                 >
                   Contact Number
                 </Label>
+                {/* Fallback for preview environment */}
                 <div className="flex mt-1.5 gap-2">
                   <select
                     name="countryCode"
@@ -337,8 +325,6 @@ const Contact = () => {
                     <option value="+91">IN +91</option>
                     <option value="+1">US +1</option>
                     <option value="+44">UK +44</option>
-                    <option value="+61">AU +61</option>
-                    <option value="+86">CN +86</option>
                   </select>
                   <Input
                     id="phone"
@@ -353,14 +339,14 @@ const Contact = () => {
                     disabled={isSubmitting}
                   />
                 </div>
-                {errors.phone && (
-                  <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center gap-1">
-                    <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />{" "}
-                    {errors.phone}
-                  </p>
-                )}
+                  {errors.phone && (
+                    <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center gap-1">
+                      <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />{" "}
+                      {errors.phone}
+                    </p>
+                  )}
               </div>
-              {/* END REPLACEMENT */}
+              {/* END RESTORED PhoneInput */}
 
               <div>
                 <Label
@@ -524,12 +510,35 @@ const Contact = () => {
                 </div>
               </div>
               
-              {/* REMOVED ReCAPTCHA block */}
+              {/* RESTORED ReCAPTCHA block */}
+              <div className="mt-4">
+                {/* {RECAPTCHA_SITE_KEY ? (
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={RECAPTCHA_SITE_KEY}
+                    onChange={(token) =>
+                      setFormData({ ...formData, captcha: token || "" })
+                    }
+                    theme="light"
+                    size="normal"
+                  />
+                ) : (
+                  <p className="text-red-500 text-sm">ReCAPTCHA key not loaded.</p>
+                )} */}
+                <p className="text-sm text-gray-500">ReCAPTCHA will be displayed on your live site.</p>
+                {errors.captcha && (
+                  <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center gap-1">
+                    <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                    {errors.captcha}
+                  </p>
+                )}
+              </div>
+              {/* END RESTORED ReCAPTCHA block */}
 
               <Button
-                type="submit" // Change to type="submit"
+                type="submit"
                 size="lg"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base mt-4"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
@@ -575,13 +584,13 @@ const Contact = () => {
                     Email Us
                   </h4>
                   <a
-                    href="mailto:contact@rgiintelligence.com"
+                    href="mailto:contact@rgiintelligence.site"
                     className="text-xs sm:text-sm text-gray-600 hover:text-blue-600 break-all block mb-1"
                   >
                     contact@rgiintelligence.site
                   </a>
                   <a
-                    href="mailto:info.rgiintelligence.co.in@gmail.com"
+                    href="mailto:info@rgiintelligence.site"
                     className="text-xs sm:text-sm text-gray-600 hover:text-blue-600 break-all block"
                   >
                     info@rgiintelligence.site
@@ -591,7 +600,7 @@ const Contact = () => {
             </Card>
 
             <Card className="p-4 sm:p-6 shadow-lg bg-white">
-              <div className="flex items-start gap-3 sm:padding-4">
+              <div className="flex items-start gap-3 sm:gap-4">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
                   <Phone className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
                 </div>
@@ -650,9 +659,10 @@ const Contact = () => {
               </a>
             </Button>
 
+            {/* RESTORED/FIXED Google Map iframe */}
             <Card className="overflow-hidden shadow-lg">
               <iframe
-                src="https.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.1584585081105!2d72.82027971091269!3d18.968608055260745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cf2891ec075b%3A0x732d00a93b94c931!2sDudhwala%20Complex%2sE!5e0!3m2!1sen!2sin!4v1760475825829!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.1584585081105!2d72.82027971091269!3d18.968608055260745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cf2891ec075b%3A0x732d00a93b94c931!2sDudhwala%20Complex%20E!5e0!3m2!1sen!2sin!4v1760475825829!5m2!1sen!2sin"
                 width="100%"
                 height="250"
                 style={{ border: 0 }}
@@ -670,4 +680,5 @@ const Contact = () => {
 };
 
 export default Contact;
+
 
