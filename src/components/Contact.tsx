@@ -166,7 +166,7 @@ const Contact = () => {
       };
 
       // Call your secure serverless function
-      const response = await fetch("/.netlify/functions/send-email", {
+      const response = await fetch("/.netlify/functions/Send-Email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
