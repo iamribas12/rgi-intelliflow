@@ -23,9 +23,8 @@ exports.handler = async function(event) {
     return { statusCode: 400, body: JSON.stringify({ message: 'Invalid JSON in request body.' }) };
   }
 
-  // --- START NEW/MODIFIED SECTION ---
-  // Ensure all expected template variables exist, even if empty or null,
-  // especially for conditional blocks like website_type.
+  // --- START REVISED SECTION ---
+  // Ensure all expected template variables exist. Handle message carefully.
   const finalTemplateParams = {
     from_name: incomingTemplateParams.from_name || '',
     from_email: incomingTemplateParams.from_email || '',
@@ -33,19 +32,22 @@ exports.handler = async function(event) {
     company: incomingTemplateParams.company || 'Not provided',
     country: incomingTemplateParams.country || 'Not specified',
     service_type: incomingTemplateParams.service_type || 'Not specified',
-    website_type: incomingTemplateParams.website_type || null, // Explicitly set null if missing/empty
+    website_type: incomingTemplateParams.website_type || null,
     contact_method: incomingTemplateParams.contact_method || 'Not specified',
     file_name: incomingTemplateParams.file_name || 'No file uploaded',
-    message: incomingTemplateParams.message || '(No message provided)',
+    // Pass the message directly if it exists, otherwise use a default.
+    // Check specifically for undefined or null, allow empty strings "" to pass.
+    message: (incomingTemplateParams.message !== undefined && incomingTemplateParams.message !== null)
+             ? incomingTemplateParams.message
+             : '(No message provided)',
   };
 
-  // Ensure website_type is truly absent if it's effectively empty, for the #if condition
+
   if (!finalTemplateParams.website_type || finalTemplateParams.website_type === "N/A") {
-    // If website_type is null, undefined, empty string, or "N/A", treat it as false for the template's #if
-     finalTemplateParams.website_type = null; // Or delete finalTemplateParams.website_type; - null might be safer
+     finalTemplateParams.website_type = null;
   }
   console.log("Final templateParams being sent:", JSON.stringify(finalTemplateParams, null, 2)); // Log 2.5: Show final data
-  // --- END NEW/MODIFIED SECTION ---
+  // --- END REVISED SECTION ---
 
 
   // 2. Get your SECRET keys from Netlify environment variables
@@ -56,8 +58,7 @@ exports.handler = async function(event) {
     EMAILJS_PRIVATE_KEY
   } = process.env;
 
-  console.log("Checking environment variables..."); // Log 3: Checkpoint before env var check
-  // Basic check for required keys
+  console.log("Checking environment variables..."); // Log 3
   if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY || !EMAILJS_PRIVATE_KEY) {
     console.error("Error: Missing EmailJS environment variables!");
     if (!EMAILJS_SERVICE_ID) console.error("EMAILJS_SERVICE_ID is missing");
@@ -69,11 +70,11 @@ exports.handler = async function(event) {
       body: JSON.stringify({ message: 'Server configuration error: Missing environment variables.'}),
     };
   }
-  console.log("Environment variables seem OK."); // Log 4: Env vars confirmed
+  console.log("Environment variables seem OK."); // Log 4
 
   try {
     // 3. Call EmailJS using the Node.js SDK
-    console.log("Attempting to send email via EmailJS..."); // Log 5: Before sending
+    console.log("Attempting to send email via EmailJS..."); // Log 5
     const response = await emailjs.send(
       EMAILJS_SERVICE_ID,
       EMAILJS_TEMPLATE_ID,
@@ -83,10 +84,10 @@ exports.handler = async function(event) {
         privateKey: EMAILJS_PRIVATE_KEY,
       }
     );
-    console.log("EmailJS Send Response:", response); // Log 6: Show EmailJS result
+    console.log("EmailJS Send Response:", response); // Log 6
 
     // 4. Send a success response back to the frontend
-    console.log("Email sent successfully. Returning 200."); // Log 7: Success
+    console.log("Email sent successfully. Returning 200."); // Log 7
     return {
       statusCode: 200,
       body: JSON.stringify({ message: 'Email sent successfully!', response }),
@@ -94,13 +95,13 @@ exports.handler = async function(event) {
 
   } catch (error) {
     // 5. Send an error response back to the frontend
-    console.error("EmailJS Send Error:", error); // Log 8: Log the specific error from EmailJS
+    console.error("EmailJS Send Error:", error); // Log 8
     return {
       statusCode: error.status || 500, // Use EmailJS status code if available
       body: JSON.stringify({ message: 'Failed to send email via EmailJS.', error }),
     };
   } finally {
-      console.log("Function finished."); // Log 9: Function ends
+      console.log("Function finished."); // Log 9
   }
 };
 
