@@ -8,11 +8,69 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useState, useEffect, useRef } from "react";
 import director1 from "@/assets/team/director-1.jpg";
 import coDirector1 from "@/assets/team/co-director-1.jpg";
 import nationalManager from "@/assets/team/national-manager.jpg";
 
 const About = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const statsRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (statsRef.current) {
+      observer.observe(statsRef.current);
+    }
+
+    return () => {
+      if (statsRef.current) {
+        observer.unobserve(statsRef.current);
+      }
+    };
+  }, []);
+
+  const AnimatedNumber = ({ value, duration = 2000 }) => {
+    const [count, setCount] = useState(0);
+    const numericValue = parseInt(value.replace(/\D/g, ""));
+    const suffix = value.replace(/[0-9]/g, "");
+
+    useEffect(() => {
+      if (!isVisible) return;
+
+      let startTime = null;
+      const animate = (timestamp) => {
+        if (!startTime) startTime = timestamp;
+        const progress = timestamp - startTime;
+        const percentage = Math.min(progress / duration, 1);
+        
+        const easeOutQuart = 1 - Math.pow(1 - percentage, 4);
+        setCount(Math.floor(easeOutQuart * numericValue));
+
+        if (percentage < 1) {
+          requestAnimationFrame(animate);
+        }
+      };
+
+      requestAnimationFrame(animate);
+    }, [isVisible, numericValue, duration]);
+
+    return (
+      <span>
+        {count}
+        {suffix}
+      </span>
+    );
+  };
+
   const stats = [
     {
       icon: TrendingUp,
@@ -61,7 +119,7 @@ const About = () => {
       name: "Dahiru Abdul Gabdo",
       designation: "National Manager",
       role: "National Manager",
-      image: nationalManager,
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
       email: "vikram.singh@rgiintelligence.com",
       linkedin: "https://www.linkedin.com/in/dahiru-abdul-gabdo-742425374?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
       bio: "Managing nationwide operations and client relationships, with expertise in scaling technology services across diverse industries.",
@@ -122,7 +180,7 @@ const About = () => {
           </Card>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16 opacity-0 animate-[slideUp_0.6s_ease-out_0.4s_forwards]">
+          <div ref={statsRef} className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16 opacity-0 animate-[slideUp_0.6s_ease-out_0.4s_forwards]">
             {stats.map((stat, index) => (
               <Card
                 key={index}
@@ -132,7 +190,7 @@ const About = () => {
                   <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
                 </div>
                 <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-1 sm:mb-2">
-                  {stat.value}
+                  <AnimatedNumber value={stat.value} duration={2000} />
                 </div>
                 <div className="text-xs sm:text-sm text-muted-foreground font-medium">
                   {stat.label}
@@ -288,51 +346,6 @@ const About = () => {
             </div>
           </div>
         </div>
-
-        {/* Team Members Section
-        <div className="mt-16 sm:mt-20 lg:mt-24">
-          <div className="text-center mb-10 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-              Our <span className="text-primary">Team</span>
-            </h2>
-            <div className="w-20 h-1 bg-primary mx-auto mb-5"></div>
-            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
-              Meet the talented professionals driving our success
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 max-w-6xl mx-auto">
-            {[
-              { name: "Priya Sharma", designation: "Senior AI Engineer" },
-              { name: "Rajesh Kumar", designation: "Full Stack Developer" },
-              { name: "Anita Desai", designation: "UX/UI Designer" },
-              { name: "Amit Patel", designation: "DevOps Engineer" },
-              { name: "Sneha Reddy", designation: "Product Manager" },
-              { name: "Karthik Iyer", designation: "Data Scientist" },
-              { name: "Neha Gupta", designation: "QA Lead" },
-              { name: "Arjun Singh", designation: "Backend Developer" },
-              { name: "Deepa Nair", designation: "Frontend Developer" },
-              { name: "Rohan Mehta", designation: "Cloud Architect" },
-            ].map((member, index) => (
-              <Card
-                key={index}
-                className="p-4 text-center hover:shadow-lg transition-all duration-300 group"
-              >
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 mx-auto mb-3 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-xl sm:text-2xl font-bold text-primary">
-                    {member.name.split(" ").map((n) => n[0]).join("")}
-                  </span>
-                </div>
-                <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-1">
-                  {member.name}
-                </h4>
-                <p className="text-xs text-muted-foreground">
-                  {member.designation}
-                </p>
-              </Card>
-            ))}
-          </div>
-        </div> */}
       </div>
     </section>
   );
