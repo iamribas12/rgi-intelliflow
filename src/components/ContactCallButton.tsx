@@ -78,12 +78,12 @@ const ContactCallButton = () => {
 
   return (
     <>
-      {/* Main Contact Button Container */}
+      {/* Main Contact Button Container - RIGHT SIDE, ABOVE WHATSAPP */}
       <div 
         ref={containerRef}
-        className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-50 flex flex-col items-start gap-3 sm:gap-4"
+        className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 z-50 flex flex-col items-end gap-3 sm:gap-4"
       >
-        {/* Enhanced Popup Card */}
+        {/* Enhanced Popup Card - Opens to the LEFT */}
         {isOpen && (
           <div className="bg-gradient-to-br from-card to-card/95 border-2 border-blue-500/20 shadow-2xl rounded-2xl p-4 sm:p-5 w-[calc(100vw-2rem)] sm:w-80 max-w-sm animate-scale-in backdrop-blur-sm">
             {/* Header */}
@@ -185,12 +185,12 @@ const ContactCallButton = () => {
           <div className="absolute inset-0 rounded-full bg-blue-500 blur-xl opacity-0 group-hover:opacity-50 transition-opacity"></div>
         </button>
 
-        {/* Tooltip on Hover - Hidden on Mobile */}
+        {/* Tooltip on Hover - Hidden on Mobile, appears on LEFT */}
         {!isOpen && (
-          <div className="hidden sm:block absolute left-full ml-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          <div className="hidden sm:block absolute right-full mr-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
             <div className="bg-gray-900 text-white text-xs font-medium py-2 px-3 rounded-lg whitespace-nowrap shadow-lg">
               Call us now
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 rotate-45 w-2 h-2 bg-gray-900"></div>
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 rotate-45 w-2 h-2 bg-gray-900"></div>
             </div>
           </div>
         )}
