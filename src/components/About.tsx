@@ -119,7 +119,7 @@ const About = () => {
       name: "Dahiru Abdul Gabdo",
       designation: "National Manager",
       role: "National Manager",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
+      image: nationalManager,
       email: "vikram.singh@rgiintelligence.com",
       linkedin: "https://www.linkedin.com/in/dahiru-abdul-gabdo-742425374?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
       bio: "Managing nationwide operations and client relationships, with expertise in scaling technology services across diverse industries.",
