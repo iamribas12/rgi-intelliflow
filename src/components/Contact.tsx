@@ -162,7 +162,7 @@ const Contact = () => {
         contact_method: formData.contactMethod,
         message: formData.message,
         file_name: formData.file ? formData.file.name : "No file uploaded",
-        'g-recaptcha-response': formData.captcha, // Restore captcha
+        // The g-recaptcha-response line should be removed
       };
 
       // Call your secure serverless function
