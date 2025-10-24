@@ -153,16 +153,15 @@ const Contact = () => {
         from_name: formData.name,
         from_email: formData.email,
         company: formData.company || "Not provided",
-        phone: formData.phone // PhoneInput value already includes country code
+        phone: formData.phone
           ? formData.phone
           : "Not provided",
         country: formData.country || "Not specified",
         service_type: formData.serviceType || "Not specified",
         website_type: formData.websiteType || "N/A",
         contact_method: formData.contactMethod,
-        message: formData.message,
+        // message: formData.message, // <-- COMMENT THIS LINE OUT
         file_name: formData.file ? formData.file.name : "No file uploaded",
-        // The g-recaptcha-response line should be removed
       };
 
       // Call your secure serverless function
