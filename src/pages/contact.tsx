@@ -1,4 +1,4 @@
-import Contact from "@/components/Contact";
+import Contact from "@/components/Contact.tsx";
 import PageHero from "@/components/PageHero";
 
 export default function ContactPage() {

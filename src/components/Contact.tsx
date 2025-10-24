@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
-import emailjs from "@emailjs/browser";
-import ReCAPTCHA from "react-google-recaptcha";
+// import PhoneInput from "react-phone-input-2"; // REMOVED - Caused build error
+// import "react-phone-input-2/lib/style.css"; // REMOVED - Caused build error
+// import emailjs from "@emailjs/browser"; // NO LONGER NEEDED
+// import ReCAPTCHA from "react-google-recaptcha"; // REMOVED - Caused build error
 
 import {
   Mail,
@@ -18,8 +18,12 @@ import {
   AlertCircle,
   Loader2,
 } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
-import countryCodes from "@/data/countrycode";
+import { useState, useRef } from "react";
+// import countryCodes from "@/data/countrycode"; // REMOVED - Not used by new phone input
+
+// REMOVED ReCAPTCHA key - Component is not available in this environment
+// const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+
 
 const Contact = () => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -35,120 +39,43 @@ const Contact = () => {
     contactMethod: "Email",
     message: "",
     file: null as File | null,
-    captcha: "",
+    // captcha: "", // REMOVED
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
+  const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(
+    null
+  );
 
-  useEffect(() => {
-    // Initialize EmailJS with your public key
-    emailjs.init(""); // User needs to replace this
-  }, []);
+  // This useEffect is no longer needed
+  // useEffect(() => {
+  //   emailjs.init("A1KfqBc9-1oIBBetE"); 
+  // }, []);
 
   const countries = [
-    "Afghanistan",
-    "Albania",
-    "Algeria",
-    "Andorra",
-    "Angola",
-    "Argentina",
-    "Armenia",
-    "Australia",
-    "Austria",
-    "Azerbaijan",
-    "Bahrain",
-    "Bangladesh",
-    "Belarus",
-    "Belgium",
-    "Brazil",
-    "Bulgaria",
-    "Canada",
-    "Chile",
-    "China",
-    "Colombia",
-    "Costa Rica",
-    "Croatia",
-    "Cyprus",
-    "Czech Republic",
-    "Denmark",
-    "Egypt",
-    "Estonia",
-    "Ethiopia",
-    "Finland",
-    "France",
-    "Georgia",
-    "Germany",
-    "Ghana",
-    "Greece",
-    "Hong Kong",
-    "Hungary",
-    "Iceland",
-    "India",
-    "Indonesia",
-    "Iran",
-    "Iraq",
-    "Ireland",
-    "Israel",
-    "Italy",
-    "Japan",
-    "Jordan",
-    "Kazakhstan",
-    "Kenya",
-    "Kuwait",
-    "Latvia",
-    "Lebanon",
-    "Lithuania",
-    "Malaysia",
-    "Mexico",
-    "Morocco",
-    "Netherlands",
-    "New Zealand",
-    "Nigeria",
-    "Norway",
-    "Oman",
-    "Pakistan",
-    "Philippines",
-    "Poland",
-    "Portugal",
-    "Qatar",
-    "Romania",
-    "Russia",
-    "Saudi Arabia",
-    "Singapore",
-    "Slovakia",
-    "Slovenia",
-    "South Africa",
-    "South Korea",
-    "Spain",
-    "Sri Lanka",
-    "Sudan",
-    "Sweden",
-    "Switzerland",
-    "Syria",
-    "Taiwan",
-    "Thailand",
-    "Turkey",
-    "Ukraine",
-    "United Arab Emirates",
-    "United Kingdom",
-    "United States",
-    "Vietnam",
-    "Others",
+    "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina", 
+    "Armenia", "Australia", "Austria", "Azerbaijan", "Bahrain", "Bangladesh", 
+    "Belarus", "Belgium", "Brazil", "Bulgaria", "Canada", "Chile", "China", 
+    "Colombia", "Costa Rica", "Croatia", "Cyprus", "Czech Republic", "Denmark", 
+    "Egypt", "Estonia", "Ethiopia", "Finland", "France", "Georgia", "Germany", 
+    "Ghana", "Greece", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", 
+    "Iran", "Iraq", "Ireland", "Israel", "Italy", "Japan", "Jordan", "Kazakhstan", 
+    "Kenya", "Kuwait", "Latvia", "Lebanon", "Lithuania", "Malaysia", "Mexico", 
+    "Morocco", "Netherlands", "New Zealand", "Nigeria", "Norway", "Oman", 
+    "Pakistan", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", 
+    "Saudi Arabia", "Singapore", "Slovakia", "Slovenia", "South Africa", 
+    "South Korea", "Spain", "Sri Lanka", "Sudan", "Sweden", "Switzerland", 
+    "Syria", "Taiwan", "Thailand", "Turkey", "Ukraine", "United Arab Emirates", 
+    "United Kingdom", "United States", "Vietnam", "Others",
   ];
 
   const services = [
-    "Web Development",
-    "AI & Automation",
-    "Mobile App Development",
-    "Data Analytics",
-    "Digital Marketing",
-    "Consulting",
-    "Others",
+    "Web Development", "AI & Automation", "Mobile App Development", 
+    "Data Analytics", "Digital Marketing", "Consulting", "Others",
   ];
 
-  const validateField = (name, value) => {
+  const validateField = (name: string, value: string) => {
     let error = "";
     switch (name) {
       case "name":
@@ -162,6 +89,7 @@ const Contact = () => {
         else if (!emailRegex.test(value)) error = "Invalid email format";
         break;
       case "phone":
+        // Clean the phone value for validation
         if (value && !/^\d{7,15}$/.test(value))
           error = "Phone must be 7-15 digits";
         break;
@@ -174,11 +102,11 @@ const Contact = () => {
     return error;
   };
 
-  const handleChange = (e) => {
-    const { name, value, type, files } = e.target;
-
-    if (type === "file") {
-      const file = files[0];
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    
+    if (type === 'file') {
+      const file = (e.target as HTMLInputElement).files?.[0] || null;
       if (file && file.size > 5 * 1024 * 1024) {
         setErrors({ ...errors, file: "File size must be less than 5MB" });
         return;
@@ -201,6 +129,11 @@ const Contact = () => {
     newErrors.message = validateField("message", formData.message);
     if (formData.phone)
       newErrors.phone = validateField("phone", formData.phone);
+    
+    // REMOVED: Captcha check
+    // if (!formData.captcha) {
+    //     newErrors.captcha = "Please verify the CAPTCHA";
+    // }
 
     const validErrors = Object.fromEntries(
       Object.entries(newErrors).filter(([_, value]) => value !== "")
@@ -215,37 +148,50 @@ const Contact = () => {
 
     setIsSubmitting(true);
     setSubmitStatus(null);
+    setErrors({}); // Clear errors
 
     try {
+      // ** MODIFIED PART **
+      // 1. Create the same templateParams object
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
         company: formData.company || "Not provided",
-        phone: formData.phone
+        phone: (formData.countryCode && formData.phone)
           ? `${formData.countryCode} ${formData.phone}`
-          : "Not provided",
+          : (formData.phone || "Not provided"),
         country: formData.country || "Not specified",
         service_type: formData.serviceType || "Not specified",
         website_type: formData.websiteType || "N/A",
         contact_method: formData.contactMethod,
         message: formData.message,
+        // NOTE: File content is NOT sent, only the name.
         file_name: formData.file ? formData.file.name : "No file uploaded",
+        // REMOVED: Captcha response
+        // 'g-recaptcha-response': formData.captcha,
       };
-      if (!formData.captcha) {
-        setSubmitStatus("error");
-        setErrors({ ...errors, captcha: "Please verify the CAPTCHA" });
-        setTimeout(() => setSubmitStatus(null), 3000);
-        return;
+
+      // 2. Call your OWN serverless function
+      const response = await fetch("/.netlify/functions/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ templateParams }),
+      });
+
+      if (!response.ok) {
+        // If the server function itself fails
+        const errorData = await response.json();
+        console.error("Function error:", errorData);
+        throw new Error("Server function failed");
       }
+      
+      // const result = await response.json();
+      // console.log("Function success:", result);
 
-      await emailjs.send(
-        "service_g0jpbqe", // User needs to replace this
-        "template_aiujb0t", // User needs to replace this
-        templateParams
-      );
-
+      // 3. Handle success
       setSubmitStatus("success");
-
       setTimeout(() => {
         setFormData({
           name: "",
@@ -259,11 +205,13 @@ const Contact = () => {
           contactMethod: "Email",
           message: "",
           file: null,
-          captcha: "",
+          // captcha: "", // REMOVED
         });
         setSubmitStatus(null);
       }, 3000);
+
     } catch (error) {
+      // 4. Handle failure
       console.error("Submission error:", error);
       setSubmitStatus("error");
       setTimeout(() => setSubmitStatus(null), 3000);
@@ -272,9 +220,6 @@ const Contact = () => {
     }
   };
 
-  const selectedCountry = countryCodes.find(
-    (c) => c.code === formData.countryCode
-  );
 
   return (
     <section
@@ -299,8 +244,9 @@ const Contact = () => {
             <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">
               Send Us a Message
             </h3>
-
-            <div className="space-y-4">
+            
+            {/* Form Tag: Add ref and onSubmit */}
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <Label
                   htmlFor="name"
@@ -372,6 +318,7 @@ const Contact = () => {
                 />
               </div>
 
+              {/* REPLACED PhoneInput */}
               <div>
                 <Label
                   htmlFor="phone"
@@ -379,38 +326,41 @@ const Contact = () => {
                 >
                   Contact Number
                 </Label>
-                <div className="mt-1.5">
-                  <PhoneInput
-                    country={"us"}
+                <div className="flex mt-1.5 gap-2">
+                  <select
+                    name="countryCode"
+                    value={formData.countryCode}
+                    onChange={handleChange}
+                    className="w-1/3 px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                    disabled={isSubmitting}
+                  >
+                    <option value="+91">IN +91</option>
+                    <option value="+1">US +1</option>
+                    <option value="+44">UK +44</option>
+                    <option value="+61">AU +61</option>
+                    <option value="+86">CN +86</option>
+                  </select>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
                     value={formData.phone}
-                    onChange={(phone, data: any) => {
-                      setFormData({
-                        ...formData,
-                        phone: phone,
-                        countryCode: `+${data.dialCode || ""}`,
-                      });
-                    }}
-                    inputProps={{
-                      name: "phone",
-                      required: false,
-                      autoFocus: false,
-                    }}
-                    enableSearch={true}
-                    disableSearchIcon={false}
-                    inputClass="!w-full !py-2.5 !pl-12 !pr-3 !border !border-gray-300 !rounded-md !text-sm !bg-white focus:!ring-2 focus:!ring-blue-500 focus:!border-blue-500"
-                    buttonClass="!border !border-gray-300 !bg-white !rounded-l-md hover:!bg-gray-50"
-                    dropdownClass="!text-sm !max-h-60"
-                    containerClass="!w-full"
+                    onChange={handleChange}
+                    placeholder="7-15 digits"
+                    className={`w-2/3 text-sm sm:text-base ${
+                      errors.phone ? "border-red-500" : ""
+                    }`}
                     disabled={isSubmitting}
                   />
-                  {errors.phone && (
-                    <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center gap-1">
-                      <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />{" "}
-                      {errors.phone}
-                    </p>
-                  )}
                 </div>
+                {errors.phone && (
+                  <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center gap-1">
+                    <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />{" "}
+                    {errors.phone}
+                  </p>
+                )}
               </div>
+              {/* END REPLACEMENT */}
 
               <div>
                 <Label
@@ -573,27 +523,13 @@ const Contact = () => {
                   )}
                 </div>
               </div>
-              <div className="mt-4">
-                <ReCAPTCHA
-                  sitekey="6LcJn_UrAAAAAJ3y1uCGQrAGKiplMnZEf8-XZPBL" // Replace with your site key
-                  onChange={(token) =>
-                    setFormData({ ...formData, captcha: token })
-                  }
-                  theme="light" // or 'dark'
-                  size="normal" // can also use 'compact' for smaller screens
-                />
-                {!formData.captcha && submitStatus === "error" && (
-                  <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center gap-1">
-                    <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-                    Please verify that you are not a robot
-                  </p>
-                )}
-              </div>
+              
+              {/* REMOVED ReCAPTCHA block */}
 
               <Button
-                onClick={handleSubmit}
+                type="submit" // Change to type="submit"
                 size="lg"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base mt-4"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
@@ -625,7 +561,7 @@ const Contact = () => {
                   </span>
                 </div>
               )}
-            </div>
+            </form>
           </Card>
 
           <div className="space-y-4 sm:space-y-6">
@@ -655,7 +591,7 @@ const Contact = () => {
             </Card>
 
             <Card className="p-4 sm:p-6 shadow-lg bg-white">
-              <div className="flex items-start gap-3 sm:gap-4">
+              <div className="flex items-start gap-3 sm:padding-4">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
                   <Phone className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
                 </div>
@@ -716,7 +652,7 @@ const Contact = () => {
 
             <Card className="overflow-hidden shadow-lg">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.1584585081105!2d72.82027971091269!3d18.968608055260745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cf2891ec075b%3A0x732d00a93b94c931!2sDudhwala%20Complex%20E!5e0!3m2!1sen!2sin!4v1760475825829!5m2!1sen!2sin"
+                src="https.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.1584585081105!2d72.82027971091269!3d18.968608055260745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cf2891ec075b%3A0x732d00a93b94c931!2sDudhwala%20Complex%2sE!5e0!3m2!1sen!2sin!4v1760475825829!5m2!1sen!2sin"
                 width="100%"
                 height="250"
                 style={{ border: 0 }}
@@ -734,3 +670,4 @@ const Contact = () => {
 };
 
 export default Contact;
+
