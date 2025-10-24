@@ -1,5 +1,5 @@
 import { X, Send, Clock, Users } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // WhatsApp Official SVG Logo Component
 const WhatsAppIcon = ({ className = "w-6 h-6" }) => (
@@ -11,7 +11,8 @@ const WhatsAppIcon = ({ className = "w-6 h-6" }) => (
 const WhatsAppButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasNotification, setHasNotification] = useState(true);
-  const [isVisible, setIsVisible] = useState(true); // Changed to true for immediate visibility
+  const [isVisible, setIsVisible] = useState(true);
+  const popupRef = useRef(null);
 
   const whatsappNumber = "+917439707204";
   const currentHour = new Date().getHours();
@@ -23,7 +24,7 @@ const WhatsAppButton = () => {
       : "Good evening";
 
   const whatsappMessage = encodeURIComponent(
-    `${greeting}! I saw your website and I’m interested in web development / digital services. Can we discuss my project?`
+    `${greeting}! I saw your website and I'm interested in web development / digital services. Can we discuss my project?`
   );
 
   // Show button after scrolling a bit
@@ -55,6 +56,20 @@ const WhatsAppButton = () => {
     }
   }, []);
 
+  // Close popup when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [isOpen]);
+
   const handleWhatsAppClick = () => {
     window.open(
       `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`,
@@ -73,7 +88,7 @@ const WhatsAppButton = () => {
   return (
     <>
       {/* Main WhatsApp Button Container */}
-      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end gap-3 sm:gap-4">
+      <div ref={popupRef} className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end gap-3 sm:gap-4">
         {/* Enhanced Popup Card */}
         {isOpen && (
           <div className="bg-gradient-to-br from-card to-card/95 border-2 border-[#25D366]/20 shadow-2xl rounded-2xl p-4 sm:p-5 w-[calc(100vw-2rem)] sm:w-80 max-w-sm animate-scale-in backdrop-blur-sm">

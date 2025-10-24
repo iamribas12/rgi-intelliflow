@@ -25,6 +25,7 @@ import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import IndustryTemplate from "./pages/industries/IndustryTemplate";
+import ContactCallButton from "./components/ContactCallButton";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +58,7 @@ const App = () => (
         </Routes>
         <Footer />
         <CookieBanner />
+        <ContactCallButton />
         <WhatsAppButton />
       </BrowserRouter>
     </TooltipProvider>
