@@ -160,7 +160,7 @@ const Contact = () => {
         service_type: formData.serviceType || "Not specified",
         website_type: formData.websiteType || "N/A",
         contact_method: formData.contactMethod,
-        // message: formData.message, // <-- COMMENT THIS LINE OUT
+        message: formData.message, 
         file_name: formData.file ? formData.file.name : "No file uploaded",
       };
 
