@@ -2,9 +2,9 @@
 const emailjs = require('@emailjs/nodejs');
 
 exports.handler = async function(event) {
-  console.log("Function started."); // Log 1: Function begins
+  console.log("Function started."); // Log 1
 
-  // 1. Get the form data from the frontend
+  // 1. Get the form data
   let incomingTemplateParams;
   try {
     if (!event.body) {
@@ -12,19 +12,19 @@ exports.handler = async function(event) {
       return { statusCode: 400, body: JSON.stringify({ message: 'Request body is missing.' }) };
     }
     const parsedBody = JSON.parse(event.body);
-    incomingTemplateParams = parsedBody.templateParams; // Extract only templateParams
+    incomingTemplateParams = parsedBody.templateParams;
     if (!incomingTemplateParams) {
        console.error("Error: templateParams not found in request body.");
        return { statusCode: 400, body: JSON.stringify({ message: 'templateParams missing in request body.' }) };
     }
-    console.log("Received incoming templateParams:", JSON.stringify(incomingTemplateParams, null, 2)); // Log 2: Show received data
+    console.log("Received incoming templateParams:", JSON.stringify(incomingTemplateParams, null, 2)); // Log 2
   } catch (parseError) {
     console.error("Error parsing request body:", parseError);
     return { statusCode: 400, body: JSON.stringify({ message: 'Invalid JSON in request body.' }) };
   }
 
-  // --- START REVISED SECTION ---
-  // Ensure all expected template variables exist. Handle message carefully.
+  // --- START SIMPLIFIED SECTION ---
+  // Directly use incoming params, providing defaults only if truly missing
   const finalTemplateParams = {
     from_name: incomingTemplateParams.from_name || '',
     from_email: incomingTemplateParams.from_email || '',
@@ -32,25 +32,27 @@ exports.handler = async function(event) {
     company: incomingTemplateParams.company || 'Not provided',
     country: incomingTemplateParams.country || 'Not specified',
     service_type: incomingTemplateParams.service_type || 'Not specified',
-    website_type: incomingTemplateParams.website_type || null,
+    // Pass website_type directly, let template handle if it's "N/A" or missing
+    website_type: incomingTemplateParams.website_type,
     contact_method: incomingTemplateParams.contact_method || 'Not specified',
     file_name: incomingTemplateParams.file_name || 'No file uploaded',
-    // Pass the message directly if it exists, otherwise use a default.
-    // Check specifically for undefined or null, allow empty strings "" to pass.
-    message: (incomingTemplateParams.message !== undefined && incomingTemplateParams.message !== null)
-             ? incomingTemplateParams.message
-             : '(No message provided)',
+    // Pass message directly. If it's an empty string "", let it be empty.
+    // Only use default if it's truly undefined or null.
+    message: (incomingTemplateParams.message === undefined || incomingTemplateParams.message === null)
+             ? '(No message provided)'
+             : incomingTemplateParams.message,
   };
 
-
-  if (!finalTemplateParams.website_type || finalTemplateParams.website_type === "N/A") {
-     finalTemplateParams.website_type = null;
+  // Optional: Clean up website_type if it's "N/A" so the #if works better
+  if (finalTemplateParams.website_type === "N/A") {
+     finalTemplateParams.website_type = null; // Set to null for template logic
   }
-  console.log("Final templateParams being sent:", JSON.stringify(finalTemplateParams, null, 2)); // Log 2.5: Show final data
-  // --- END REVISED SECTION ---
+
+  console.log("Final templateParams being sent:", JSON.stringify(finalTemplateParams, null, 2)); // Log 2.5
+  // --- END SIMPLIFIED SECTION ---
 
 
-  // 2. Get your SECRET keys from Netlify environment variables
+  // 2. Get SECRET keys
   const {
     EMAILJS_SERVICE_ID,
     EMAILJS_TEMPLATE_ID,
@@ -61,10 +63,7 @@ exports.handler = async function(event) {
   console.log("Checking environment variables..."); // Log 3
   if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY || !EMAILJS_PRIVATE_KEY) {
     console.error("Error: Missing EmailJS environment variables!");
-    if (!EMAILJS_SERVICE_ID) console.error("EMAILJS_SERVICE_ID is missing");
-    if (!EMAILJS_TEMPLATE_ID) console.error("EMAILJS_TEMPLATE_ID is missing");
-    if (!EMAILJS_PUBLIC_KEY) console.error("EMAILJS_PUBLIC_KEY is missing");
-    if (!EMAILJS_PRIVATE_KEY) console.error("EMAILJS_PRIVATE_KEY is missing");
+    // ... (error logging for missing keys) ...
     return {
       statusCode: 500,
       body: JSON.stringify({ message: 'Server configuration error: Missing environment variables.'}),
@@ -73,20 +72,17 @@ exports.handler = async function(event) {
   console.log("Environment variables seem OK."); // Log 4
 
   try {
-    // 3. Call EmailJS using the Node.js SDK
+    // 3. Call EmailJS
     console.log("Attempting to send email via EmailJS..."); // Log 5
     const response = await emailjs.send(
       EMAILJS_SERVICE_ID,
       EMAILJS_TEMPLATE_ID,
-      finalTemplateParams, // Use the processed finalTemplateParams
-      {
-        publicKey: EMAILJS_PUBLIC_KEY,
-        privateKey: EMAILJS_PRIVATE_KEY,
-      }
+      finalTemplateParams,
+      { publicKey: EMAILJS_PUBLIC_KEY, privateKey: EMAILJS_PRIVATE_KEY }
     );
     console.log("EmailJS Send Response:", response); // Log 6
 
-    // 4. Send a success response back to the frontend
+    // 4. Send success response
     console.log("Email sent successfully. Returning 200."); // Log 7
     return {
       statusCode: 200,
@@ -94,10 +90,10 @@ exports.handler = async function(event) {
     };
 
   } catch (error) {
-    // 5. Send an error response back to the frontend
+    // 5. Send error response
     console.error("EmailJS Send Error:", error); // Log 8
     return {
-      statusCode: error.status || 500, // Use EmailJS status code if available
+      statusCode: error.status || 500,
       body: JSON.stringify({ message: 'Failed to send email via EmailJS.', error }),
     };
   } finally {
