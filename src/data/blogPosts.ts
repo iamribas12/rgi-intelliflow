@@ -1,86 +1,270 @@
+import { Link } from "react-router-dom";
+
 export const blogPosts = [
   {
-    id: 1,
+    id: "1",
     title: "The Future of AI in Business Automation",
     excerpt: "Discover how artificial intelligence is revolutionizing business processes and creating new opportunities for efficiency.",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=2000&q=80",
     category: "AI & Automation",
-    date: "Mar 15, 2024",
-    readTime: "45 min read",
+    date: "2024-03-15",
+    displayDate: "Mar 15, 2024",
+    readTime: "8 min read",
+    author: "RGI Intelligence Team",
     content: `
       <h2>Introduction to AI-Driven Business Transformation</h2>
-      <p>Artificial Intelligence has emerged as the most transformative technology of the 21st century, fundamentally reshaping how businesses operate, make decisions, and deliver value to customers. As we stand at the intersection of unprecedented computational power and innovative machine learning algorithms, organizations worldwide are discovering that AI is no longer a futuristic concept but a present-day imperative for competitive survival and growth.</p>
+      <p>Artificial Intelligence has emerged as the most transformative technology of the 21st century, fundamentally reshaping how businesses operate.</p>
       
-      <p>The journey of AI in business automation began decades ago with simple rule-based systems, but today's AI capabilities extend far beyond basic automation. Modern AI systems can learn from data, adapt to new scenarios, predict outcomes with remarkable accuracy, and even exhibit forms of creativity that were once considered exclusively human domains. This evolution has opened up possibilities that seemed impossible just a few years ago.</p>
+      <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80" alt="AI Technology" class="my-8 rounded-lg" />
+      
+      <h2>Key Benefits of AI Automation</h2>
+      <ul>
+        <li><strong>Cost Reduction:</strong> Reduce operational costs by up to 40%</li>
+        <li><strong>Improved Accuracy:</strong> Minimize human error in repetitive tasks</li>
+        <li><strong>24/7 Operations:</strong> Automated systems work around the clock</li>
+        <li><strong>Scalability:</strong> Easily scale operations as your business grows</li>
+      </ul>
 
-      <h2>Understanding the AI Revolution in Modern Business</h2>
-      <p>The AI revolution is characterized by several key technological advances that have converged to create unprecedented opportunities. Machine learning algorithms can now process vast amounts of data in real-time, identifying patterns and insights that would take human analysts years to uncover. Natural language processing enables machines to understand and generate human language with near-human accuracy, while computer vision allows systems to interpret visual information with precision that often surpasses human capabilities.</p>
-
-      <p>Deep learning, a subset of machine learning inspired by the human brain's neural networks, has achieved breakthrough performances in areas ranging from image recognition to game playing to medical diagnosis. These technologies are not operating in isolation—they're being combined in innovative ways to create intelligent systems that can handle complex, multi-faceted business challenges.</p>
-
-      <h2>Core Applications of AI in Business Operations</h2>
-      <p>AI's impact on business operations is both broad and deep, touching virtually every aspect of how modern organizations function. In customer service, AI-powered chatbots and virtual assistants handle millions of customer interactions daily, providing instant, personalized responses while learning from each interaction to improve future performance. These systems don't just answer questions—they understand context, detect emotion, and can escalate complex issues to human agents when necessary.</p>
-
-      <p>In supply chain management, AI algorithms optimize inventory levels, predict demand fluctuations, route shipments efficiently, and identify potential disruptions before they occur. Manufacturing facilities use AI-driven predictive maintenance systems that analyze sensor data from equipment to predict failures before they happen, dramatically reducing downtime and maintenance costs.</p>
-
-      <p>Financial services leverage AI for fraud detection, analyzing transaction patterns in real-time to identify suspicious activities with accuracy rates that far exceed traditional rule-based systems. Marketing teams use AI to personalize content, optimize ad spending, predict customer churn, and identify the most promising leads for sales teams to pursue.</p>
-
-      <h2>The Economic Impact of AI Automation</h2>
-      <p>The economic implications of AI automation are staggering. Research suggests that AI could contribute up to $15.7 trillion to the global economy by 2030, with the greatest gains coming from increased productivity and consumption-side effects. Businesses that successfully implement AI report average cost reductions of 20-30% in their operational expenses, while simultaneously improving quality and customer satisfaction metrics.</p>
-
-      <p>However, this transformation is not without challenges. Organizations must navigate significant upfront investments in technology infrastructure, data preparation, and talent acquisition. The return on these investments typically materializes over time, requiring patience and strategic vision from leadership teams. Companies that view AI as a quick fix or cost-cutting tool often fail to realize its full potential.</p>
-
-      <h2>Strategies for Successful AI Implementation</h2>
-      <p>Implementing AI successfully requires a strategic approach that aligns technology investments with business objectives. Organizations must start by identifying specific pain points or opportunities where AI can deliver tangible value. This involves conducting a thorough assessment of existing processes, data infrastructure, and talent capabilities.</p>
-
-      <p>Data is the lifeblood of AI, so organizations must ensure they have access to high-quality, relevant data that can be used to train machine learning models. This often involves data cleansing, transformation, and integration from multiple sources. Data governance policies are essential to ensure data privacy, security, and compliance with regulatory requirements.</p>
-
-      <p>Talent is another critical success factor. Organizations need data scientists, machine learning engineers, AI architects, and domain experts who can work together to design, develop, and deploy AI solutions. Investing in training and development programs can help upskill existing employees and attract top talent from the market.</p>
-
-      <p>Finally, organizations must adopt an agile approach to AI implementation, iterating quickly based on feedback and results. This involves setting clear metrics for success, monitoring performance closely, and making adjustments as needed. AI is not a one-time project but an ongoing journey of learning and improvement.</p>
-
-      <h2>Case Studies: AI Success Stories in Various Industries</h2>
-      <p>The transformative power of AI is evident in the success stories emerging from various industries. In healthcare, AI algorithms are being used to diagnose diseases earlier and more accurately, personalize treatment plans, and accelerate drug discovery. In retail, AI-powered recommendation engines are driving sales by suggesting products that customers are most likely to buy.</p>
-
-      <p>In manufacturing, AI is optimizing production processes, reducing waste, and improving quality control. In transportation, self-driving vehicles promise to revolutionize logistics and urban mobility. In finance, AI is detecting fraud, assessing risk, and providing personalized financial advice.</p>
-
-      <p>These case studies demonstrate that AI is not just a theoretical concept but a practical tool that can deliver real results across a wide range of applications. The key is to identify the right use cases, build the right team, and implement the right technology.</p>
-
-      <h2>Future Trends in AI and Business Automation</h2>
-      <p>The future of AI in business automation is bright, with several key trends poised to shape the landscape in the coming years. One trend is the rise of edge AI, which involves processing data closer to the source rather than in the cloud. This reduces latency, improves security, and enables new applications in areas such as autonomous vehicles and industrial IoT.</p>
-
-      <p>Another trend is the increasing use of AI in low-code and no-code platforms, which allows non-technical users to build and deploy AI solutions without writing code. This democratizes access to AI and empowers business users to solve their own problems.</p>
-
-      <p>Explainable AI (XAI) is also gaining prominence, as organizations seek to understand how AI models make decisions. This is particularly important in regulated industries such as finance and healthcare, where transparency and accountability are essential.</p>
-
-      <p>Finally, the ethical implications of AI are receiving increasing attention. Organizations must ensure that AI systems are fair, unbiased, and aligned with human values. This requires careful consideration of data sources, algorithms, and deployment strategies.</p>
-
-      <h2>Ethical Considerations and Responsible AI Practices</h2>
-      <p>As AI becomes more pervasive in business, it's crucial to address the ethical considerations that arise. Bias in AI systems can perpetuate and amplify existing inequalities, leading to unfair or discriminatory outcomes. Organizations must actively work to identify and mitigate bias in their data and algorithms.</p>
-
-      <p>Privacy is another key concern. AI systems often collect and process vast amounts of personal data, raising questions about how this data is used and protected. Organizations must comply with privacy regulations such as GDPR and CCPA, and they must be transparent with customers about how their data is being used.</p>
-
-      <p>Accountability is also essential. When AI systems make mistakes, it's important to understand why and to hold someone accountable. This requires clear lines of responsibility and robust monitoring and auditing mechanisms.</p>
-
-      <p>Finally, organizations must consider the impact of AI on employment. While AI can create new jobs, it can also automate existing ones. Organizations must invest in training and education programs to help workers adapt to the changing job market.</p>
-
-      <h2>Actionable Recommendations for Businesses</h2>
-      <p>For businesses looking to leverage AI for automation, here are some actionable recommendations:</p>
-
+      <h3>Real-World Applications</h3>
+      <p>Companies across industries are leveraging AI to transform their operations:</p>
       <ol>
-        <li>Start with a clear business objective. What problem are you trying to solve? What opportunity are you trying to seize?</li>
-        <li>Assess your data infrastructure. Do you have access to high-quality, relevant data?</li>
-        <li>Build a cross-functional team. Do you have the right mix of technical and business expertise?</li>
-        <li>Choose the right technology. Which AI tools and platforms are best suited to your needs?</li>
-        <li>Start small and iterate quickly. Don't try to boil the ocean.</li>
-        <li>Monitor performance closely. Are you achieving your objectives?</li>
-        <li>Address ethical considerations. Are your AI systems fair, unbiased, and transparent?</li>
-        <li>Invest in training and education. Are your employees prepared for the future of work?</li>
+        <li>Customer service automation with intelligent chatbots</li>
+        <li>Predictive maintenance in manufacturing</li>
+        <li>Fraud detection in financial services</li>
+        <li>Personalized marketing campaigns</li>
       </ol>
 
-      <h2>Conclusion: Embracing the AI-Powered Future</h2>
-      <p>The future of business is inextricably linked to AI. Organizations that embrace AI and automation will be best positioned to thrive in the years ahead. By understanding the technology, addressing the challenges, and adopting responsible practices, businesses can unlock the full potential of AI and create a more efficient, innovative, and equitable future.</p>
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" alt="Business Analytics" class="my-8 rounded-lg" />
+
+      <h2>Implementing AI in Your Organization</h2>
+      <p>Start your AI journey with these strategic steps:</p>
+      <ul>
+        <li>Identify high-impact use cases</li>
+        <li>Invest in quality data infrastructure</li>
+        <li>Build cross-functional teams</li>
+        <li>Start small and iterate quickly</li>
+      </ul>
     `,
   },
-  // Add 4 more detailed blog posts with similar 5000+ word content
+  {
+    id: "2",
+    title: "Building Scalable Web Applications in 2024",
+    excerpt: "Best practices and modern approaches to developing web applications that can grow with your business needs.",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=2000&q=80",
+    category: "Development",
+    date: "2024-03-10",
+    displayDate: "Mar 10, 2024",
+    readTime: "10 min read",
+    author: "RGI Intelligence Team",
+    content: `
+      <h2>The Modern Web Development Landscape</h2>
+      <p>Web development has evolved dramatically, with new frameworks and best practices emerging constantly.</p>
+
+      <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80" alt="Web Development" class="my-8 rounded-lg" />
+
+      <h2>Key Principles of Scalable Architecture</h2>
+      <ul>
+        <li><strong>Microservices:</strong> Break down monolithic applications</li>
+        <li><strong>Cloud-Native:</strong> Leverage cloud infrastructure</li>
+        <li><strong>API-First:</strong> Design with integration in mind</li>
+        <li><strong>Performance:</strong> Optimize for speed and efficiency</li>
+      </ul>
+
+      <h3>Technology Stack Recommendations</h3>
+      <ol>
+        <li>Frontend: React, Vue, or Next.js</li>
+        <li>Backend: Node.js, Python, or Go</li>
+        <li>Database: PostgreSQL or MongoDB</li>
+        <li>Infrastructure: AWS, Azure, or Google Cloud</li>
+      </ol>
+
+      <img src="https://images.unsplash.com/photo-1557853197-aefb550b6fdc?auto=format&fit=crop&w=1200&q=80" alt="Cloud Computing" class="my-8 rounded-lg" />
+
+      <h2>Best Practices for Scalability</h2>
+      <p>Follow these guidelines to build applications that can handle growth:</p>
+      <ul>
+        <li>Implement caching strategies</li>
+        <li>Use CDNs for static assets</li>
+        <li>Optimize database queries</li>
+        <li>Monitor performance metrics</li>
+      </ul>
+    `,
+  },
+  {
+    id: "3",
+    title: "Custom AI Agents: Transforming Customer Experience",
+    excerpt: "Learn how custom AI agents are reshaping customer interactions and driving engagement across industries.",
+    image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=2000&q=80",
+    category: "AI Solutions",
+    date: "2024-03-05",
+    displayDate: "Mar 5, 2024",
+    readTime: "7 min read",
+    author: "RGI Intelligence Team",
+    content: `
+      <h2>The Rise of AI-Powered Customer Service</h2>
+      <p>AI agents are revolutionizing how businesses interact with customers, providing instant, personalized support.</p>
+
+      <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80" alt="AI Chatbot" class="my-8 rounded-lg" />
+
+      <h2>Benefits of Custom AI Agents</h2>
+      <ul>
+        <li><strong>24/7 Availability:</strong> Never miss a customer inquiry</li>
+        <li><strong>Instant Responses:</strong> Reduce wait times to zero</li>
+        <li><strong>Consistent Quality:</strong> Maintain service standards</li>
+        <li><strong>Cost Efficiency:</strong> Handle more inquiries with less staff</li>
+      </ul>
+
+      <h3>Implementation Strategy</h3>
+      <ol>
+        <li>Define your use cases and objectives</li>
+        <li>Train AI on your specific data</li>
+        <li>Integrate with existing systems</li>
+        <li>Monitor and continuously improve</li>
+      </ol>
+
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" alt="Customer Service" class="my-8 rounded-lg" />
+
+      <h2>Success Metrics</h2>
+      <p>Measure the impact of your AI agents:</p>
+      <ul>
+        <li>Response time reduction</li>
+        <li>Customer satisfaction scores</li>
+        <li>Resolution rate improvement</li>
+        <li>Cost per interaction decrease</li>
+      </ul>
+    `,
+  },
+  {
+    id: "4",
+    title: "Cloud Migration Strategies for Modern Enterprises",
+    excerpt: "Essential strategies and considerations for successfully migrating your infrastructure to the cloud.",
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2000&q=80",
+    category: "Cloud & Infrastructure",
+    date: "2024-02-28",
+    displayDate: "Feb 28, 2024",
+    readTime: "9 min read",
+    author: "RGI Intelligence Team",
+    content: `
+      <h2>Why Cloud Migration Matters</h2>
+      <p>Cloud infrastructure offers unparalleled flexibility, scalability, and cost-efficiency for modern businesses.</p>
+
+      <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80" alt="Cloud Infrastructure" class="my-8 rounded-lg" />
+
+      <h2>Migration Strategies</h2>
+      <ul>
+        <li><strong>Rehost (Lift and Shift):</strong> Quick migration with minimal changes</li>
+        <li><strong>Replatform:</strong> Optimize for cloud with some modifications</li>
+        <li><strong>Refactor:</strong> Redesign for cloud-native architecture</li>
+        <li><strong>Hybrid Approach:</strong> Combine strategies based on needs</li>
+      </ul>
+
+      <h3>Planning Your Migration</h3>
+      <ol>
+        <li>Assess current infrastructure</li>
+        <li>Define migration goals and priorities</li>
+        <li>Choose the right cloud provider</li>
+        <li>Create a phased migration plan</li>
+        <li>Test thoroughly before go-live</li>
+      </ol>
+
+      <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80" alt="Data Center" class="my-8 rounded-lg" />
+
+      <h2>Common Challenges and Solutions</h2>
+      <p>Address these key challenges during your migration:</p>
+      <ul>
+        <li>Security and compliance concerns</li>
+        <li>Data transfer and downtime</li>
+        <li>Cost management</li>
+        <li>Team training and adoption</li>
+      </ul>
+    `,
+  },
+  {
+    id: "5",
+    title: "Data-Driven Decision Making: A Complete Guide",
+    excerpt: "Leverage data analytics and business intelligence to make informed decisions that drive growth.",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2000&q=80",
+    category: "Business Intelligence",
+    date: "2024-02-22",
+    displayDate: "Feb 22, 2024",
+    readTime: "6 min read",
+    author: "RGI Intelligence Team",
+    content: `
+      <h2>The Power of Data-Driven Decisions</h2>
+      <p>Organizations that leverage data effectively gain a significant competitive advantage in today's market.</p>
+
+      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" alt="Data Analytics" class="my-8 rounded-lg" />
+
+      <h2>Key Components of Data-Driven Culture</h2>
+      <ul>
+        <li><strong>Quality Data:</strong> Ensure accuracy and completeness</li>
+        <li><strong>Analytics Tools:</strong> Invest in the right technology</li>
+        <li><strong>Skilled Team:</strong> Build data literacy across organization</li>
+        <li><strong>Clear Metrics:</strong> Define KPIs that matter</li>
+      </ul>
+
+      <h3>Building Your Data Strategy</h3>
+      <ol>
+        <li>Identify key business questions</li>
+        <li>Collect and organize relevant data</li>
+        <li>Analyze and extract insights</li>
+        <li>Act on findings and measure results</li>
+      </ol>
+
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" alt="Business Dashboard" class="my-8 rounded-lg" />
+
+      <h2>Tools and Technologies</h2>
+      <p>Popular data analytics platforms:</p>
+      <ul>
+        <li>Tableau for visualization</li>
+        <li>Power BI for business intelligence</li>
+        <li>Python/R for advanced analytics</li>
+        <li>SQL for data querying</li>
+      </ul>
+    `,
+  },
+  {
+    id: "6",
+    title: "E-Commerce Trends Shaping 2024",
+    excerpt: "Explore the latest e-commerce innovations and strategies that are transforming online retail.",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=2000&q=80",
+    category: "E-Commerce",
+    date: "2024-02-18",
+    displayDate: "Feb 18, 2024",
+    readTime: "5 min read",
+    author: "RGI Intelligence Team",
+    content: `
+      <h2>The E-Commerce Revolution</h2>
+      <p>Online shopping continues to evolve with new technologies and changing consumer expectations.</p>
+
+      <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1200&q=80" alt="Online Shopping" class="my-8 rounded-lg" />
+
+      <h2>Top E-Commerce Trends</h2>
+      <ul>
+        <li><strong>AI Personalization:</strong> Customized shopping experiences</li>
+        <li><strong>Voice Commerce:</strong> Shop with voice assistants</li>
+        <li><strong>AR Try-On:</strong> Virtual product testing</li>
+        <li><strong>Social Commerce:</strong> Buy directly from social media</li>
+      </ul>
+
+      <h3>Optimizing Your Online Store</h3>
+      <ol>
+        <li>Improve site speed and performance</li>
+        <li>Enhance mobile shopping experience</li>
+        <li>Streamline checkout process</li>
+        <li>Implement robust security measures</li>
+      </ol>
+
+      <img src="https://images.unsplash.com/photo-1556742400-b5a83f8e3d08?auto=format&fit=crop&w=1200&q=80" alt="Mobile Shopping" class="my-8 rounded-lg" />
+
+      <h2>Future-Proofing Your E-Commerce</h2>
+      <p>Stay ahead of the competition:</p>
+      <ul>
+        <li>Embrace omnichannel strategies</li>
+        <li>Invest in customer experience</li>
+        <li>Leverage data analytics</li>
+        <li>Adopt sustainable practices</li>
+      </ul>
+    `,
+  },
 ];

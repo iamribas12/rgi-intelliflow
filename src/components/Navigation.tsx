@@ -100,41 +100,41 @@ const Navigation = () => {
     {
       category: "Mobile Development",
       items: [
-        { title: "Android Development", href: "/services/android" },
-        { title: "iOS Development", href: "/services/ios" },
-        { title: "Ionic Development", href: "/services/ionic" },
-        { title: "Flutter", href: "/services/flutter" },
-        { title: "React Native", href: "/services/react-native" },
-        { title: "Cross Platform App", href: "/services/cross-platform" },
+        { title: "iOS & Android Development", href: "/services/mobile-development" },
+        { title: "Cross-Platform Apps", href: "/services/mobile-development" },
+        { title: "App Store Optimization", href: "/services/mobile-development" },
       ]
     },
     {
       category: "Web Development",
       items: [
-        { title: "PHP/Node JS Development", href: "/services/php-node" },
-        { title: "React Development", href: "/services/react" },
-        { title: "Progressive Web App", href: "/services/pwa" },
-        { title: "Cloud Computing", href: "/services/cloud" },
+        { title: "Full-Stack Development", href: "/services/web-development" },
+        { title: "E-Commerce Solutions", href: "/services/web-development" },
+        { title: "Progressive Web Apps", href: "/services/web-development" },
+      ]
+    },
+    {
+      category: "AI & Automation",
+      items: [
+        { title: "Machine Learning", href: "/services/ai-automation" },
+        { title: "Process Automation", href: "/services/ai-automation" },
+        { title: "Intelligent Chatbots", href: "/services/ai-automation" },
       ]
     },
     {
       category: "Emerging Technologies",
       items: [
-        { title: "Blockchain Development", href: "/services/blockchain" },
-        { title: "Artificial Intelligence", href: "/services/ai" },
-        { title: "Augmented Reality", href: "/services/ar" },
-        { title: "VR Development", href: "/services/vr" },
-        { title: "Internet of Things", href: "/services/iot" },
-        { title: "Chatbots", href: "/services/chatbots" },
+        { title: "Blockchain & IoT", href: "/services/emerging-tech" },
+        { title: "AR/VR Development", href: "/services/emerging-tech" },
+        { title: "Edge Computing", href: "/services/emerging-tech" },
       ]
     },
     {
       category: "Design & Quality",
       items: [
-        { title: "UI/UX Design", href: "/services/ui-ux" },
-        { title: "Testing & QA", href: "/services/testing" },
-        { title: "Wearables", href: "/services/wearables" },
-        { title: "POS Software", href: "/services/pos" },
+        { title: "UI/UX Design", href: "/services/design-quality" },
+        { title: "Quality Assurance", href: "/services/design-quality" },
+        { title: "Usability Testing", href: "/services/design-quality" },
       ]
     }
   ];

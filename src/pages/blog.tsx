@@ -4,11 +4,12 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Calendar, Clock, ArrowRight, Search, ChevronLeft, ChevronRight, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { blogPosts } from "@/data/blogPosts";
 
 const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortOrder, setSortOrder] = useState("newest"); // newest or oldest
 
   const categories = [
     "All",
@@ -18,92 +19,15 @@ const Blog = () => {
     "Cloud & Infrastructure",
     "Business Intelligence",
     "E-Commerce",
-    "Education",
-    "Entertainment",
-    "Fashion",
   ];
 
-  const blogPosts = [
-    {
-      title: "The Future of AI in Business Automation",
-      excerpt:
-        "Discover how artificial intelligence is revolutionizing business processes and creating new opportunities for efficiency.",
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995",
-      category: "AI & Automation",
-      date: "2024-03-15",
-      displayDate: "Mar 15, 2024",
-      readTime: "5 min read",
-      author: "RGI Intelligence",
-    },
-    {
-      title: "Building Scalable Web Applications in 2024",
-      excerpt:
-        "Best practices and modern approaches to developing web applications that can grow with your business needs.",
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
-      category: "Development",
-      date: "2024-03-10",
-      displayDate: "Mar 10, 2024",
-      readTime: "7 min read",
-      author: "RGI Intelligence",
-    },
-    {
-      title: "Custom AI Agents: Transforming Customer Experience",
-      excerpt:
-        "Learn how custom AI agents are reshaping customer interactions and driving engagement across industries.",
-      image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a",
-      category: "AI Solutions",
-      date: "2024-03-05",
-      displayDate: "Mar 5, 2024",
-      readTime: "6 min read",
-      author: "RGI Intelligence",
-    },
-    {
-      title: "Cloud Migration Strategies for Modern Enterprises",
-      excerpt:
-        "Essential strategies and considerations for successfully migrating your infrastructure to the cloud.",
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa",
-      category: "Cloud & Infrastructure",
-      date: "2024-02-28",
-      displayDate: "Feb 28, 2024",
-      readTime: "8 min read",
-      author: "RGI Intelligence",
-    },
-    {
-      title: "Data-Driven Decision Making: A Complete Guide",
-      excerpt:
-        "Leverage data analytics and business intelligence to make informed decisions that drive growth.",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
-      category: "Business Intelligence",
-      date: "2024-02-22",
-      displayDate: "Feb 22, 2024",
-      readTime: "6 min read",
-      author: "RGI Intelligence",
-    },
-    {
-      title: "E-Commerce Trends Shaping 2024",
-      excerpt:
-        "Explore the latest e-commerce innovations and strategies that are transforming online retail.",
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d",
-      category: "E-Commerce",
-      date: "2024-02-18",
-      displayDate: "Feb 18, 2024",
-      readTime: "5 min read",
-      author: "RGI Intelligence",
-    },
-  ];
-
-  // Filter and sort posts
+  // Filter posts
   const filteredPosts = blogPosts
     .filter((post) => {
       const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
       const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                            post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
       return matchesCategory && matchesSearch;
-    })
-    .sort((a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-      return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
     });
 
   const scrollCategories = (direction) => {
@@ -208,56 +132,53 @@ const Blog = () => {
         {filteredPosts.length > 0 ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
             {filteredPosts.map((post, index) => (
-              <Card
-                key={index}
-                className="overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 group cursor-pointer animate-slide-up border-2 border-border hover:border-primary/50"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="relative overflow-hidden h-48 sm:h-56">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground font-semibold shadow-lg">
-                    {post.category}
-                  </Badge>
-                </div>
-                <div className="p-5 sm:p-6">
-                  <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground mb-3">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                      <span>{post.displayDate}</span>
+              <Link to={`/blog/${post.id}`} key={post.id}>
+                <Card
+                  className="overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 group cursor-pointer animate-slide-up border-2 border-border hover:border-primary/50 h-full"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="relative overflow-hidden h-48 sm:h-56">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground font-semibold shadow-lg">
+                      {post.category}
+                    </Badge>
+                  </div>
+                  <div className="p-5 sm:p-6">
+                    <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground mb-3">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                        <span>{post.displayDate}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                        <span>{post.readTime}</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                      <span>{post.readTime}</span>
+                    <h3 className="text-lg sm:text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors line-clamp-2 leading-snug">
+                      {post.title}
+                    </h3>
+                    <p className="text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed line-clamp-3">
+                      {post.excerpt}
+                    </p>
+
+                    <div className="flex items-center gap-2 mb-4 pb-4 border-b border-border">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                        <User className="w-4 h-4 text-primary" />
+                      </div>
+                      <span className="text-sm font-medium text-foreground">{post.author}</span>
+                    </div>
+
+                    <div className="flex items-center text-primary font-semibold group-hover:gap-2 transition-all">
+                      Read More
+                      <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors line-clamp-2 leading-snug">
-                    {post.title}
-                  </h3>
-                  <p className="text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed line-clamp-3">
-                    {post.excerpt}
-                  </p>
-
-                  {/* Author */}
-                  <div className="flex items-center gap-2 mb-4 pb-4 border-b border-border">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                      <User className="w-4 h-4 text-primary" />
-                    </div>
-                    <span className="text-sm font-medium text-foreground">{post.author}</span>
-                  </div>
-
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-between group/btn hover:bg-primary/10 transition-all"
-                  >
-                    <span className="font-semibold text-primary">Read More</span>
-                    <ArrowRight className="w-4 h-4 text-primary group-hover/btn:translate-x-1 transition-transform" />
-                  </Button>
-                </div>
-              </Card>
+                </Card>
+              </Link>
             ))}
           </div>
         ) : (
@@ -273,7 +194,6 @@ const Blog = () => {
               onClick={() => {
                 setSearchQuery("");
                 setSelectedCategory("All");
-                setSortOrder("newest");
               }}
               className="bg-primary hover:bg-primary/90"
             >

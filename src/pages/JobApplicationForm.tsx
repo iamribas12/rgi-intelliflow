@@ -44,8 +44,8 @@ export default function JobApplicationForm() {
   const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null);
 
   useEffect(() => {
-    // Initialize EmailJS with your public key
-    emailjs.init("YOUR_EMAILJS_PUBLIC_KEY"); // User needs to replace this
+    // Initialize EmailJS - replace with your actual public key
+    emailjs.init("RZI2N2v8w-j2SbgdZ");
   }, []);
 
   if (!job) {
@@ -155,8 +155,8 @@ export default function JobApplicationForm() {
       };
 
       await emailjs.send(
-        "YOUR_SERVICE_ID", // User needs to replace this
-        "YOUR_TEMPLATE_ID", // User needs to replace this
+        "service_0kz6mvg", // EmailJS service ID
+        "template_m43ztwi", // EmailJS template ID for job applications
         templateParams
       );
 
