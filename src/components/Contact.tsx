@@ -5,7 +5,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import emailjs from "@emailjs/browser";
+// import emailjs from "@emailjs/browser"; // No longer needed
+import ReCAPTCHA from "react-google-recaptcha";
 
 import {
   Mail,
@@ -17,10 +18,18 @@ import {
   AlertCircle,
   Loader2,
 } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
+// import countryCodes from "@/data/countrycode"; // You may or may not need this
+
+// Get the ReCAPTCHA key from environment variables
+// Make sure this is in your .env file:
+// VITE_RECAPTCHA_SITE_KEY=your-recaptcha-site-key
+// And also in your Netlify environment variables
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
 const Contact = () => {
   const formRef = useRef<HTMLFormElement>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null); // Ref for recaptcha
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -33,6 +42,7 @@ const Contact = () => {
     contactMethod: "Email",
     message: "",
     file: null as File | null,
+    captcha: "", // Restored captcha state
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -40,11 +50,6 @@ const Contact = () => {
   const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(
     null
   );
-
-  useEffect(() => {
-    // Initialize EmailJS - replace with your actual public key
-    emailjs.init("RZI2N2v8w-j2SbgdZ");
-  }, []);
 
   const countries = [
     "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina", 
@@ -122,6 +127,11 @@ const Contact = () => {
     newErrors.message = validateField("message", formData.message);
     if (formData.phone)
       newErrors.phone = validateField("phone", formData.phone);
+    
+    // Restore captcha check
+    if (!formData.captcha) {
+        newErrors.captcha = "Please verify the CAPTCHA";
+    }
 
     const validErrors = Object.fromEntries(
       Object.entries(newErrors).filter(([_, value]) => value !== "")
@@ -136,29 +146,39 @@ const Contact = () => {
 
     setIsSubmitting(true);
     setSubmitStatus(null);
-    setErrors({});
+    setErrors({}); // Clear errors
 
     try {
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
         company: formData.company || "Not provided",
-        phone: formData.phone || "Not provided",
+        phone: formData.phone
+          ? formData.phone
+          : "Not provided",
         country: formData.country || "Not specified",
         service_type: formData.serviceType || "Not specified",
         website_type: formData.websiteType || "N/A",
         contact_method: formData.contactMethod,
-        message: formData.message,
+        message: formData.message, 
         file_name: formData.file ? formData.file.name : "No file uploaded",
       };
 
-      // Send email using EmailJS - replace with your actual service and template IDs
-      await emailjs.send(
-        "service_0kz6mvg", // Your EmailJS service ID
-        "template_lvpqrsk", // Your EmailJS template ID
-        templateParams
-      );
+      // Call your secure serverless function
+      const response = await fetch("/.netlify/functions/Send-Email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ templateParams }),
+      });
 
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Function error:", errorData);
+        throw new Error("Server function failed");
+      }
+      
       setSubmitStatus("success");
       setTimeout(() => {
         setFormData({
@@ -173,9 +193,12 @@ const Contact = () => {
           contactMethod: "Email",
           message: "",
           file: null,
+          captcha: "",
         });
+        recaptchaRef.current?.reset(); // Reset recaptcha
         setSubmitStatus(null);
       }, 3000);
+
     } catch (error) {
       console.error("Submission error:", error);
       setSubmitStatus("error");
@@ -486,30 +509,6 @@ const Contact = () => {
                   )}
                 </div>
               </div>
-              
-              {/* RESTORED ReCAPTCHA block */}
-              <div className="mt-4">
-                {RECAPTCHA_SITE_KEY ? (
-                  <ReCAPTCHA
-                    ref={recaptchaRef}
-                    sitekey={RECAPTCHA_SITE_KEY}
-                    onChange={(token) =>
-                      setFormData({ ...formData, captcha: token || "" })
-                    }
-                    theme="light"
-                    size="normal"
-                  />
-                ) : (
-                  <p className="text-red-500 text-sm">ReCAPTCHA site key is missing.</p>
-                )}
-                {errors.captcha && (
-                  <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center gap-1">
-                    <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-                    {errors.captcha}
-                  </p>
-                )}
-              </div>
-              {/* END RESTORED ReCAPTCHA block */}
 
               <Button
                 type="submit"
