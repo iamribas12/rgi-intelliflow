@@ -1,5 +1,6 @@
 import Contact from "@/components/Contact.tsx";
 import PageHero from "@/components/PageHero";
+import heroContact from "@/assets/hero-contact.jpg";
 
 export default function ContactPage() {
   return (
@@ -7,6 +8,7 @@ export default function ContactPage() {
       <PageHero 
         title="Get In Touch"
         description="Let's discuss how we can help transform your business"
+        backgroundImage={heroContact}
       />
       <Contact />
     </main>

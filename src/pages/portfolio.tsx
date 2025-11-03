@@ -1,5 +1,6 @@
 import Portfolio from "@/components/Portfolio";
 import PageHero from "@/components/PageHero";
+import heroPortfolio from "@/assets/hero-portfolio.jpg";
 
 export default function PortfolioPage() {
   return (
@@ -7,6 +8,7 @@ export default function PortfolioPage() {
       <PageHero 
         title="Our Portfolio"
         description="Discover our successful projects and innovative solutions"
+        backgroundImage={heroPortfolio}
       />
       <Portfolio />
     </main>

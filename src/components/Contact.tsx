@@ -5,8 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-// import emailjs from "@emailjs/browser"; // No longer needed
-import ReCAPTCHA from "react-google-recaptcha";
+import emailjs from "@emailjs/browser";
 
 import {
   Mail,
@@ -19,17 +18,9 @@ import {
   Loader2,
 } from "lucide-react";
 import { useState, useRef } from "react";
-// import countryCodes from "@/data/countrycode"; // You may or may not need this
-
-// Get the ReCAPTCHA key from environment variables
-// Make sure this is in your .env file:
-// VITE_RECAPTCHA_SITE_KEY=your-recaptcha-site-key
-// And also in your Netlify environment variables
-const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
 const Contact = () => {
   const formRef = useRef<HTMLFormElement>(null);
-  const recaptchaRef = useRef<ReCAPTCHA>(null); // Ref for recaptcha
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -42,7 +33,6 @@ const Contact = () => {
     contactMethod: "Email",
     message: "",
     file: null as File | null,
-    captcha: "", // Restored captcha state
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -127,11 +117,6 @@ const Contact = () => {
     newErrors.message = validateField("message", formData.message);
     if (formData.phone)
       newErrors.phone = validateField("phone", formData.phone);
-    
-    // Restore captcha check
-    if (!formData.captcha) {
-        newErrors.captcha = "Please verify the CAPTCHA";
-    }
 
     const validErrors = Object.fromEntries(
       Object.entries(newErrors).filter(([_, value]) => value !== "")
@@ -146,39 +131,29 @@ const Contact = () => {
 
     setIsSubmitting(true);
     setSubmitStatus(null);
-    setErrors({}); // Clear errors
+    setErrors({});
 
     try {
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
         company: formData.company || "Not provided",
-        phone: formData.phone
-          ? formData.phone
-          : "Not provided",
+        phone: formData.phone || "Not provided",
         country: formData.country || "Not specified",
         service_type: formData.serviceType || "Not specified",
         website_type: formData.websiteType || "N/A",
         contact_method: formData.contactMethod,
-        message: formData.message, 
+        message: formData.message,
         file_name: formData.file ? formData.file.name : "No file uploaded",
       };
 
-      // Call your secure serverless function
-      const response = await fetch("/.netlify/functions/Send-Email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ templateParams }),
-      });
+      await emailjs.send(
+        "service_pjj8wnj",
+        "template_efr3ywi",
+        templateParams,
+        "GBL5aJ5lGaJm5Fk9z"
+      );
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Function error:", errorData);
-        throw new Error("Server function failed");
-      }
-      
       setSubmitStatus("success");
       setTimeout(() => {
         setFormData({
@@ -193,12 +168,10 @@ const Contact = () => {
           contactMethod: "Email",
           message: "",
           file: null,
-          captcha: "",
         });
-        recaptchaRef.current?.reset(); // Reset recaptcha
+        if (formRef.current) formRef.current.reset();
         setSubmitStatus(null);
       }, 3000);
-
     } catch (error) {
       console.error("Submission error:", error);
       setSubmitStatus("error");

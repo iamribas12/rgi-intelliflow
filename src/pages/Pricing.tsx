@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import PageHero from "@/components/PageHero";
+import heroPricing from "@/assets/hero-pricing.jpg";
 
 const pricingPlans = [
   {
@@ -68,6 +69,7 @@ export default function Pricing() {
       <PageHero 
         title="Simple, Transparent Pricing"
         description="Choose the perfect plan for your business needs"
+        backgroundImage={heroPricing}
       />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
 
