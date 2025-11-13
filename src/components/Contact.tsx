@@ -568,6 +568,12 @@ const Contact = () => {
                   >
                     <span className="text-base">🇮🇳</span> +91 7643860384
                   </a>
+                  <a
+                    href="tel:+442080582352"
+                    className="text-xs sm:text-sm text-gray-600 hover:text-blue-600 flex items-center gap-1"
+                  >
+                    <span className="text-base">🇮🇳</span> +44 2080582352
+                  </a>
                 </div>
               </div>
             </Card>
