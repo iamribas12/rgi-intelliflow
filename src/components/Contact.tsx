@@ -572,7 +572,7 @@ const Contact = () => {
                     href="tel:+442080582352"
                     className="text-xs sm:text-sm text-gray-600 hover:text-blue-600 flex items-center gap-1"
                   >
-                    <span className="text-base">🇮🇳</span> +44 2080582352
+                    <span className="text-base">Uk</span> +44 2080582352
                   </a>
                 </div>
               </div>
